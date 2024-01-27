@@ -1,0 +1,159 @@
+---
+import Logo from "./Logo.astro";
+---
+
+<head>
+  <link rel="stylesheet" href="/styles/index.css" />
+</head>
+<div class="wrapper">
+  <div class="sub-header">
+    <h4>Hello there.</h4>
+    <div class="sub-links">
+      <a href="/about">My Account</a>
+      <a href="/blog">Wishlist</a>
+      <a href="/contact">Checkout</a>
+      <div class="tel">
+        <img src="/svgs/phone.svg" alt="tel" />
+        <a href="tel:1-800-555-5555">1-800-555-5555</a>
+      </div>
+    </div>
+  </div>
+  <div class="main-header">
+    <Logo />
+    <div class="search">
+      <div class="box">
+        <img src="/svgs/search.svg" alt="search" />
+        <select value="search">
+          <option id="1">All categories</option>
+          <option id="2">Cereals</option>
+          <option id="3">Fruits</option>
+          <option id="4">Vegetables</option>
+          <option id="5">Meat</option>
+        </select>
+        <input type="text" placeholder="Search here..." />
+      </div>
+      <button>Search</button>
+    </div>
+
+    <div class="links">
+      <a href="/about">Login</a>
+      <a href="/blog">Sign up</a>
+      <div class="cart">
+        <img src="/svgs/cart.svg" alt="cart" />
+        <h2>My cart</h2>
+        <span>0</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .wrapper {
+    width: 80vw;
+    margin: 0 auto;
+  }
+
+  .sub-header {
+    display: flex;
+    justify-content: space-between;
+    background: #f8f8f8;
+    padding: 6px;
+  }
+
+  .sub-links {
+    display: flex;
+    justify-content: space-between;
+    width: 30%;
+  }
+
+  .sub-links a {
+    text-decoration: none;
+    color: #808080;
+    font-size: 14px;
+  }
+
+  .tel,
+  .cart {
+    display: flex;
+    align-items: center;
+  }
+
+  .sub-header h4 {
+    font-size: 14px;
+    color: #808080;
+    font-weight: 300;
+  }
+
+  .main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 6px;
+  }
+
+  .links {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 20%;
+  }
+
+  .links a {
+    text-decoration: none;
+    color: #333;
+    font-size: 15px;
+    font-weight: 900;
+  }
+
+  .search {
+    display: flex;
+    min-width: 680px;
+  }
+
+  .search button {
+    width: 15%;
+    background: #19483a;
+    color: #fff;
+    border: none;
+  }
+
+  .search .box {
+    display: flex;
+    align-items: center;
+    border: 2px solid #ccc;
+    width: 85%;
+  }
+
+  .search img {
+    margin-left: 10px;
+  }
+
+  .search select {
+    border: none;
+    padding: 8px 10px;
+    outline: none;
+    margin: 0 15px;
+  }
+
+  .search input {
+    border: none;
+    outline: none;
+  }
+
+  .cart span {
+    background: #19483a;
+    border-radius: 50%;
+    padding: 5px 8px;
+    font-size: 12px;
+    color: #fff;
+    font-weight: 300;
+    margin-left: 8px;
+  }
+
+  .cart h2 {
+    font-size: 16px;
+    color: #333;
+    font-weight: 300;
+    margin-left: 5px;
+  }
+</style>
