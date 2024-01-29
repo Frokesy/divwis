@@ -2,8 +2,11 @@
 
 ---
 
-<div class="wrapper">
+<div class="wrapper" id="wrapper">
   <div class="container">
+    <div class="cancel">
+      <img src="/svgs/cancel.svg" alt="cancel" />
+    </div>
     <div class="tab">
       <span class="active">Login</span>
       <span>|</span>
@@ -26,6 +29,19 @@
   </div>
 </div>
 
+<script>
+  const cancel = document.querySelector(".cancel");
+  const wrapper = document.getElementById("wrapper");
+
+  if (cancel && wrapper) {
+    cancel.addEventListener("click", function () {
+      wrapper.classList.remove("wrapper");
+      wrapper.classList.add("hide");
+      console.log(wrapper.classList);
+    });
+  }
+</script>
+
 <style>
   .wrapper {
     position: absolute;
@@ -39,9 +55,13 @@
     background: rgba(0, 0, 0, 0.7);
   }
 
+  .hide {
+    display: none;
+    visibility: hidden;
+  }
   .container {
     background: #fff;
-    padding: 20px;
+    padding: 0 20px 20px 20px;
   }
 
   .tab {
@@ -53,6 +73,13 @@
   .tab span {
     color: #333;
     font-size: 18px;
+    cursor: pointer;
+  }
+
+  .cancel {
+    display: flex;
+    justify-content: end;
+    padding: 20px 0;
   }
 
   .active {

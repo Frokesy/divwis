@@ -48,7 +48,7 @@ import AuthModal from "../modals/AuthModal.astro"
     </div>
   </div>
 
-  <div class="showModal"><AuthModal /></div>
+  <div class="hideModal" id="hideModal"><AuthModal /></div>
 </body>
 
 <script>
@@ -56,7 +56,7 @@ import AuthModal from "../modals/AuthModal.astro"
 
   if (button) {
     button.addEventListener("click", () => {
-        const modal = document.querySelector(".hideModal")!;
+        const modal = document.getElementById("hideModal")!;
         modal.classList.toggle("showModal");
     });
   }
