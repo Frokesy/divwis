@@ -1,9 +1,10 @@
+import Header from "./components/defaults/Header"
 
 function App() {
 
   return (
     <div>
-      <h2 className=''>Project initialized</h2>
+      <Header />
     </div>
   )
 }
