@@ -1,8 +1,14 @@
-import { useState } from "react";
+import { FC, useState } from "react";
 import Input from "../defaults/Input";
 import gsap from "gsap";
+import { Cancel } from "../svgs/Icons";
 
-const AuthModal = () => {
+interface ModalProps {
+  isOpen: boolean;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const AuthModal: FC<ModalProps> = ({ isOpen, setIsOpen }) => {
   const [active, setActive] = useState("login");
 
   const handleToggle = (tab: string) => {
@@ -18,8 +24,12 @@ const AuthModal = () => {
       });
       tl.fromTo(
         ".fadeInInput",
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.5, ease: "power2.inOut" }
+        { opacity: 0 },
+        {
+          opacity: 1,
+          duration: 0.5,
+          ease: "power2.inOut",
+        }
       );
     }
 
@@ -49,7 +59,13 @@ const AuthModal = () => {
 
   return (
     <div className="bg-[#000] bg-opacity-65 absolute top-0 w-[100%] h-[100%] flex justify-center items-center">
-      <div className="bg-[#fff] py-10 px-6 w-[25vw] rounded-lg">
+      <div className="bg-[#fff] pb-10 px-6 w-[25vw] rounded-lg">
+        <div
+          onClick={() => setIsOpen(!isOpen)}
+          className="flex justify-end py-6 cursor-pointer"
+        >
+          <Cancel />
+        </div>
         <div className="flex justify-evenly font-mono text-[18px] pb-4">
           <span
             className={`
@@ -83,7 +99,7 @@ const AuthModal = () => {
               <Input label="Full name" type="text" />
             </div>
           )}
-          <div className={`otherInput ${active === "signup" && '-mt-4'}`}>
+          <div className={`otherInput ${active === "signup" && "-mt-4"}`}>
             <Input label="Email" type="text" />
             <Input label="Password" type="password" />
             <div className="flex justify-between mt-6 items-center">
