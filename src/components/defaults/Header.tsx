@@ -5,6 +5,19 @@ import Logo from "./Logo";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [fromHome, setFromHome] = useState(false);
+  const [activeTab, setActiveTab] = useState("");
+
+  const handleClick = (tab: string) => {
+    setIsOpen(true);
+    setActiveTab(tab);
+
+    if (tab === "signup") {
+      setFromHome(true);
+    } else {
+      setFromHome(false);
+    }
+  };
   return (
     <>
       <div className="w-[70vw] mx-auto">
@@ -51,12 +64,17 @@ const Header = () => {
             <div className="flex space-x-3">
               <span
                 className="text-[#19483a] font-bold cursor-pointer"
-                onClick={() => setIsOpen(true)}
+                onClick={() => handleClick("login")}
               >
                 Login
               </span>
               <span>|</span>
-              <span className="cursor-pointer">Sign up Now</span>
+              <span
+                className="cursor-pointer"
+                onClick={() => handleClick("signup")}
+              >
+                Sign up Now
+              </span>
             </div>
             <div className="flex items-center space-x-2">
               <Cart />
@@ -69,7 +87,15 @@ const Header = () => {
         </div>
       </div>
 
-      {isOpen && <AuthModal isOpen={isOpen} setIsOpen={setIsOpen} />}
+      {isOpen && (
+        <AuthModal
+          activeTab={activeTab}
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
+          fromHome={fromHome}
+          setFromHome={setFromHome}
+        />
+      )}
     </>
   );
 };

@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import React, { FC, useState } from "react";
 import Input from "../defaults/Input";
 import gsap from "gsap";
 import { Cancel } from "../svgs/Icons";
@@ -6,10 +6,19 @@ import { Cancel } from "../svgs/Icons";
 interface ModalProps {
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  activeTab: string;
+  fromHome: boolean;
+  setFromHome: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const AuthModal: FC<ModalProps> = ({ isOpen, setIsOpen }) => {
-  const [active, setActive] = useState("login");
+const AuthModal: FC<ModalProps> = ({
+  isOpen,
+  setIsOpen,
+  activeTab,
+  fromHome,
+  setFromHome,
+}) => {
+  const [active, setActive] = useState(activeTab);
 
   const handleToggle = (tab: string) => {
     const tl = gsap.timeline();
@@ -34,6 +43,7 @@ const AuthModal: FC<ModalProps> = ({ isOpen, setIsOpen }) => {
     }
 
     if (tab === "login") {
+      setFromHome(false);
       tl.fromTo(
         ".fadeInInput",
         { opacity: 1, y: 0 },
@@ -59,12 +69,14 @@ const AuthModal: FC<ModalProps> = ({ isOpen, setIsOpen }) => {
 
   return (
     <div className="bg-[#000] bg-opacity-65 absolute top-0 w-[100%] h-[100%] flex justify-center items-center">
-      <div className="bg-[#fff] pb-10 px-6 w-[25vw] rounded-lg">
-        <div
-          onClick={() => setIsOpen(!isOpen)}
-          className="flex justify-end py-6 cursor-pointer"
-        >
-          <Cancel />
+      <div className="bg-[#fff] pb-10 px-6 w-[30vw] rounded-lg">
+        <div className="flex justify-end py-6">
+          <button
+            className="flex cursor-pointer"
+            onClick={() => setIsOpen(!isOpen)}
+          >
+            <Cancel />
+          </button>
         </div>
         <div className="flex justify-evenly font-mono text-[18px] pb-4">
           <span
@@ -99,7 +111,11 @@ const AuthModal: FC<ModalProps> = ({ isOpen, setIsOpen }) => {
               <Input label="Full name" type="text" />
             </div>
           )}
-          <div className={`otherInput ${active === "signup" && "-mt-4"}`}>
+          <div
+            className={`otherInput ${
+              active === "signup" && !fromHome && "-mt-4"
+            } ${active === "signup" && fromHome && "mt-0"}`}
+          >
             <Input label="Email" type="text" />
             <Input label="Password" type="password" />
             <div className="flex justify-between mt-6 items-center">
