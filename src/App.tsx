@@ -1,5 +1,6 @@
 import Header from "./components/defaults/Header"
 import NavMenu from "./components/defaults/NavMenu"
+import Categories from "./components/sections/Categories"
 import HeroSection from "./components/sections/HeroSection"
 
 function App() {
@@ -9,6 +10,7 @@ function App() {
       <Header />
       <NavMenu />
       <HeroSection />
+      <Categories />
     </div>
   )
 }

@@ -6,7 +6,7 @@ const NavMenu = () => {
             <span className="cursor-pointer hover:bg-[#051410] py-3 px-3">Fruits</span>
             <span className="cursor-pointer hover:bg-[#051410] py-3 px-3">Vegetables</span>
             <span className="cursor-pointer hover:bg-[#051410] py-3 px-3">Meat</span>
-            <span className="cursor-pointer hover:bg-[#051410] py-3 px-3">Dairy</span>
+            <span className="cursor-pointer hover:bg-[#051410] py-3 px-3">Milk & Dairy</span>
         </div>
         
     </div>
