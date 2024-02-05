@@ -20,7 +20,7 @@ const Header = () => {
   };
   return (
     <>
-      <div className="w-[70vw] mx-auto">
+      <div className="w-[80vw] mx-auto">
         <div className="flex justify-between items-center my-2">
           <h2>Hello there,</h2>
           <div className="flex items-center space-x-6 text-[12px] text-[#767676]">
