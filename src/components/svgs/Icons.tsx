@@ -191,7 +191,7 @@ export const Cereals = () => (
 
 export const Fruits = () => (
   <svg
-    height="px"
+    height="64px"
     width="64px"
     version="1.1"
     id="Layer_1"
@@ -354,6 +354,8 @@ export const Fruits = () => (
 
 export const Milk = () => (
   <svg
+    height="64px"
+    width="64px"
     viewBox="0 0 1024 1024"
     className="icon"
     version="1.1"
