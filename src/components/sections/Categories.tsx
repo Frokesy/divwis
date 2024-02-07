@@ -10,50 +10,53 @@ const Categories = () => {
       bgColor: "#f9e7e6",
     },
     {
-        id: 2,
-        name: "Fruits",
-        icon: <Fruits />,
-        borderColor: "#fa961e",
-        bgColor: "#ede2d4",
-      },
-      {
-        id: 3,
-        name: "Vegetables",
-        icon: <Vegetables />,
-        borderColor: "#aed581",
-        bgColor: "#e9f3dd",
-      },
-      {
-        id: 4,
-        name: "Meat",
-        icon: <Meat />,
-        borderColor: "#c1694f",
-        bgColor: "#eeddd8",
-      },
-      {
-        id: 5,
-        name: "Milk & Dairy",
-        icon: <Milk />,
-        borderColor: "#67dde0",
-        bgColor: "#d9f2f2",
-      },
+      id: 2,
+      name: "Fruits",
+      icon: <Fruits />,
+      borderColor: "#fa961e",
+      bgColor: "#ede2d4",
+    },
+    {
+      id: 3,
+      name: "Vegetables",
+      icon: <Vegetables />,
+      borderColor: "#aed581",
+      bgColor: "#e9f3dd",
+    },
+    {
+      id: 4,
+      name: "Meat",
+      icon: <Meat />,
+      borderColor: "#c1694f",
+      bgColor: "#eeddd8",
+    },
+    {
+      id: 5,
+      name: "Milk & Dairy",
+      icon: <Milk />,
+      borderColor: "#67dde0",
+      bgColor: "#d9f2f2",
+    },
   ];
   return (
-    <div className="py-[15vh]">
+    <div className="pt-[15vh]">
       <div className="relative">
         <div className="absolute w-[100%] flex items-center justify-center z-10 -top-6">
           <h2 className="font-bold text-[32px] bg-[#fff] px-3">
             Our top categories
           </h2>
         </div>
-        <div className="w-[80vw] mx-auto flex justify-between py-10 px-20 relative border border-dashed z-0 border-[#ff973a] rounded-lg">
+        <div className="w-[80vw] mx-auto flex justify-between py-10 px-20 relative border border-dashed z-0 bg-[#fff] border-[#ff973a] rounded-lg">
           {categories.map((category) => (
             <div key={category.id} className="flex flex-col items-center">
               <div
                 style={{ borderColor: category.borderColor }}
                 className="border border-dashed p-2 rounded-[100%]"
               >
-                <div style={{ background: category.bgColor }} className=" p-4 rounded-[100%]">
+                <div
+                  style={{ background: category.bgColor }}
+                  className=" p-4 rounded-[100%]"
+                >
                   {category.icon}
                 </div>
               </div>
@@ -67,6 +70,13 @@ const Categories = () => {
               </div>
             </div>
           ))}
+        </div>
+        <div className="pb-[10vh] absolute top-[10vh] -z-10">
+          <img
+            src="/assets/bg-shape.png"
+            alt="bg-shape"
+            className="h-[30vh]"
+          />
         </div>
       </div>
     </div>
