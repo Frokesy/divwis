@@ -66,7 +66,7 @@ const FeaturedProducts = () => {
   ];
 
   return (
-    <div className=" mt-6 pt-[15vh] mb-[20vh] bg-[#eef6eb]">
+    <div className=" mt-6 pt-[15vh] bg-[#eef6eb]">
       <h2 className="font-bold text-[32px] text-center">
         Featured Brand Products
       </h2>

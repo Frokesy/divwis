@@ -3,6 +3,7 @@ import NavMenu from "./components/defaults/NavMenu"
 import Categories from "./components/sections/Categories"
 import FeaturedProducts from "./components/sections/FeaturedProducts"
 import HeroSection from "./components/sections/HeroSection"
+import Trending from "./components/sections/Trending"
 
 function App() {
 
@@ -13,6 +14,7 @@ function App() {
       <HeroSection />
       <Categories />
       <FeaturedProducts />
+      <Trending />
     </div>
   )
 }
