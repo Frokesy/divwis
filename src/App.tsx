@@ -1,3 +1,4 @@
+import Footer from "./components/defaults/Footer"
 import Header from "./components/defaults/Header"
 import NavMenu from "./components/defaults/NavMenu"
 import Categories from "./components/sections/Categories"
@@ -15,6 +16,7 @@ function App() {
       <Categories />
       <FeaturedProducts />
       <Trending />
+      <Footer />
     </div>
   )
 }
