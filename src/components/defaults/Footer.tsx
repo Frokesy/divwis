@@ -1,13 +1,3 @@
-// import {
-//   Headphone,
-//   InstagramIcon,
-//   LinkedInIcon,
-//   LocationIcon,
-//   SupportIcon,
-//   TwitterIcon,
-//   YoutubeIcon,
-// } from "../icons";
-
 import {
   Headphone,
   InstagramIcon,
