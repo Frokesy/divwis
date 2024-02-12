@@ -2,6 +2,7 @@ import { useState } from "react";
 import AuthModal from "../modals/AuthModal";
 import { Cart, Phone, Search } from "../svgs/Icons";
 import Logo from "./Logo";
+import Hamburger from "hamburger-react";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -20,8 +21,8 @@ const Header = () => {
   };
   return (
     <>
-      <div className="w-[80vw] mx-auto">
-        <div className="flex justify-between items-center my-2">
+      <div className="lg:w-[80vw] w-[95vw] mt-3 lg:mt-0 mx-auto">
+        <div className="lg:flex hidden justify-between items-center my-2">
           <h2>Hello there,</h2>
           <div className="flex items-center space-x-6 text-[12px] text-[#767676]">
             <span className="cursor-pointer">My Account</span>
@@ -33,14 +34,14 @@ const Header = () => {
             </div>
           </div>
         </div>
-        <div className="flex justify-between">
+        <div className="flex items-center justify-between">
           <Logo />
           <div className="flex">
-            <div className="flex items-center border border-[#ccc] min-w-[600px] px-2">
+            <div className="lg:flex hidden items-center border border-[#ccc] min-w-[600px] px-2">
               <Search />
               <select
                 name="categories"
-                className="bg-[#fff] outline-none border-none text-[13px] px-2"
+                className="bg-[#fff] lg:block hidden outline-none border-none text-[13px] lg:px-2"
               >
                 <option value="1">All categories</option>
                 <option value="2">Cereals</option>
@@ -55,13 +56,13 @@ const Header = () => {
                 className="pl-4 border-none outline-none w-[98%] text-[13px] placeholder:text-[14px]"
               />
             </div>
-            <button className="bg-[#19483a] text-[#fff] text-[13px] font-bold px-8 py-1">
+            <button className="bg-[#19483a] text-[#fff] lg:block hidden text-[13px] font-bold px-8 py-1">
               Search
             </button>
           </div>
 
-          <div className="flex items-center space-x-8 text-[13px] text-[#333]">
-            <div className="flex space-x-3">
+          <div className="flex items-center lg:space-x-8 space-x-4 text-[13px] text-[#333]">
+            <div className="flex lg:space-x-3 space-x-2">
               <span
                 className="text-[#19483a] font-bold cursor-pointer"
                 onClick={() => handleClick("login")}
@@ -77,11 +78,21 @@ const Header = () => {
               </span>
             </div>
             <div className="flex items-center space-x-2">
-              <Cart />
-              <span>My Cart</span>
-              <span className="py-0.5 px-1.5 rounded-full text-[11px] text-[#fff] bg-[#19483a]">
+              <div className="scale-150">
+                <Cart />
+              </div>
+              <span className="lg:block hidden">My Cart</span>
+              <span className="py-0.5 px-1.5 rounded-full text-[11px] text-[#fff] bg-[#19483a] lg:block hidden">
                 0
               </span>
+            </div>
+            <div className="block lg:hidden z-50">
+              <Hamburger
+                size={20}
+                // toggled={openDrawer}
+                // toggle={setOpenDrawer}
+                color="#19483a"
+              />
             </div>
           </div>
         </div>
