@@ -41,12 +41,12 @@ const Categories = () => {
   return (
     <div className="pt-[15vh]">
       <div className="relative">
-        <div className="absolute w-[100%] flex items-center justify-center z-10 -top-6">
-          <h2 className="font-bold text-[32px] bg-[#fff] px-3">
+        <div className="absolute w-[100%] flex items-center justify-center z-10 lg:-top-6 -top-4">
+          <h2 className="font-bold lg:text-[32px] text-[26px] bg-[#fff] px-3">
             Our top categories
           </h2>
         </div>
-        <div className="w-[80vw] mx-auto flex justify-between py-10 px-20 relative border border-dashed z-0 bg-[#fff] border-[#ff973a] rounded-lg">
+        <div className="lg:w-[80vw] w-[90vw] mx-auto flex lg:flex-row flex-col lg:space-y-0 space-y-10 justify-between py-10 px-20 relative border border-dashed z-0 bg-[#fff] border-[#ff973a] rounded-lg">
           {categories.map((category) => (
             <div key={category.id} className="flex flex-col items-center">
               <div
@@ -71,7 +71,7 @@ const Categories = () => {
             </div>
           ))}
         </div>
-        <div className="pb-[10vh] absolute top-[10vh] -z-10">
+        <div className="pb-[10vh] absolute top-[10vh] -z-10 lg:block hidden">
           <img
             src="/assets/bg-shape.png"
             alt="bg-shape"

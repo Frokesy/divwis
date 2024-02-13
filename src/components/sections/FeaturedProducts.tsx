@@ -67,34 +67,34 @@ const FeaturedProducts = () => {
 
   return (
     <div className=" mt-6 pt-[15vh] bg-[#eef6eb]">
-      <h2 className="font-bold text-[32px] text-center">
+      <h2 className="font-bold lg:text-[32px] text-[26px] text-center">
         Featured Brand Products
       </h2>
-      <p className="text-center">
+      <p className="text-center lg:text-[16px] text-[13px]">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
         tempor.
       </p>
 
-      <div className="grid grid-cols-3 gap-x-[1vw] w-[80vw] mx-auto mt-10">
+      <div className="grid lg:grid-cols-3 grid-cols-1 gap-x-[1vw] lg:gap-y-0 gap-y-4 lg:w-[80vw] w-[90vw] mx-auto mt-10">
         <div className="w-[100%] space-y-4">
           {products.map(
             (product) =>
               product.id > 4 && (
                 <div
                   key={product.id}
-                  className="flex space-x-3 rounded-lg p-2 bg-[#fff]"
+                  className="flex lg:flex-row flex-col lg:space-x-3 rounded-lg p-2 bg-[#fff]"
                 >
-                  <div className="bg-[#f1f1f1] w-[150px]">
+                  <div className="bg-[#f1f1f1] lg:w-[150px]">
                     <img
                       src={product.productImg}
                       alt="product"
-                      className="w-[100%] h-[115px] object-cover"
+                      className="lg:w-[100%] lg:h-[115px] w-[350px] h-[270px] object-cover"
                     />
                   </div>
                   <div className="flex flex-col w-[100%]">
                     <div className="flex items-center space-x-2">
-                      <div className="text-[#808080] text-[15px]">
-                        Product Review: {product.review}/5
+                      <div className="text-[#808080] lg:mt-0 lg:text-[15px] mt-2 text-[13px]">
+                        {product.review}/5 (4.2k reviews)
                       </div>
                     </div>
                     <h3 className="font-bold text-[18px] mt-2">
@@ -104,7 +104,7 @@ const FeaturedProducts = () => {
                       <span className="text-[#808080] line-through">
                         $200.00
                       </span>
-                      <span className="text-[#333]">{product.price}</span>
+                      <span className="text-[#ff3b30] font-semibold">{product.price}</span>
                     </div>
                     <p className="text-[14px] mt-2 text-[#19483a]">Shop Now</p>
                   </div>
@@ -113,7 +113,7 @@ const FeaturedProducts = () => {
           )}
         </div>
 
-        <div>
+        <div className="lg:block hidden">
           {products.map(
             (product) =>
               product.id === 0 && (
@@ -150,19 +150,19 @@ const FeaturedProducts = () => {
               product.id < 4 && (
                 <div
                   key={product.id}
-                  className="flex space-x-3 rounded-lg p-2 bg-[#fff]"
+                  className="flex lg:flex-row flex-col lg:space-x-3 rounded-lg p-2 bg-[#fff]"
                 >
-                  <div className="bg-[#f1f1f1] w-[150px]">
+                  <div className="bg-[#f1f1f1] lg:w-[150px]">
                     <img
                       src={product.productImg}
                       alt="product"
-                      className="w-[100%] h-[115px] object-cover"
+                      className="lg:w-[100%] lg:h-[115px] w-[350px] h-[270px] object-cover"
                     />
                   </div>
                   <div className="flex flex-col w-[100%]">
                     <div className="flex items-center space-x-2">
-                      <div className="text-[#808080] text-[15px]">
-                        Product Review: {product.review}/5
+                    <div className="text-[#808080] lg:mt-0 lg:text-[15px] mt-2 text-[13px]">
+                      {product.review}/5 (4.2k reviews)
                       </div>
                     </div>
                     <h3 className="font-bold text-[18px] mt-2">
@@ -172,7 +172,7 @@ const FeaturedProducts = () => {
                       <span className="text-[#808080] line-through">
                         $200.00
                       </span>
-                      <span className="text-[#333]">{product.price}</span>
+                      <span className="text-[#ff3b30] font-semibold">{product.price}</span>
                     </div>
                     <p className="text-[14px] mt-2 text-[#19483a]">Shop Now</p>
                   </div>

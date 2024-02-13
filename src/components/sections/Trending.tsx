@@ -8,18 +8,19 @@ const Trending = () => {
 
   return (
     <div className=" mt-6 pt-[5vh] pb-[10vh]">
-      <div className="flex justify-between items-center w-[80vw] mx-auto">
+      <div className="flex lg:flex-row flex-col justify-between items-center w-[80vw] mx-auto">
         <h2 className="text-[26px] font-semibold">Top Trending Products</h2>
 
-        <div className="flex space-x-6 font-semibold text-[#404040] text-[16px]">
+        <div className="lg:flex lg:space-x-6 grid grid-cols-3 place-items-center font-semibold text-[#404040] lg:text-[16px] text-[14px]">
           <span className="text-[#fa961e]">All Products</span>
           <span>Sea Food</span>
           <span>Vegetables</span>
+          <span className="lg:hidden"></span>
           <span>Beans & Peas</span>
         </div>
       </div>
 
-      <div className="grid grid-cols-4 w-[80vw] mx-auto gap-[2vw] mt-10">
+      <div className="grid lg:grid-cols-4 grid-cols-1 lg:w-[80vw] w-[90vw] mx-auto gap-[2vw] mt-10">
         {products.map((product) => (
             <div key={product.id} className="flex flex-col w-[100%] border border-[#ccc] items-center mt-10">
                 <div className="relative w-[100%]">
