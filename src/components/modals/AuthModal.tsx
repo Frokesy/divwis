@@ -69,7 +69,7 @@ const AuthModal: FC<ModalProps> = ({
 
   return (
     <div className="bg-[#000] z-10 bg-opacity-65 absolute top-0 w-[100%] h-[100%] flex justify-center items-center">
-      <div className="bg-[#fff] pb-10 px-6 w-[30vw] rounded-lg">
+      <div className="bg-[#fff] pb-10 px-6 lg:w-[30vw] w-[90vw] rounded-lg">
         <div className="flex justify-end py-6">
           <button
             className="flex cursor-pointer"
