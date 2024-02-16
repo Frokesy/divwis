@@ -1,7 +1,7 @@
 const HeroSection = () => {
   return (
-    <div className="bg-[url('/assets/hero_img.jpg')] z-0 lg:h-[80vh] h-[70vh] bg-center bg-cover bg-no-repeat items-center justify-center">
-      <div className="absolute bg-[#000] bg-opacity-65 text-[#fff] lg:h-[80%] h-[70%] w-[100%]">
+    <div className="bg-[url('/assets/hero_img.jpg')] z-0 lg:h-[80vh] h-[620px] bg-center bg-cover bg-no-repeat items-center justify-center">
+      <div className="absolute bg-[#000] bg-opacity-65 text-[#fff] lg:h-[80%] h-[620px] w-[100%]">
         <div className="flex flex-col justify-center h-[100%] lg:w-[80vw] w-[95vw] mx-auto lg:font-mono">
           <h1 className="lg:text-[60px] text-[40px] font-bold">Looking to buy your</h1>
           <p className="lg:text-[50px] text-[40px] font-bold">
