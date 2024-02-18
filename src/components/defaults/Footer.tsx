@@ -17,7 +17,7 @@ const Footer = () => {
           Subscribe to Divwis Blog,{" "}
           <span className="text-[#fa961e]">New Arrivals</span>
         </span>
-        <span>& Other Information</span>
+        <span>{" "}& Other Information</span>
       </div>
       <div className="flex justify-center items-center mt-6 lg:w-auto w-[90vw] mx-auto">
         <input

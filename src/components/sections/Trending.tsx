@@ -27,7 +27,7 @@ const Trending = () => {
                 <img
                     src={product.productImg}
                     alt="product"
-                    className="w- h-[200px] object-cover"
+                    className="object-cover lg:w-auto lg:h-[200px] w-[350px] h-[270px]"
                 />
                 <div className="absolute top-0 left-0 bg-[#ff973a] text-[#fff] px-2 py-1">
                     {product.review} ★
