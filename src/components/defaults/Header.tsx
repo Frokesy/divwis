@@ -3,6 +3,7 @@ import AuthModal from "../modals/AuthModal";
 import { Cart, Phone, Search } from "../svgs/Icons";
 import Logo from "./Logo";
 import Hamburger from "hamburger-react";
+import Drawer from "./Drawer";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,6 +20,8 @@ const Header = () => {
       setFromHome(false);
     }
   };
+
+  const [openDrawer, setOpenDrawer] = useState(false);
   return (
     <>
       <div className="lg:w-[80vw] w-[95vw] mt-3 lg:mt-0 mx-auto">
@@ -89,8 +92,8 @@ const Header = () => {
             <div className="block lg:hidden z-50">
               <Hamburger
                 size={20}
-                // toggled={openDrawer}
-                // toggle={setOpenDrawer}
+                toggled={openDrawer}
+                toggle={setOpenDrawer}
                 color="#19483a"
               />
             </div>
@@ -107,6 +110,8 @@ const Header = () => {
           setFromHome={setFromHome}
         />
       )}
+
+      {openDrawer && <Drawer />}
     </>
   );
 };
