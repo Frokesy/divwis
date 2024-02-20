@@ -2,6 +2,7 @@ import React, { FC, useState } from "react";
 import Input from "../defaults/Input";
 import gsap from "gsap";
 import { Cancel } from "../svgs/Icons";
+import { supabase } from "../../../utils/supabaseClient"
 
 interface ModalProps {
   isOpen: boolean;
@@ -66,6 +67,8 @@ const AuthModal: FC<ModalProps> = ({
       });
     }
   };
+
+  console.log(supabase)
 
   return (
     <div className="bg-[#000] z-10 bg-opacity-65 absolute top-0 w-[100%] h-[100%] flex justify-center items-center">
