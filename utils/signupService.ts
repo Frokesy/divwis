@@ -58,8 +58,7 @@ export async function handleSignup(
           }, 2000);
         }
       }
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
       toast.error(error, {
         position: "top-center",
         theme: "dark",

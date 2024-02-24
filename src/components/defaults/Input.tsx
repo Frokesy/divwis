@@ -21,10 +21,10 @@ const Input: FC<
             nameErr &&
             "outline-none border border-red-500 rounded-lg lg:text-[14px] text-[12px] w-full py-1 mt-1"
           }
-          ${passwordErr && "outline-none border border-red-500 rounded-lg w-full py-1 mt-1"}
+          ${passwordErr && "outline-none border-b border-red-500 w-full py-1 mt-1"}
           ${
             emailErr &&
-            "outline-none border border-red-500 rounded-lg w-full py-1 mt-1"
+            "outline-none border-b border-red-500 w-full py-1 mt-1"
           }
           w-full peer bg-transparent border-b border-[#808080] outline-none`}
           {...props}
