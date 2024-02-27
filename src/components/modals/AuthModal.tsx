@@ -6,6 +6,7 @@ import { handleSignup } from "../../../utils/signupService";
 import { handleLogin } from "../../../utils/loginService";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Loader from "../defaults/Loader";
 
 interface ModalProps {
   isOpen: boolean;
@@ -197,18 +198,41 @@ const AuthModal: FC<ModalProps> = ({
                 Forgot password?
               </span>
               {active === "login" ? (
-                <button
-                  onClick={() => handleSubmit("login")}
-                  className="bg-[#19483a] text-[#fff] text-[14px] rounded-lg font-semibold px-8 py-1"
-                >
-                  Login
-                </button>
+                <div className="">
+                  {loading ? (
+                    <button
+                      onClick={() => handleSubmit("login")}
+                      className="bg-[#19483a] text-[#fff] text-[14px] rounded-lg font-semibold px-8 py-1.5"
+                    >
+                      <Loader />
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => handleSubmit("login")}
+                      className="bg-[#19483a] text-[#fff] text-[14px] rounded-lg font-semibold px-8 py-1"
+                    >
+                      Login
+                    </button>
+                  )}
+                </div>
               ) : (
-                <button 
-                onClick={() => handleSubmit("signup")}
-                className="bg-[#19483a] text-[#fff] text-[14px] rounded-lg font-semibold px-8 py-1">
-                  Signup
-                </button>
+                <div className="">
+                  {loading ? (
+                    <button
+                      onClick={() => handleSubmit("login")}
+                      className="bg-[#19483a] text-[#fff] text-[14px] rounded-lg font-semibold px-8 py-1.5"
+                    >
+                      <Loader />
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => handleSubmit("login")}
+                      className="bg-[#19483a] text-[#fff] text-[14px] rounded-lg font-semibold px-8 py-1"
+                    >
+                      Signup
+                    </button>
+                  )}
+                </div>
               )}
             </div>
           </div>
