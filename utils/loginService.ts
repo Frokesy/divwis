@@ -31,14 +31,15 @@ export async function handleLogin(
         throw error.message;
       }
       console.log(data);
-      //const id = data.user?.id;
-      toast.success("Login successful, you'll be redirected shortly...", {
-        position: "top-center",
-        theme: "dark",
-        autoClose: 2000,
-        hideProgressBar: true,
-        draggable: true,
-      });
+      const id = data.user?.id;
+      localStorage.setItem('id', id);
+      // toast.success("Login successful, you'll be redirected shortly...", {
+      //   position: "top-center",
+      //   theme: "dark",
+      //   autoClose: 2000,
+      //   hideProgressBar: true,
+      //   draggable: true,
+      // });
       setTimeout(() => {}, 2000);
       setLoading(false);
     } catch (error) {
