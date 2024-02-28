@@ -8,7 +8,9 @@ export async function handleLogin(
   validatePassword: (password: string) => boolean,
   setError: React.Dispatch<
     React.SetStateAction<{ email: string; password: string; fullName: string }>
-  >
+  >,
+  isOpen: boolean,
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
 ) {
   setLoading(true);
   const isEmailValid = validateField(userData.email);
@@ -32,15 +34,17 @@ export async function handleLogin(
       }
       console.log(data);
       const id = data.user?.id;
-      localStorage.setItem('id', id);
-      // toast.success("Login successful, you'll be redirected shortly...", {
-      //   position: "top-center",
-      //   theme: "dark",
-      //   autoClose: 2000,
-      //   hideProgressBar: true,
-      //   draggable: true,
-      // });
-      setTimeout(() => {}, 2000);
+      localStorage.setItem("id", id);
+      toast.success("Login successful!", {
+        position: "top-center",
+        theme: "dark",
+        autoClose: 2000,
+        hideProgressBar: true,
+        draggable: true,
+      });
+      setTimeout(() => {
+        setIsOpen(!isOpen)
+      }, 2000);
       setLoading(false);
     } catch (error) {
       toast.error(error, {

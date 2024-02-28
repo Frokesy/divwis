@@ -105,7 +105,9 @@ const AuthModal: FC<ModalProps> = ({
         validateField,
         userData,
         validatePassword,
-        setError
+        setError,
+        isOpen,
+        setIsOpen
       );
     } else if (activeTab === "signup") {
       await handleSignup(
