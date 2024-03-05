@@ -58,7 +58,7 @@ export async function handleSignup(
           }, 2000);
         }
       }
-    } catch (error: any) {
+    } catch (error) {
       toast.error(error, {
         position: "top-center",
         theme: "dark",

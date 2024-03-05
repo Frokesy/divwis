@@ -4,11 +4,13 @@ import { Cart, Phone, Search, UserIcon } from "../svgs/Icons";
 import Logo from "./Logo";
 import Hamburger from "hamburger-react";
 import Drawer from "./Drawer";
+import { supabase } from "../../../utils/supabaseClient";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [fromHome, setFromHome] = useState(false);
   const [activeTab, setActiveTab] = useState("");
+  const [name, setName] = useState("");
 
   const handleClick = (tab: string) => {
     setIsOpen(true);
@@ -20,11 +22,22 @@ const Header = () => {
       setFromHome(false);
     }
   };
-  localStorage.removeItem("id")
+  // localStorage.removeItem("id")
 
-  const user = localStorage.getItem("user")
+  const id = localStorage.getItem("id");
 
-  console.log(user)
+  const getUsername = async () => {
+    const { data: user, error } = await supabase
+      .from("users")
+      .select("*")
+      .eq("userId", id);
+
+    if (!error) {
+      setName(user[0]?.name);
+    }
+  };
+
+  getUsername();
 
   const [openDrawer, setOpenDrawer] = useState(false);
   return (
@@ -68,11 +81,15 @@ const Header = () => {
             </button>
           </div>
 
-          <div className={`flex items-center space-x-4 ${user ? 'lg:space-x-4 cursor-pointer' : 'lg:space-x-8'} text-[13px] text-[#333]`}>
-            {user ? (
+          <div
+            className={`flex items-center space-x-4 ${
+              id ? "lg:space-x-4 cursor-pointer" : "lg:space-x-8"
+            } text-[13px] text-[#333]`}
+          >
+            {id ? (
               <div className="flex bg-[#f1f1f1] px-4 py-1 rounded-full items-center">
                 <UserIcon />
-                <h2 className="text-[13px] font-semibold">Ayanfeoluwa A.</h2>
+                <h2 className="text-[13px] font-semibold">{name}</h2>
               </div>
             ) : (
               <div className="flex lg:space-x-3 space-x-2">

@@ -32,8 +32,8 @@ export async function handleLogin(
         setLoading(false);
         throw error.message;
       }
-      const user = data.user;
-      localStorage.setItem("user", JSON.stringify(user));
+      const id = data.user?.id;
+      localStorage.setItem("id", id);
       toast.success("Login successful!", {
         position: "top-center",
         theme: "dark",
