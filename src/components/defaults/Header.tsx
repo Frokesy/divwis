@@ -44,7 +44,7 @@ const Header = () => {
     <>
       <div className="lg:w-[80vw] w-[95vw] mt-3 lg:mt-0 mx-auto">
         <div className="lg:flex hidden justify-between items-center my-2">
-          <h2>Hello there,</h2>
+          <h2>Hello there, {name}</h2>
           <div className="flex items-center space-x-6 text-[12px] text-[#767676]">
             <span className="cursor-pointer">Wishlist</span>
             <span className="cursor-pointer">Checkout</span>
