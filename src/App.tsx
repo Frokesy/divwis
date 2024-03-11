@@ -1,22 +1,17 @@
-import Footer from "./components/defaults/Footer"
-import Header from "./components/defaults/Header"
-import NavMenu from "./components/defaults/NavMenu"
-import Categories from "./components/sections/Categories"
-import FeaturedProducts from "./components/sections/FeaturedProducts"
-import HeroSection from "./components/sections/HeroSection"
-import Trending from "./components/sections/Trending"
+import { RouterProvider, createBrowserRouter } from "react-router-dom"
+import Home from "./pages/home"
+import Shops from "./pages/shops"
 
 function App() {
 
+  const router = createBrowserRouter([
+    { path: "/", element: <Home /> },
+    { path: "/shops", element: <Shops /> },
+  ])
+
   return (
     <div>
-      <Header />
-      <NavMenu />
-      <HeroSection />
-      <Categories />
-      <FeaturedProducts />
-      <Trending />
-      <Footer />
+      <RouterProvider router={router} />
     </div>
   )
 }
