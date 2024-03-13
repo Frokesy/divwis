@@ -1,13 +1,13 @@
 import { useState } from "react";
 
 const Filter = () => {
-    const [selectedFilter, setSelectedFilter] = useState('By Category');
+  const [selectedFilter, setSelectedFilter] = useState("By Category");
 
-    const handleFilterChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        setSelectedFilter(event.target.value);
-    };
+  const handleFilterChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedFilter(event.target.value);
+  };
 
-    console.log(selectedFilter)
+  console.log(selectedFilter);
   return (
     <div>
       <div className="flex justify-between items-center mb-2 pt-6">
@@ -15,7 +15,7 @@ const Filter = () => {
         <select
           name=""
           id=""
-          className="text-[13px] bg-inherit outline-none text-[]"
+          className="text-[13px] bg-inherit outline-none"
           value={selectedFilter}
           onChange={handleFilterChange}
         >
@@ -23,28 +23,36 @@ const Filter = () => {
           <option>By Price</option>
         </select>
       </div>
-      <div>
-        <label className="flex items-center mb-2">
-          <input type="checkbox" className="mr-2" />
-          <span className="text-[#333] text-[14px]">Cereals</span>
-        </label>
-        <label className="flex items-center mb-2">
-          <input type="checkbox" className="mr-2" />
-          <span className="text-[#333] text-[14px]">Fruits</span>
-        </label>
-        <label className="flex items-center mb-2">
-          <input type="checkbox" className="mr-2" />
-          <span className="text-[#333] text-[14px]">Vegetables</span>
-        </label>
-        <label className="flex items-center mb-2">
-          <input type="checkbox" className="mr-2" />
-          <span className="text-[#333] text-[14px]">Meat</span>
-        </label>
-        <label className="flex items-center mb-2">
-          <input type="checkbox" className="mr-2" />
-          <span className="text-[#333] text-[14px]">Dairy</span>
-        </label>
-      </div>
+      {selectedFilter === "By Category" && (
+        <div>
+          <label className="flex items-center mb-2">
+            <input type="checkbox" className="mr-2" />
+            <span className="text-[#333] text-[14px]">Cereals</span>
+          </label>
+          <label className="flex items-center mb-2">
+            <input type="checkbox" className="mr-2" />
+            <span className="text-[#333] text-[14px]">Fruits</span>
+          </label>
+          <label className="flex items-center mb-2">
+            <input type="checkbox" className="mr-2" />
+            <span className="text-[#333] text-[14px]">Vegetables</span>
+          </label>
+          <label className="flex items-center mb-2">
+            <input type="checkbox" className="mr-2" />
+            <span className="text-[#333] text-[14px]">Meat</span>
+          </label>
+          <label className="flex items-center mb-2">
+            <input type="checkbox" className="mr-2" />
+            <span className="text-[#333] text-[14px]">Dairy</span>
+          </label>
+        </div>
+      )}
+
+      {selectedFilter === "By Price" && (
+        <div className="">
+          <h2>Filter</h2>
+        </div>
+      )}
     </div>
   );
 };

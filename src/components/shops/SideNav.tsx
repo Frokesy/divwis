@@ -1,5 +1,6 @@
 import Categories from "./Categories"
 import Filter from "./Filter"
+import Rating from "./Rating"
 import Search from "./Search"
 
 const SideNav = () => {
@@ -8,6 +9,7 @@ const SideNav = () => {
         <Search />
         <Categories />
         <Filter />
+        <Rating />
     </div>
   )
 }
