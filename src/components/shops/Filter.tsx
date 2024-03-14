@@ -49,8 +49,10 @@ const Filter = () => {
       )}
 
       {selectedFilter === "By Price" && (
-        <div className="">
-          <h2>Filter</h2>
+        <div className="flex relative items-center bg-orange-200 h-[5px] -z-1">
+          <div className="bg-[#fff] border border-orange-500 w-[5%] h-[16px] rounded-full"></div>
+          <div className="bg-orange-500 h-[5px] w-[90%]"></div>
+          <div className="bg-[#fff] border border-orange-500 w-[5%] h-[16px] rounded-full"></div>
         </div>
       )}
     </div>
