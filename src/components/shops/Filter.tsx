@@ -1,4 +1,5 @@
 import { useState } from "react";
+import PriceRangeSlider from "./PriceRangeSlider";
 
 const Filter = () => {
   const [selectedFilter, setSelectedFilter] = useState("By Category");
@@ -7,7 +8,6 @@ const Filter = () => {
     setSelectedFilter(event.target.value);
   };
 
-  console.log(selectedFilter);
   return (
     <div>
       <div className="flex justify-between items-center mb-2 pt-6">
@@ -48,13 +48,7 @@ const Filter = () => {
         </div>
       )}
 
-      {selectedFilter === "By Price" && (
-        <div className="flex relative items-center bg-orange-200 h-[5px] -z-1">
-          <div className="bg-[#fff] border border-orange-500 w-[5%] h-[16px] rounded-full"></div>
-          <div className="bg-orange-500 h-[5px] w-[90%]"></div>
-          <div className="bg-[#fff] border border-orange-500 w-[5%] h-[16px] rounded-full"></div>
-        </div>
-      )}
+      {selectedFilter === "By Price" && <PriceRangeSlider />}
     </div>
   );
 };
