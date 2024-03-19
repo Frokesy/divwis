@@ -2,12 +2,12 @@ import { FaStar } from "react-icons/fa"
 
 const ZeroStars = () => {
   return (
-    <div className="py-2 flex items-center space-x-2">
-      <FaStar fill="#ffffff" stroke="#ffc107" strokeWidth={50} size={20} />
-      <FaStar fill="#ffffff" stroke="#ffc107" strokeWidth={50} size={20} />
-      <FaStar fill="#ffffff" stroke="#ffc107" strokeWidth={50} size={20} />
-      <FaStar fill="#ffffff" stroke="#ffc107" strokeWidth={50} size={20} />
-      <FaStar fill="#ffffff" stroke="#ffc107" strokeWidth={50} size={20} />
+    <div className="py-2 flex items-center">
+      <FaStar fill="#ffffff" stroke="#ffc107" strokeWidth={40} size={20} />
+      <FaStar fill="#ffffff" stroke="#ffc107" strokeWidth={40} size={20} />
+      <FaStar fill="#ffffff" stroke="#ffc107" strokeWidth={40} size={20} />
+      <FaStar fill="#ffffff" stroke="#ffc107" strokeWidth={40} size={20} />
+      <FaStar fill="#ffffff" stroke="#ffc107" strokeWidth={40} size={20} />
     </div>
   )
 }

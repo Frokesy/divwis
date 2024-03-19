@@ -10,10 +10,10 @@ const Shops = () => {
       <NavMenu />
       <div className="bg-[#f1f1f1] min-h-[80vh]">
         <div className="flex w-[80vw] mx-auto justify-between pt-[10vh]">
-          <div className="w-[25%]">
+          <div className="w-[22%]">
             <SideNav />
           </div>
-          <div className="main w-[70%]">
+          <div className="main w-[76%]">
             <MainContent />
           </div>
         </div>
