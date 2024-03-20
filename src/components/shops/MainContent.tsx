@@ -118,8 +118,8 @@ const MainContent = () => {
               <span className="pt-2 text-[#ff0406] font-bold text-[18px]">
                 {product.price}
               </span>
-              <div className="border border-[#ff7c08] cursor-pointer my-6 py-3 rounded-lg flex items-center justify-center">
-                <p className="text-[18px] font-bold text-[#ff7c08]">Shop Now</p>
+              <div className="border border-[#ff7c08] text-[#ff7c08] hover:bg-[#ff7c08] transition-colors duration-500 ease-in-out hover:text-[#fff] cursor-pointer my-6 py-3 rounded-lg flex items-center justify-center">
+                <p className="text-[18px] font-bold">Shop Now</p>
               </div>
             </div>
           </div>
