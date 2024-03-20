@@ -88,7 +88,7 @@ const FeaturedProducts = () => {
                     <img
                       src={product.productImg}
                       alt="product"
-                      className="lg:w-[100%] lg:h-[115px] w-[350px] h-[270px] object-cover"
+                      className="lg:w-[100%] lg:h-[115px] w-[350px] h-[270px]"
                     />
                   </div>
                   <div className="flex flex-col w-[100%]">
@@ -130,14 +130,14 @@ const FeaturedProducts = () => {
                     Get 50% Off on Selected Organic Items
                   </span>
                   <div className="mt-3">
-                    <button className="bg-[#fa961e] text-[#fff] py-3 px-6 font-semibold">
+                    <button className="bg-[#fa961e] hover:bg-[#a4c059] transition-colors duration-500 ease-in-out text-[#fff] py-3 px-6 font-semibold">
                       Shop Now
                     </button>
                   </div>
                   <img
                     src="/assets/products/pago.png"
                     alt="pago"
-                    className="h-[360px] object-cover"
+                    className="h-[360px] w-[100%]"
                   />
                 </div>
               )
@@ -156,7 +156,7 @@ const FeaturedProducts = () => {
                     <img
                       src={product.productImg}
                       alt="product"
-                      className="lg:w-[100%] lg:h-[115px] w-[350px] h-[270px] object-cover"
+                      className="lg:w-[100%] lg:h-[115px] w-[350px] h-[270px]"
                     />
                   </div>
                   <div className="flex flex-col w-[100%]">

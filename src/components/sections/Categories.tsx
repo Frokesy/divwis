@@ -48,14 +48,14 @@ const Categories = () => {
         </div>
         <div className="lg:w-[80vw] w-[90vw] mx-auto flex lg:flex-row flex-col lg:space-y-0 space-y-10 justify-between py-10 px-20 relative border border-dashed z-0 bg-[#fff] border-[#ff973a] rounded-lg">
           {categories.map((category) => (
-            <div key={category.id} className="flex flex-col items-center">
+            <div key={category.id} className="flex flex-col items-center cursor-pointer">
               <div
                 style={{ borderColor: category.borderColor }}
-                className="border border-dashed p-2 rounded-[100%]"
+                className="border border-dashed p-2 rounded-[100%] hover:scale-125 transition-transform duration-700 ease-in-out"
               >
                 <div
                   style={{ background: category.bgColor }}
-                  className=" p-4 rounded-[100%]"
+                  className="p-4 rounded-[100%]"
                 >
                   {category.icon}
                 </div>
