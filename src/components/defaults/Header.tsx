@@ -22,7 +22,7 @@ const Header = () => {
       setFromHome(false);
     }
   };
-  // localStorage.removeItem("id")
+  localStorage.removeItem("id")
 
   const id = localStorage.getItem("id");
 
