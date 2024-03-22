@@ -1,10 +1,11 @@
 import { useState } from "react";
 import AuthModal from "../modals/AuthModal";
-import { Cart, Phone, Search, UserIcon } from "../svgs/Icons";
-import Logo from "./Logo";
+import { Cart, LocationIcon, UserIcon } from "../svgs/Icons";
 import Hamburger from "hamburger-react";
 import Drawer from "./Drawer";
 import { supabase } from "../../../utils/supabaseClient";
+import { FaEnvelope } from "react-icons/fa";
+import { FaLocationDot } from "react-icons/fa6";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -22,7 +23,7 @@ const Header = () => {
       setFromHome(false);
     }
   };
-  localStorage.removeItem("id")
+  // localStorage.removeItem("id")
 
   const id = localStorage.getItem("id");
 
@@ -42,93 +43,54 @@ const Header = () => {
   const [openDrawer, setOpenDrawer] = useState(false);
   return (
     <>
-      <div className="lg:w-[80vw] w-[95vw] mt-3 lg:mt-0 mx-auto">
-        <div className="lg:flex hidden justify-between items-center my-2">
-          <h2>Hello there, {name}.</h2>
-          <div className="flex items-center space-x-6 text-[12px] text-[#767676]">
-            <span className="cursor-pointer">Wishlist</span>
-            <span className="cursor-pointer">Checkout</span>
-            <div className="flex items-center cursor-pointer">
-              <Phone />
-              <span>1 800 123 1234</span>
-            </div>
-          </div>
-        </div>
-        <div className="flex items-center justify-between">
-          <Logo />
-          <div className="flex">
-            <div className="lg:flex hidden items-center border border-[#ccc] min-w-[600px] px-2">
-              <Search />
-              <select
-                name="categories"
-                className="bg-[#fff] lg:block hidden outline-none border-none text-[13px] lg:px-2"
-              >
-                <option value="1">All categories</option>
-                <option value="2">Cereals</option>
-                <option value="3">Fruits</option>
-                <option value="4">Vegetables</option>
-                <option value="5">Meat</option>
-                <option value="6">Dairy</option>
-              </select>
-              <input
-                type="text"
-                placeholder="Search here..."
-                className="pl-4 border-none outline-none w-[98%] text-[13px] placeholder:text-[14px]"
-              />
-            </div>
-            <button className="bg-[#19483a] text-[#fff] lg:block hidden text-[13px] font-bold px-8 py-1">
-              Search
-            </button>
-          </div>
-
-          <div
-            className={`flex items-center space-x-4 ${
-              id ? "lg:space-x-4 cursor-pointer" : "lg:space-x-8"
-            } text-[13px] text-[#333]`}
-          >
-            {id ? (
-              <div className="flex bg-[#f1f1f1] px-4 py-1 rounded-full items-center">
-                <UserIcon />
-                <h2 className="text-[13px] font-semibold">{name}</h2>
-              </div>
-            ) : (
-              <div className="flex lg:space-x-3 space-x-2">
-                <span
-                  className="text-[#19483a] font-bold cursor-pointer"
-                  onClick={() => handleClick("login")}
-                >
-                  Login
-                </span>
-                <span>|</span>
-                <span
-                  className="cursor-pointer"
-                  onClick={() => handleClick("signup")}
-                >
-                  Sign up Now
-                </span>
-              </div>
-            )}
+      <div className="bg-[#6eb356] text-[#fff] w-[100%] pt-3 pb-10">
+        <div className="w-[80vw] mx-auto flex justify-between">
+          <h2 className="text-[18px] font-semibold">Welcome to our Store{`, ${name}`}</h2>
+          <div className="flex items-center space-x-6">
             <div className="flex items-center space-x-2">
-              <div className="scale-150">
-                <Cart />
-              </div>
-              <span className="lg:block hidden">My Cart</span>
-              <span className="py-0.5 px-1.5 rounded-full text-[11px] text-[#fff] bg-[#19483a] lg:block hidden">
-                0
-              </span>
+              <FaEnvelope />
+              <span>divwis@support.com</span>
             </div>
-            <div className="block lg:hidden z-50">
-              <Hamburger
-                size={20}
-                toggled={openDrawer}
-                toggle={setOpenDrawer}
-                color="#19483a"
-              />
+            <span className="font-bold">|</span>
+            <div className="flex items-center space-x-2">
+              <FaLocationDot />
+              <span>Chester, UK</span>
+            </div>
+            {!id && <span className="font-bold">|</span>}
+            <div
+              className={`flex items-center space-x-4 ${
+                id ? "lg:space-x-4 cursor-pointer" : "lg:space-x-8"
+              } text-[16px]`}
+            >
+              {!id && (
+                <div className="flex lg:space-x-3 space-x-2">
+                  <span
+                    className="font-bold cursor-pointer"
+                    onClick={() => handleClick("login")}
+                  >
+                    Login
+                  </span>
+                  <span>|</span>
+                  <span
+                    className="cursor-pointer"
+                    onClick={() => handleClick("signup")}
+                  >
+                    Sign up Now
+                  </span>
+                </div>
+              )}
+              <div className="block lg:hidden z-50">
+                <Hamburger
+                  size={20}
+                  toggled={openDrawer}
+                  toggle={setOpenDrawer}
+                  color="#19483a"
+                />
+              </div>
             </div>
           </div>
         </div>
       </div>
-
       {isOpen && (
         <AuthModal
           activeTab={activeTab}
