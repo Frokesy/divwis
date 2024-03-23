@@ -1,11 +1,11 @@
 import { useState } from "react";
 import AuthModal from "../modals/AuthModal";
-import { Cart, LocationIcon, UserIcon } from "../svgs/Icons";
 import Hamburger from "hamburger-react";
 import Drawer from "./Drawer";
 import { supabase } from "../../../utils/supabaseClient";
 import { FaEnvelope } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
+import { Phone } from "../svgs/Icons";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -45,11 +45,16 @@ const Header = () => {
     <>
       <div className="bg-[#6eb356] text-[#fff] w-[100%] pt-3 pb-10">
         <div className="w-[80vw] mx-auto flex justify-between">
-          <h2 className="text-[18px] font-semibold">Welcome to our Store{`, ${name}`}</h2>
+          <h2 className="text-[16px] font-semibold">Welcome to our Store{`, ${name}`}</h2>
           <div className="flex items-center space-x-6">
             <div className="flex items-center space-x-2">
               <FaEnvelope />
               <span>divwis@support.com</span>
+            </div>
+            <span className="font-bold">|</span>
+            <div className="flex items-center space-x-2">
+              <Phone />
+              <span>+44 234 1721</span>
             </div>
             <span className="font-bold">|</span>
             <div className="flex items-center space-x-2">

@@ -1,16 +1,20 @@
+import Logo from "./Logo";
+
 const NavMenu = () => {
   return (
-    <div className="w-[100%] bg-[#19483a] lg:mt-6 mt-2">
-        <div className="lg:w-[80vw] w-[95vw] text-[#fff] lg:text-[14px] text-[11px] uppercase font-semibold font-mono mx-auto flex items-center lg:space-x-6 space-x-8">
-            <span className="cursor-pointer transition-colors duration-700 ease-in-out hover:bg-[#051410] py-4 lg:px-3">Cereals</span>
-            <span className="cursor-pointer transition-colors duration-700 ease-in-out hover:bg-[#051410] py-3 lg:px-3">Fruits</span>
-            <span className="cursor-pointer transition-colors duration-700 ease-in-out hover:bg-[#051410] py-3 lg:px-3">Vegetables</span>
-            <span className="cursor-pointer transition-colors duration-700 ease-in-out hover:bg-[#051410] py-3 lg:px-3">Meat</span>
-            <span className="cursor-pointer transition-colors duration-700 ease-in-out hover:bg-[#051410] py-3 lg:px-3">Milk & Dairy</span>
+    <div className="w-[100%] absolute top-12">
+      <div className="lg:w-[80vw] w-[95vw] bg-[#fff] mx-auto shadow-xl rounded-lg min-h-[70px] flex items-center justify-between px-8">
+        <Logo />
+        <div className="lg:text-[14px] text-[11px] font-mono space-x-10">
+          <span className="cursor-pointer">Cereals</span>
+          <span className="cursor-pointer">Fruits</span>
+          <span className="cursor-pointer">Vegetables</span>
+          <span className="cursor-pointer">Meat</span>
+          <span className="cursor-pointer">Milk & Dairy</span>
         </div>
-        
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default NavMenu
+export default NavMenu;
