@@ -41,7 +41,7 @@ const Categories = () => {
   return (
     <div className="pt-[15vh]">
       <div className="relative">
-        <div className="absolute w-[100%] flex items-center justify-center z-10 lg:-top-6 -top-4">
+        <div className="absolute z-10 w-[100%] flex items-center justify-center lg:-top-6 -top-4">
           <h2 className="font-bold lg:text-[32px] text-[26px] bg-[#fff] px-3">
             Our top categories
           </h2>

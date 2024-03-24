@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 
 const Drawer = () => {
   return (
-    <div className="fixed top-0 h-screen z-10 w-screen bg-[#000] bg-opacity-60">
+    <div className="fixed top-0 h-screen z-20 w-screen bg-[#000] bg-opacity-60">
       <div className="justify-end flex">
         <motion.div
           className="flex flex-col space-y-[30px] bg-[#ececec] h-screen w-[60%] pt-14 px-6 text-[18px] font-semibold text-[#42806e]"
