@@ -1,6 +1,6 @@
 const HeroSection = () => {
   return (
-    <div className="h-[80vh] lg:w-[95vw] w-[90vw] mx-auto flex lg:flex-row flex-col lg:justify-between lg:my-[10vh] lg:mt-0 mt-[15vh]">
+    <div className="h-[80vh] lg:w-[95vw] w-[90vw] mx-auto flex lg:flex-row flex-col lg:justify-between lg:my-[10vh] lg:mt-0 mt-[13vh]">
       <div className="socials lg:w-[3%] lg:block hidden"></div>
       <div className="main lg:w-[85%] relative flex lg:flex-row flex-col justify-between items-center">
         <div className="flex flex-col lg:w-[40%] w-[100%]">
