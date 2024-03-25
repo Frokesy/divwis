@@ -1,6 +1,14 @@
+import { useState } from "react";
 import { Cereals, Fruits, Meat, Milk, Vegetables } from "../svgs/Icons";
+import { FaArrowUp } from "react-icons/fa";
+import { NavLink } from "react-router-dom";
 
 const Categories = () => {
+  const [activeId, setActiveId] = useState<number>();
+
+  const updateArrowState = (id: number) => {
+    setActiveId(id);
+  };
   const categories = [
     {
       id: 1,
@@ -38,6 +46,7 @@ const Categories = () => {
       bgColor: "#d9f2f2",
     },
   ];
+
   return (
     <div className="pt-[15vh]">
       <div className="relative">
@@ -48,7 +57,12 @@ const Categories = () => {
         </div>
         <div className="lg:w-[80vw] w-[90vw] mx-auto flex lg:flex-row flex-col lg:space-y-0 space-y-10 justify-between py-10 px-20 relative border border-dashed z-0 bg-[#fff] border-[#ff973a] rounded-lg">
           {categories.map((category) => (
-            <div key={category.id} className="flex flex-col items-center cursor-pointer">
+            <div
+              key={category.id}
+              className="flex flex-col relative border border-[#f9e7e6] rounded-md py-6 px-12 items-center"
+              onMouseLeave={() => updateArrowState(0)}
+              onMouseEnter={() => updateArrowState(category.id)}
+            >
               <div
                 style={{ borderColor: category.borderColor }}
                 className="border border-dashed p-2 rounded-[100%] hover:scale-125 transition-transform duration-700 ease-in-out"
@@ -68,15 +82,20 @@ const Categories = () => {
                 ></div>
                 <span className="text-[#333]">25 items</span>
               </div>
+              {activeId === category.id && (
+                <NavLink to={`/shops/${category.id}`}>
+                  <div
+                    className={`bg-[#ff7c08] absolute bottom-0 right-0 p-2 rounded-br-md`}
+                  >
+                    <FaArrowUp className="rotate-45" fill="#fff" />
+                  </div>
+                </NavLink>
+              )}
             </div>
           ))}
         </div>
-        <div className="pb-[10vh] absolute top-[10vh] -z-10 lg:block hidden">
-          <img
-            src="/assets/bg-shape.png"
-            alt="bg-shape"
-            className="h-[30vh]"
-          />
+        <div className="pb-[10vh] absolute top-[15vh] -z-10 lg:block hidden">
+          <img src="/assets/bg-shape.png" alt="bg-shape" className="h-[30vh]" />
         </div>
       </div>
     </div>

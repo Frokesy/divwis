@@ -1,9 +1,12 @@
+import { useParams } from "react-router-dom";
 import Header from "../../components/defaults/Header";
 import NavMenu from "../../components/defaults/NavMenu";
 import MainContent from "../../components/shops/MainContent";
 import SideNav from "../../components/shops/SideNav";
 
 const Shops = () => {
+  const { category_id } = useParams();
+  console.log(category_id);
   return (
     <div>
       <Header />

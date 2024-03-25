@@ -25,7 +25,7 @@ const HeroSection = () => {
         </div>
 
         <div className="img-container flex justify-between lg:mt-[20vh] mt-10 items-center lg:w-[60%]">
-          <div className="lg:flex flex-col hidden">
+          <div className="lg:flex flex-col accent-indigo-100 hidden">
             <img
               src="/assets/orange-1.png"
               alt="orange"

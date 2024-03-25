@@ -6,7 +6,7 @@ function App() {
 
   const router = createBrowserRouter([
     { path: "/", element: <Home /> },
-    { path: "/shops", element: <Shops /> },
+    { path: "/shops/:category_id", element: <Shops /> },
   ])
 
   return (

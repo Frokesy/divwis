@@ -118,8 +118,8 @@ export const Cancel = () => (
 
 export const Cereals = () => (
   <svg
-    width="64px"
-    height="64px"
+    width="40px"
+    height="40px"
     viewBox="0 0 1024 1024"
     className="icon"
     version="1.1"
@@ -191,8 +191,8 @@ export const Cereals = () => (
 
 export const Fruits = () => (
   <svg
-    height="64px"
-    width="64px"
+    height="40px"
+    width="40px"
     version="1.1"
     id="Layer_1"
     xmlns="http://www.w3.org/2000/svg"
@@ -354,8 +354,8 @@ export const Fruits = () => (
 
 export const Milk = () => (
   <svg
-    height="64px"
-    width="64px"
+    height="40px"
+    width="40px"
     viewBox="0 0 1024 1024"
     className="icon"
     version="1.1"
@@ -439,8 +439,8 @@ export const Milk = () => (
 
 export const Meat = () => (
   <svg
-    width="64px"
-    height="64px"
+    width="40px"
+    height="40px"
     viewBox="0 0 36 36"
     xmlns="http://www.w3.org/2000/svg"
     aria-hidden="true"
@@ -474,8 +474,8 @@ export const Meat = () => (
 
 export const Vegetables = () => (
   <svg
-    height="64px"
-    width="64px"
+    height="40px"
+    width="40px"
     version="1.1"
     id="Layer_1"
     xmlns="http://www.w3.org/2000/svg"
