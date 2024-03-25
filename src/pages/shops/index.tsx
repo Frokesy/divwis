@@ -3,6 +3,7 @@ import Header from "../../components/defaults/Header";
 import NavMenu from "../../components/defaults/NavMenu";
 import MainContent from "../../components/shops/MainContent";
 import SideNav from "../../components/shops/SideNav";
+import Footer from "../../components/defaults/Footer";
 
 const Shops = () => {
   const { category_id } = useParams();
@@ -10,7 +11,7 @@ const Shops = () => {
     <div>
       <Header />
       <NavMenu />
-      <div className="bg-[#f1f1f1] min-h-[80vh]">
+      <div className="bg-[#f1f1f1] min-h-[80vh] pb-[10vh]">
         <div className="flex w-[80vw] mx-auto justify-between pt-[10vh]">
           <div className="w-[22%]">
             <SideNav id={category_id} />
@@ -20,6 +21,7 @@ const Shops = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };
