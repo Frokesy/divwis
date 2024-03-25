@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { motion } from "framer-motion";
 import { Compare, Eye, Heart } from "../svgs/Icons";
 
 const FeaturedProducts = () => {
   const [activeId, setActiveId] = useState<number | null>();
+  const [iconHover, setIconHover] = useState<string>("");
   const products = [
     {
       id: 1,
@@ -73,6 +75,10 @@ const FeaturedProducts = () => {
     setActiveId(id);
   };
 
+  const updateIconHover = (icon: string) => {
+    setIconHover(icon);
+  };
+
   return (
     <div className=" mt-6 pt-[15vh] bg-[#eef6eb]">
       <h2 className="font-bold lg:text-[32px] text-[26px] text-center">
@@ -96,19 +102,37 @@ const FeaturedProducts = () => {
                 >
                   <div className="bg-[#f1f1f1] lg:w-[250px] rounded-lg relative">
                     {activeId === product.id && (
-                      <div className="bg-[#000] bg-opacity-50 rounded-lg absolute top-0 w-[100%] h-[100%]">
+                      <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.5, ease: "easeInOut" }}
+                        className="bg-[#000] bg-opacity-50 rounded-lg absolute top-0 w-[100%] h-[100%]"
+                      >
                         <div className="flex items-center justify-center h-[100%] space-x-2">
-                          <div className="bg-[#fff] p-2 rounded-full">
-                            <Heart />
+                          <div
+                            onMouseEnter={() => updateIconHover("heart")}
+                            onMouseLeave={() => updateIconHover("")}
+                            className="bg-[#fff] hover:bg-[#a4c059] cursor-pointer transition-colors duration-500 ease-in-out p-2 rounded-full"
+                          >
+                            <Heart iconHover={iconHover} />
                           </div>
-                          <div className="bg-[#fff] p-2 rounded-full">
-                            <Eye />
+                          <div
+                            onMouseEnter={() => updateIconHover("eye")}
+                            onMouseLeave={() => updateIconHover("")}
+                            className="bg-[#fff] hover:bg-[#a4c059] cursor-pointer transition-colors duration-500 ease-in-out p-2 rounded-full"
+                          >
+                            <Eye iconHover={iconHover} />
                           </div>
-                          <div className="bg-[#fff] p-2 rounded-full">
-                            <Compare />
+                          <div
+                            onMouseEnter={() => updateIconHover("compare")}
+                            onMouseLeave={() => updateIconHover("")}
+                            className="bg-[#fff] hover:bg-[#a4c059] cursor-pointer transition-colors duration-500 ease-in-out p-2 rounded-full"
+                          >
+                            <Compare iconHover={iconHover} />
                           </div>
                         </div>
-                      </div>
+                      </motion.div>
                     )}
                     <img
                       src={product.productImg}
@@ -183,19 +207,37 @@ const FeaturedProducts = () => {
                 >
                   <div className="bg-[#f1f1f1] lg:w-[250px] rounded-lg relative">
                     {activeId === product.id && (
-                      <div className="bg-[#000] bg-opacity-50 rounded-lg absolute top-0 w-[100%] h-[100%]">
+                      <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.5, ease: "easeInOut" }}
+                        className="bg-[#000] bg-opacity-50 rounded-lg absolute top-0 w-[100%] h-[100%]"
+                      >
                         <div className="flex items-center justify-center h-[100%] space-x-2">
-                          <div className="bg-[#fff] p-2 rounded-full">
-                            <Heart />
+                          <div
+                            onMouseEnter={() => updateIconHover("heart")}
+                            onMouseLeave={() => updateIconHover("")}
+                            className="bg-[#fff] hover:bg-[#a4c059] cursor-pointer transition-colors duration-500 ease-in-out p-2 rounded-full"
+                          >
+                            <Heart iconHover={iconHover} />
                           </div>
-                          <div className="bg-[#fff] p-2 rounded-full">
-                            <Eye />
+                          <div
+                            onMouseEnter={() => updateIconHover("eye")}
+                            onMouseLeave={() => updateIconHover("")}
+                            className="bg-[#fff] hover:bg-[#a4c059] cursor-pointer transition-colors duration-500 ease-in-out p-2 rounded-full"
+                          >
+                            <Eye iconHover={iconHover} />
                           </div>
-                          <div className="bg-[#fff] p-2 rounded-full">
-                            <Compare />
+                          <div
+                            onMouseEnter={() => updateIconHover("compare")}
+                            onMouseLeave={() => updateIconHover("")}
+                            className="bg-[#fff] hover:bg-[#a4c059] cursor-pointer transition-colors duration-500 ease-in-out p-2 rounded-full"
+                          >
+                            <Compare iconHover={iconHover} />
                           </div>
                         </div>
-                      </div>
+                      </motion.div>
                     )}
                     <img
                       src={product.productImg}
