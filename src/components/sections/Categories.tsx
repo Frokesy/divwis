@@ -6,9 +6,6 @@ import { NavLink } from "react-router-dom";
 const Categories = () => {
   const [activeId, setActiveId] = useState<number>();
 
-  const updateArrowState = (id: number) => {
-    setActiveId(id);
-  };
   const categories = [
     {
       id: 1,
@@ -46,6 +43,10 @@ const Categories = () => {
       bgColor: "#d9f2f2",
     },
   ];
+  
+  const updateArrowState = (id: number) => {
+    setActiveId(id);
+  };
 
   return (
     <div className="pt-[15vh]">

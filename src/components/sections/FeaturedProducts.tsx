@@ -1,4 +1,8 @@
+import { useState } from "react";
+import { Compare, Eye, Heart } from "../svgs/Icons";
+
 const FeaturedProducts = () => {
+  const [activeId, setActiveId] = useState<number | null>();
   const products = [
     {
       id: 1,
@@ -65,6 +69,10 @@ const FeaturedProducts = () => {
     },
   ];
 
+  const updateActiveState = (id: number | null) => {
+    setActiveId(id);
+  };
+
   return (
     <div className=" mt-6 pt-[15vh] bg-[#eef6eb]">
       <h2 className="font-bold lg:text-[32px] text-[26px] text-center">
@@ -83,12 +91,29 @@ const FeaturedProducts = () => {
                 <div
                   key={product.id}
                   className="flex lg:flex-row flex-col lg:space-x-3 rounded-lg p-2 bg-[#fff]"
+                  onMouseEnter={() => updateActiveState(product.id)}
+                  onMouseLeave={() => updateActiveState(null)}
                 >
-                  <div className="bg-[#f1f1f1] lg:w-[150px]">
+                  <div className="bg-[#f1f1f1] lg:w-[250px] rounded-lg relative">
+                    {activeId === product.id && (
+                      <div className="bg-[#000] bg-opacity-50 rounded-lg absolute top-0 w-[100%] h-[100%]">
+                        <div className="flex items-center justify-center h-[100%] space-x-2">
+                          <div className="bg-[#fff] p-2 rounded-full">
+                            <Heart />
+                          </div>
+                          <div className="bg-[#fff] p-2 rounded-full">
+                            <Eye />
+                          </div>
+                          <div className="bg-[#fff] p-2 rounded-full">
+                            <Compare />
+                          </div>
+                        </div>
+                      </div>
+                    )}
                     <img
                       src={product.productImg}
                       alt="product"
-                      className="lg:w-[100%] lg:h-[115px] w-[350px] h-[270px]"
+                      className="lg:w-[100%] lg:h-[120px] w-[350px] h-[270px]"
                     />
                   </div>
                   <div className="flex flex-col w-[100%]">
@@ -104,7 +129,9 @@ const FeaturedProducts = () => {
                       <span className="text-[#808080] line-through">
                         $200.00
                       </span>
-                      <span className="text-[#ff3b30] font-semibold">{product.price}</span>
+                      <span className="text-[#ff3b30] font-semibold">
+                        {product.price}
+                      </span>
                     </div>
                     <p className="text-[14px] mt-2 text-[#19483a]">Shop Now</p>
                   </div>
@@ -151,18 +178,35 @@ const FeaturedProducts = () => {
                 <div
                   key={product.id}
                   className="flex lg:flex-row flex-col lg:space-x-3 rounded-lg p-2 bg-[#fff]"
+                  onMouseEnter={() => updateActiveState(product.id)}
+                  onMouseLeave={() => updateActiveState(null)}
                 >
-                  <div className="bg-[#f1f1f1] lg:w-[150px]">
+                  <div className="bg-[#f1f1f1] lg:w-[250px] rounded-lg relative">
+                    {activeId === product.id && (
+                      <div className="bg-[#000] bg-opacity-50 rounded-lg absolute top-0 w-[100%] h-[100%]">
+                        <div className="flex items-center justify-center h-[100%] space-x-2">
+                          <div className="bg-[#fff] p-2 rounded-full">
+                            <Heart />
+                          </div>
+                          <div className="bg-[#fff] p-2 rounded-full">
+                            <Eye />
+                          </div>
+                          <div className="bg-[#fff] p-2 rounded-full">
+                            <Compare />
+                          </div>
+                        </div>
+                      </div>
+                    )}
                     <img
                       src={product.productImg}
                       alt="product"
-                      className="lg:w-[100%] lg:h-[115px] w-[350px] h-[270px]"
+                      className="lg:w-[100%] lg:h-[120px] w-[350px] h-[270px]"
                     />
                   </div>
                   <div className="flex flex-col w-[100%]">
                     <div className="flex items-center space-x-2">
-                    <div className="text-[#808080] lg:mt-0 lg:text-[15px] mt-2 text-[13px]">
-                      {product.review}/5 (4.2k reviews)
+                      <div className="text-[#808080] lg:mt-0 lg:text-[15px] mt-2 text-[13px]">
+                        {product.review}/5 (4.2k reviews)
                       </div>
                     </div>
                     <h3 className="font-bold text-[18px] mt-2">
@@ -172,7 +216,9 @@ const FeaturedProducts = () => {
                       <span className="text-[#808080] line-through">
                         $200.00
                       </span>
-                      <span className="text-[#ff3b30] font-semibold">{product.price}</span>
+                      <span className="text-[#ff3b30] font-semibold">
+                        {product.price}
+                      </span>
                     </div>
                     <p className="text-[14px] mt-2 text-[#19483a]">Shop Now</p>
                   </div>
