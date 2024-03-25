@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Cereals, Fruits, Meat, Milk, Vegetables } from "../svgs/Icons";
 import { FaArrowUp } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const Categories = () => {
   const [activeId, setActiveId] = useState<number>();
@@ -43,7 +44,7 @@ const Categories = () => {
       bgColor: "#d9f2f2",
     },
   ];
-  
+
   const updateArrowState = (id: number) => {
     setActiveId(id);
   };
@@ -85,11 +86,15 @@ const Categories = () => {
               </div>
               {activeId === category.id && (
                 <NavLink to={`/shops/${category.id}`}>
-                  <div
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.5, ease: "easeInOut" }}
                     className={`bg-[#ff7c08] absolute bottom-0 right-0 p-2 rounded-br-md`}
                   >
                     <FaArrowUp className="rotate-45" fill="#fff" />
-                  </div>
+                  </motion.div>
                 </NavLink>
               )}
             </div>
