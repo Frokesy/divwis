@@ -1,14 +1,19 @@
+import { FC } from "react";
 import Categories from "./Categories"
 import Filter from "./Filter"
 import Rating from "./Rating"
 import Search from "./Search"
 
-const SideNav = () => {
+interface SideNavProps {
+  id: string | undefined;
+}
+
+const SideNav:FC<SideNavProps> = ({ id }) => {
   return (
     <div className="bg-[#fff] px-3 py-4 rounded-lg shadow-md">
         <Search />
         <Categories />
-        <Filter />
+        <Filter pageId={id} />
         <Rating />
     </div>
   )

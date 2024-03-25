@@ -1,3 +1,4 @@
+
 const Categories = () => {
   const categories = [
     {

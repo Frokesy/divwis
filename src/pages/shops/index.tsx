@@ -6,7 +6,6 @@ import SideNav from "../../components/shops/SideNav";
 
 const Shops = () => {
   const { category_id } = useParams();
-  console.log(category_id);
   return (
     <div>
       <Header />
@@ -14,7 +13,7 @@ const Shops = () => {
       <div className="bg-[#f1f1f1] min-h-[80vh]">
         <div className="flex w-[80vw] mx-auto justify-between pt-[10vh]">
           <div className="w-[22%]">
-            <SideNav />
+            <SideNav id={category_id} />
           </div>
           <div className="main w-[76%]">
             <MainContent />
