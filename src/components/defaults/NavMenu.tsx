@@ -2,9 +2,17 @@ import Hamburger from "hamburger-react";
 import Logo from "./Logo";
 import { useState } from "react";
 import Drawer from "./Drawer";
+import { NavLink } from "react-router-dom";
 
 const NavMenu = () => {
   const [openDrawer, setOpenDrawer] = useState(false);
+  const categories = [
+    { id: 1, name: "Cereals" },
+    { id: 2, name: "Fruits" },
+    { id: 3, name: "Vegetables" },
+    { id: 4, name: "Meat" },
+    { id: 5, name: "Milk & Dairy" },
+  ];
 
   return (
     <div className="w-[100%] lg:absolute lg:top-12 fixed top-0 z-40">
@@ -19,11 +27,15 @@ const NavMenu = () => {
           />
         </div>
         <div className="lg:text-[14px] text-[11px] text-[#808080] font-semibold lg:block hidden space-x-10">
-          <span className="cursor-pointer">Cereals</span>
-          <span className="cursor-pointer">Fruits</span>
-          <span className="cursor-pointer">Vegetables</span>
-          <span className="cursor-pointer">Meat</span>
-          <span className="cursor-pointer">Milk & Dairy</span>
+          {categories.map((category) => (
+            <NavLink
+              key={category.id}
+              to={`/shops/${category.id}`}
+              className="cursor-pointer hover:text-[#ff7c08] transition-colors duration-300 ease-in-out"
+            >
+              {category.name}
+            </NavLink>
+          ))}
         </div>
       </div>
       {openDrawer && <Drawer />}
