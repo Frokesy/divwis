@@ -17,7 +17,7 @@ const NavMenu = () => {
   return (
     <div className="w-[100%] lg:absolute lg:top-12 fixed top-0 z-40">
       <div className="lg:w-[80vw] w-[100vw] bg-[#fff] mx-auto lg:shadow-xl shadow-lg rounded-lg h-[70px] overflow-y-auto flex items-center justify-between px-6 lg:px-8">
-        <Logo />
+        <NavLink to="/" className="cursor-pointer"><Logo /></NavLink>
         <div className="block lg:hidden z-50">
           <Hamburger
             size={20}

@@ -2,12 +2,12 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
-import SmoothScrollWraper from "./components/wrappers/SmoothScrollWrapper.tsx";
+import SmoothScroll from "./components/wrappers/SmoothScroll.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <SmoothScrollWraper>
+    <SmoothScroll>
       <App />
-    </SmoothScrollWraper>
+    </SmoothScroll>
   </React.StrictMode>
 );

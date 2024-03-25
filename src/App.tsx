@@ -1,6 +1,7 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom"
 import Home from "./pages/home"
 import Shops from "./pages/shops"
+import { AnimatePresence } from "framer-motion"
 
 function App() {
 
@@ -10,9 +11,9 @@ function App() {
   ])
 
   return (
-    <div>
+    <AnimatePresence mode="wait">
       <RouterProvider router={router} />
-    </div>
+    </AnimatePresence>
   )
 }
 

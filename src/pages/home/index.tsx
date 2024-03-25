@@ -1,22 +1,17 @@
-import Footer from "../../components/defaults/Footer";
-import Header from "../../components/defaults/Header";
-import NavMenu from "../../components/defaults/NavMenu";
 import Categories from "../../components/sections/Categories";
 import FeaturedProducts from "../../components/sections/FeaturedProducts";
 import HeroSection from "../../components/sections/HeroSection";
 import Trending from "../../components/sections/Trending";
+import MainContainer from "../../components/wrappers/MainContainer";
 
 const Home = () => {
   return (
-    <div>
-      <Header />
-      <NavMenu />
+    <MainContainer>
       <HeroSection />
       <Categories />
       <FeaturedProducts />
       <Trending />
-      <Footer />
-    </div>
+    </MainContainer>
   );
 };
 

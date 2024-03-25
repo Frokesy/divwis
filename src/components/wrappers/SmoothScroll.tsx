@@ -1,6 +1,6 @@
 import { ReactLenis } from "@studio-freight/react-lenis";
 
-function SmoothScrollWraper({ children }: { children: React.ReactNode }) {
+function SmoothScroll({ children }: { children: React.ReactNode }) {
   const lenisOptions = {
     lerp: 0.1,
     duration: 1.5,
@@ -14,4 +14,4 @@ function SmoothScrollWraper({ children }: { children: React.ReactNode }) {
     </ReactLenis>
   );
 }
-export default SmoothScrollWraper;
+export default SmoothScroll;
