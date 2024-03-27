@@ -1,43 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import FiveStars from "../svgs/stars/FiveStars";
 import { motion } from "framer-motion";
 import { Compare, Eye, Heart } from "../svgs/Icons";
+import { products } from "../data/products";
 
 const Trending = () => {
   const [activeTab, setActiveTab] = useState<string>("all");
   const [activeId, setActiveId] = useState<number | null>();
   const [iconHover, setIconHover] = useState<string>("");
-
-  const products = [
-    {
-      id: 1,
-      name: "Strawberry Fruit",
-      price: "$100.00",
-      review: "4.5",
-      productImg: "/assets/products/p-sm-1.png",
-    },
-    {
-      id: 2,
-      name: "Green Apple",
-      price: "$50.00",
-      review: "4.5",
-      productImg: "/assets/products/p-sm-2.png",
-    },
-    {
-      id: 3,
-      name: "Red Apple",
-      price: "$50.00",
-      review: "4.5",
-      productImg: "/assets/products/p-sm-3.png",
-    },
-    {
-      id: 4,
-      name: "Banana",
-      price: "$50.00",
-      review: "4.5",
-      productImg: "/assets/products/p-sm-4.png",
-    },
-  ];
+  const [productsPerCategory, setProductsPerCategory] =  useState([]);
 
   const updateActiveState = (id: number | null) => {
     setActiveId(id);
@@ -45,6 +16,8 @@ const Trending = () => {
   const updateIconHover = (icon: string) => {
     setIconHover(icon);
   };
+
+  
   return (
     <div className=" mt-6 pt-[5vh] pb-[10vh]">
       <div className="flex lg:flex-row flex-col justify-between items-center w-[80vw] mx-auto">
