@@ -4,11 +4,20 @@ import { motion } from "framer-motion";
 import { Compare, Eye, Heart } from "../svgs/Icons";
 import { products } from "../data/products";
 
+interface ProductsProps {
+  id: number;
+  name: string;
+  price: string;
+  review: string;
+  category: string;
+  productImg: string;
+}
+
 const Trending = () => {
   const [activeTab, setActiveTab] = useState<string>("all");
   const [activeId, setActiveId] = useState<number | null>();
   const [iconHover, setIconHover] = useState<string>("");
-  const [productsPerCategory, setProductsPerCategory] =  useState([]);
+  const [productsPerCategory, setProductsPerCategory] =  useState<ProductsProps>([]);
 
   const updateActiveState = (id: number | null) => {
     setActiveId(id);
@@ -16,6 +25,12 @@ const Trending = () => {
   const updateIconHover = (icon: string) => {
     setIconHover(icon);
   };
+
+  products.map((product) => {
+    if (product.category === "sea-food") {
+      console.log(product)
+    }
+  })
 
   
   return (
