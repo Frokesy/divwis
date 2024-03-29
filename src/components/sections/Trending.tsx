@@ -17,7 +17,8 @@ const Trending = () => {
   const [activeTab, setActiveTab] = useState<string>("all");
   const [activeId, setActiveId] = useState<number | null>();
   const [iconHover, setIconHover] = useState<string>("");
-  const [productsPerCategory, setProductsPerCategory] =  useState<ProductsProps>([]);
+  const [productsPerCategory, setProductsPerCategory] =
+    useState<ProductsProps[]>(products);
 
   const updateActiveState = (id: number | null) => {
     setActiveId(id);
@@ -26,13 +27,17 @@ const Trending = () => {
     setIconHover(icon);
   };
 
-  products.map((product) => {
-    if (product.category === "sea-food") {
-      console.log(product)
+  useEffect(() => {
+    if (activeTab === "all") {
+      setProductsPerCategory(products);
+    } else {
+      const filteredProducts = products.filter(
+        (product) => product.category === activeTab
+      );
+      setProductsPerCategory(filteredProducts);
     }
-  })
+  }, [activeTab]);
 
-  
   return (
     <div className=" mt-6 pt-[5vh] pb-[10vh]">
       <div className="flex lg:flex-row flex-col justify-between items-center w-[80vw] mx-auto">
@@ -84,8 +89,15 @@ const Trending = () => {
       </div>
 
       <div className="grid lg:grid-cols-4 grid-cols-1 lg:w-[80vw] w-[90vw] mx-auto gap-[2vw] mt-10">
-        {products.map((product) => (
-          <div
+        {productsPerCategory.slice(0, 4).map((product) => (
+          <motion.div
+            initial={{ opacity: 0, x: 50, y: 50 }}
+            animate={{ opacity: 1, x: 0, y: 0 }}
+            transition={{
+              duration: 0.3,
+              ease: "easeInOut",
+              staggerChildren: 1,
+            }}
             onMouseEnter={() => updateActiveState(product.id)}
             onMouseLeave={() => updateActiveState(null)}
             key={product.id}
@@ -160,7 +172,7 @@ const Trending = () => {
                 </motion.div>
               )}
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
     </div>
