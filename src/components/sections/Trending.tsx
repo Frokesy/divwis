@@ -96,7 +96,6 @@ const Trending = () => {
             transition={{
               duration: 0.3,
               ease: "easeInOut",
-              staggerChildren: 1,
             }}
             onMouseEnter={() => updateActiveState(product.id)}
             onMouseLeave={() => updateActiveState(null)}

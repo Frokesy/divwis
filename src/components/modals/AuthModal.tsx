@@ -7,6 +7,7 @@ import { handleLogin } from "../../../utils/loginService";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Loader from "../defaults/Loader";
+import ModalContainer from "../wrappers/ModalContainer";
 
 interface ModalProps {
   isOpen: boolean;
@@ -120,127 +121,123 @@ const AuthModal: FC<ModalProps> = ({
     }
   };
   return (
-    <div className="bg-[#000] z-10 bg-opacity-65 absolute top-0 w-[100%] h-[100%] flex justify-center items-center">
+    <ModalContainer>
       <ToastContainer />
-      <div className="bg-[#fff] pb-10 px-6 lg:w-[30vw] w-[90vw] rounded-lg">
-        <div className="flex justify-end py-6">
-          <button
-            className="flex cursor-pointer"
-            onClick={() => setIsOpen(!isOpen)}
-          >
-            <Cancel />
-          </button>
-        </div>
-        <div className="flex justify-evenly font-mono text-[18px] pb-4">
-          <span
-            className={`
+      <div className="flex justify-end py-6">
+        <button
+          className="flex cursor-pointer"
+          onClick={() => setIsOpen(!isOpen)}
+        >
+          <Cancel />
+        </button>
+      </div>
+      <div className="flex justify-evenly font-mono text-[18px] pb-4">
+        <span
+          className={`
             cursor-pointer login
               ${
                 active === "login" &&
                 "border-b border-[#19483a] text-[#19483a] font-bold"
               }
             `}
-            onClick={() => handleToggle("login")}
-          >
-            Login
-          </span>
-          <span>|</span>
-          <span
-            className={`
+          onClick={() => handleToggle("login")}
+        >
+          Login
+        </span>
+        <span>|</span>
+        <span
+          className={`
             cursor-pointer signup
             ${
               active === "signup" &&
               "border-b border-[#19483a] text-[#19483a] font-bold"
             }
           `}
-            onClick={() => handleToggle("signup")}
-          >
-            Sign Up
-          </span>
-        </div>
-        <div className="flex flex-col">
-          {active === "signup" && (
-            <div className="fadeInInput">
-              <Input
-                label="Full name"
-                type="text"
-                value={userData.fullName}
-                onChange={(e) =>
-                  setUserData({ ...userData, fullName: e.target.value })
-                }
-                nameErr={error.fullName}
-              />
-            </div>
-          )}
-          <div
-            className={`otherInput ${
-              active === "signup" && !fromHome && "-mt-4"
-            } ${active === "signup" && fromHome && "mt-0"}`}
-          >
+          onClick={() => handleToggle("signup")}
+        >
+          Sign Up
+        </span>
+      </div>
+      <div className="flex flex-col">
+        {active === "signup" && (
+          <div className="fadeInInput">
             <Input
-              label="Email"
+              label="Full name"
               type="text"
-              value={userData.email}
+              value={userData.fullName}
               onChange={(e) =>
-                setUserData({ ...userData, email: e.target.value })
+                setUserData({ ...userData, fullName: e.target.value })
               }
-              emailErr={error.email}
+              nameErr={error.fullName}
             />
-            <Input
-              label="Password"
-              type="password"
-              value={userData.password}
-              onChange={(e) =>
-                setUserData({ ...userData, password: e.target.value })
-              }
-              passwordErr={error.password}
-            />
-            <div className="flex justify-between mt-6 items-center">
-              <span className="text-[13px] text-[#19483a]">
-                Forgot password?
-              </span>
-              {active === "login" ? (
-                <div className="">
-                  {loading ? (
-                    <button
-                      onClick={() => handleSubmit("login")}
-                      className="bg-[#19483a] text-[#fff] text-[14px] rounded-lg font-semibold px-8 py-1.5"
-                    >
-                      <Loader />
-                    </button>
-                  ) : (
-                    <button
-                      onClick={() => handleSubmit("login")}
-                      className="bg-[#19483a] text-[#fff] text-[14px] rounded-lg font-semibold px-8 py-1"
-                    >
-                      Login
-                    </button>
-                  )}
-                </div>
-              ) : (
-                <div className="">
-                  {loading ? (
-                    <button
-                      onClick={() => handleSubmit("login")}
-                      className="bg-[#19483a] text-[#fff] text-[14px] rounded-lg font-semibold px-8 py-1.5"
-                    >
-                      <Loader />
-                    </button>
-                  ) : (
-                    <button
-                      onClick={() => handleSubmit("login")}
-                      className="bg-[#19483a] text-[#fff] text-[14px] rounded-lg font-semibold px-8 py-1"
-                    >
-                      Signup
-                    </button>
-                  )}
-                </div>
-              )}
-            </div>
+          </div>
+        )}
+        <div
+          className={`otherInput lg:w-[450px] w-[80vw] ${
+            active === "signup" && !fromHome && "-mt-4"
+          } ${active === "signup" && fromHome && "mt-0"}`}
+        >
+          <Input
+            label="Email"
+            type="text"
+            value={userData.email}
+            onChange={(e) =>
+              setUserData({ ...userData, email: e.target.value })
+            }
+            emailErr={error.email}
+          />
+          <Input
+            label="Password"
+            type="password"
+            value={userData.password}
+            onChange={(e) =>
+              setUserData({ ...userData, password: e.target.value })
+            }
+            passwordErr={error.password}
+          />
+          <div className="flex justify-between mt-6 items-center">
+            <span className="text-[13px] text-[#19483a]">Forgot password?</span>
+            {active === "login" ? (
+              <div className="">
+                {loading ? (
+                  <button
+                    onClick={() => handleSubmit("login")}
+                    className="bg-[#19483a] text-[#fff] text-[14px] rounded-lg font-semibold px-8 py-1.5"
+                  >
+                    <Loader />
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => handleSubmit("login")}
+                    className="bg-[#19483a] text-[#fff] text-[14px] rounded-lg font-semibold px-8 py-1"
+                  >
+                    Login
+                  </button>
+                )}
+              </div>
+            ) : (
+              <div className="">
+                {loading ? (
+                  <button
+                    onClick={() => handleSubmit("login")}
+                    className="bg-[#19483a] text-[#fff] text-[14px] rounded-lg font-semibold px-8 py-1.5"
+                  >
+                    <Loader />
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => handleSubmit("login")}
+                    className="bg-[#19483a] text-[#fff] text-[14px] rounded-lg font-semibold px-8 py-1"
+                  >
+                    Signup
+                  </button>
+                )}
+              </div>
+            )}
           </div>
         </div>
       </div>
-    </div>
+    </ModalContainer>
   );
 };
 

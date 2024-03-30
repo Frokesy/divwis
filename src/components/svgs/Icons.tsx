@@ -48,8 +48,8 @@ export const Search = () => (
 
 export const Cart = () => (
   <svg
-    width="16px"
-    height="16px"
+    width="24px"
+    height="24px"
     viewBox="0 0 24 24"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
@@ -63,7 +63,7 @@ export const Cart = () => (
     <g id="SVGRepo_iconCarrier">
       <path
         d="M7.2998 5H22L20 12H8.37675M21 16H9L7 3H4M4 8H2M5 11H2M6 14H2M10 20C10 20.5523 9.55228 21 9 21C8.44772 21 8 20.5523 8 20C8 19.4477 8.44772 19 9 19C9.55228 19 10 19.4477 10 20ZM21 20C21 20.5523 20.5523 21 20 21C19.4477 21 19 20.5523 19 20C19 19.4477 19.4477 19 20 19C20.5523 19 21 19.4477 21 20Z"
-        stroke="#333333"
+        stroke="#767676"
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -674,8 +674,8 @@ export const LocationIcon = () => (
 
 export const UserIcon = () => (
   <svg
-    width="20px"
-    height="20px"
+    width="24px"
+    height="24px"
     viewBox="0 0 24 24"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
@@ -690,14 +690,14 @@ export const UserIcon = () => (
       {" "}
       <path
         d="M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7Z"
-        stroke="#000000"
+        stroke="#767676"
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
       ></path>{" "}
       <path
         d="M12 14C8.13401 14 5 17.134 5 21H19C19 17.134 15.866 14 12 14Z"
-        stroke="#000000"
+        stroke="#767676"
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
