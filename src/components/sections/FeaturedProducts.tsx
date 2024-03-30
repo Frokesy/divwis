@@ -1,10 +1,21 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Compare, Eye, Heart } from "../svgs/Icons";
+import ViewProductModal from "../modals/ViewProductModal";
+
+interface ProductsProps {
+  id: number;
+  name: string;
+  price: string;
+  review: string;
+  productImg: string;
+}
 
 const FeaturedProducts = () => {
   const [activeId, setActiveId] = useState<number | null>();
   const [iconHover, setIconHover] = useState<string>("");
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [viewedProduct, setViewedProduct] = useState<ProductsProps>();
   const products = [
     {
       id: 1,
@@ -79,6 +90,11 @@ const FeaturedProducts = () => {
     setIconHover(icon);
   };
 
+  const handleClick = (item: ProductsProps) => {
+    setIsOpen(true);
+    setViewedProduct(item);
+  };
+
   return (
     <div className=" mt-6 pt-[15vh] bg-[#eef6eb]">
       <h2 className="font-bold lg:text-[32px] text-[26px] text-center">
@@ -121,6 +137,7 @@ const FeaturedProducts = () => {
                             onMouseEnter={() => updateIconHover("eye")}
                             onMouseLeave={() => updateIconHover("")}
                             className="bg-[#fff] hover:bg-[#a4c059] cursor-pointer transition-colors duration-500 ease-in-out p-2 rounded-full"
+                            onClick={() => handleClick(product)}
                           >
                             <Eye iconHover={iconHover} />
                           </div>
@@ -226,6 +243,7 @@ const FeaturedProducts = () => {
                             onMouseEnter={() => updateIconHover("eye")}
                             onMouseLeave={() => updateIconHover("")}
                             className="bg-[#fff] hover:bg-[#a4c059] cursor-pointer transition-colors duration-500 ease-in-out p-2 rounded-full"
+                            onClick={() => handleClick(product)}
                           >
                             <Eye iconHover={iconHover} />
                           </div>
@@ -271,6 +289,14 @@ const FeaturedProducts = () => {
       </div>
 
       <img src="/assets/bg-shape-2.png" alt="bg" className="pt-[15vh]" />
+
+      {isOpen && (
+        <ViewProductModal
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
+          product={viewedProduct}
+        />
+      )}
     </div>
   );
 };

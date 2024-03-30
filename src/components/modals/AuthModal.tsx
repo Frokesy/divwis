@@ -1,7 +1,6 @@
 import React, { FC, useState } from "react";
 import Input from "../defaults/Input";
 import gsap from "gsap";
-import { Cancel } from "../svgs/Icons";
 import { handleSignup } from "../../../utils/signupService";
 import { handleLogin } from "../../../utils/loginService";
 import { ToastContainer } from "react-toastify";
@@ -121,16 +120,8 @@ const AuthModal: FC<ModalProps> = ({
     }
   };
   return (
-    <ModalContainer>
+    <ModalContainer isOpen={isOpen} setIsOpen={setIsOpen}>
       <ToastContainer />
-      <div className="flex justify-end py-6">
-        <button
-          className="flex cursor-pointer"
-          onClick={() => setIsOpen(!isOpen)}
-        >
-          <Cancel />
-        </button>
-      </div>
       <div className="flex justify-evenly font-mono text-[18px] pb-4">
         <span
           className={`
