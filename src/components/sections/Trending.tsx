@@ -3,6 +3,7 @@ import FiveStars from "../svgs/stars/FiveStars";
 import { motion } from "framer-motion";
 import { Compare, Eye, Heart } from "../svgs/Icons";
 import { products } from "../data/products";
+import ViewProductModal from "../modals/ViewProductModal";
 
 interface ProductsProps {
   id: number;
@@ -17,6 +18,8 @@ const Trending = () => {
   const [activeTab, setActiveTab] = useState<string>("all");
   const [activeId, setActiveId] = useState<number | null>();
   const [iconHover, setIconHover] = useState<string>("");
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [viewedProduct, setViewedProduct] = useState<ProductsProps>();
   const [productsPerCategory, setProductsPerCategory] =
     useState<ProductsProps[]>(products);
 
@@ -25,6 +28,11 @@ const Trending = () => {
   };
   const updateIconHover = (icon: string) => {
     setIconHover(icon);
+  };
+
+  const handleClick = (item: ProductsProps) => {
+    setIsOpen(true);
+    setViewedProduct(item);
   };
 
   useEffect(() => {
@@ -128,6 +136,7 @@ const Trending = () => {
                       onMouseEnter={() => updateIconHover("eye")}
                       onMouseLeave={() => updateIconHover("")}
                       className="bg-[#fff] hover:bg-[#a4c059] cursor-pointer transition-colors duration-500 ease-in-out p-2 rounded-full"
+                      onClick={() => handleClick(product)}
                     >
                       <Eye iconHover={iconHover} />
                     </div>
@@ -174,6 +183,13 @@ const Trending = () => {
           </motion.div>
         ))}
       </div>
+      {isOpen && (
+        <ViewProductModal
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
+          product={viewedProduct}
+        />
+      )}
     </div>
   );
 };

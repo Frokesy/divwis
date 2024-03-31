@@ -30,7 +30,6 @@ const ViewProductModal: FC<ModalProps> = ({ isOpen, setIsOpen, product }) => {
     cmd === "increment" ? setQuantity(quantity + 1) : setQuantity(quantity - 1);
   };
 
-  console.log(quantity)
   return (
     <ModalContainer isOpen={isOpen} setIsOpen={setIsOpen}>
       {product && (
@@ -98,10 +97,10 @@ const ViewProductModal: FC<ModalProps> = ({ isOpen, setIsOpen, product }) => {
             </div>
 
             <div className="flex items-center mt-3">
-              <button className="bg-[#6eb356] text-[#fff] py-2 px-4 rounded-md">
+              <button className="bg-[#ff7c08] text-[#fff] py-2 px-4 rounded-md">
                 Add to Cart
               </button>
-              <button className="bg-[#fff] text-[#6eb356] py-2 px-4 rounded-md ml-3">
+              <button className="bg-[#fff] text-[#ff7c08] py-2 px-4 rounded-md ml-3">
                 Buy Now
               </button>
             </div>
