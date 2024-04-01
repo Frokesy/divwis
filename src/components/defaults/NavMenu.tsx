@@ -6,6 +6,7 @@ import { NavLink } from "react-router-dom";
 import { Cart, Search, UserIcon } from "../svgs/Icons";
 import SearchAccordion from "../accordions/SearchAccordion";
 import UserAccordion from "../accordions/UserAccordion";
+import CartAccordion from "../accordions/CartAccordion";
 
 const NavMenu = () => {
   const [openDrawer, setOpenDrawer] = useState(false);
@@ -55,11 +56,20 @@ const NavMenu = () => {
               </div>
               {showAccordion === "search" && <SearchAccordion />}
             </div>
-            <div className="" onMouseEnter={() => setShowAccordion("user")}>
-            <UserIcon />
-            {showAccordion === "user" && <UserAccordion />}
+            <div
+              className="cursor-pointer"
+              onMouseEnter={() => setShowAccordion("user")}
+            >
+              <UserIcon />
+              {showAccordion === "user" && <UserAccordion />}
             </div>
-            <Cart />
+            <div
+              className="cursor-pointer"
+              onMouseEnter={() => setShowAccordion("cart")}
+            >
+              <Cart />
+              {showAccordion === "cart" && <CartAccordion />}
+            </div>
           </div>
         </div>
       </div>
