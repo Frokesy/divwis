@@ -89,7 +89,7 @@ const MainContent = () => {
   ];
   return (
     <div className="">
-      <div className="grid lg:grid-cols-3 grid-cols-1 lg:w-[100%] w-[90vw] mx-auto gap-[1vw]">
+      <div className="grid lg:grid-cols-3 grid-cols-1 lg:w-[100%] mt-10 lg:mt-0 mx-auto lg:gap-[1vw] gap-[3vh]">
         {products.map((product) => (
           <div
             key={product.id}

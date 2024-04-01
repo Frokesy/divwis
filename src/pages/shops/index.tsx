@@ -7,12 +7,12 @@ const Shops = () => {
   const { category_id } = useParams();
   return (
     <MainContainer>
-      <div className="bg-[#f1f1f1] min-h-[80vh] pb-[10vh] pt-10">
-        <div className="flex w-[80vw] mx-auto justify-between pt-[10vh]">
-          <div className="w-[22%]">
+      <div className="bg-[#f1f1f1] min-h-[80vh] pb-[10vh] lg:pt-10 pt-4">
+        <div className="flex lg:w-[80vw] w-[95vw] mx-auto lg:flex-row flex-col justify-between pt-[10vh]">
+          <div className="lg:w-[22%]">
             <SideNav id={category_id} />
           </div>
-          <div className="main w-[76%]">
+          <div className="main lg:w-[76%]">
             <MainContent />
           </div>
         </div>
