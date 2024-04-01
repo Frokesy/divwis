@@ -4,9 +4,11 @@ import { useState } from "react";
 import Drawer from "./Drawer";
 import { NavLink } from "react-router-dom";
 import { Cart, Search, UserIcon } from "../svgs/Icons";
+import SearchAccordion from "../accordions/SearchAccordion";
 
 const NavMenu = () => {
   const [openDrawer, setOpenDrawer] = useState(false);
+  const [showAccordion, setShowAccordion] = useState("");
   const categories = [
     { id: 1, name: "Cereals" },
     { id: 2, name: "Fruits" },
@@ -17,7 +19,10 @@ const NavMenu = () => {
 
   return (
     <div className="w-[100%] lg:absolute lg:top-12 fixed top-0 z-40">
-      <div className="lg:w-[80vw] w-[100vw] bg-[#fff] mx-auto lg:shadow-xl shadow-lg rounded-lg h-[70px] overflow-y-auto flex items-center justify-between px-6 lg:px-8">
+      <div
+        onMouseLeave={() => setShowAccordion("")}
+        className="lg:w-[80vw] w-[100vw] bg-[#fff] mx-auto lg:shadow-xl shadow-lg rounded-lg max-h-[70px] h-[70px] overflow-y-hidden flex items-center justify-between px-6 lg:px-8"
+      >
         <NavLink to="/" className="cursor-pointer">
           <Logo />
         </NavLink>
@@ -29,7 +34,7 @@ const NavMenu = () => {
             color="#19483a"
           />
         </div>
-        <div className="lg:text-[14px] text-[11px] text-[#808080] font-semibold lg:flex hidden space-x-10">
+        <div className="lg:text-[14px] text-[11px] text-[#808080] font-semibold lg:flex items-center hidden space-x-10">
           {categories.map((category) => (
             <NavLink
               key={category.id}
@@ -40,7 +45,19 @@ const NavMenu = () => {
             </NavLink>
           ))}
           <div className="flex items-center space-x-3">
-            <Search />
+            <div className="">
+              <div
+                className="cursor-pointer"
+                onMouseEnter={() => setShowAccordion("search")}
+              >
+                <Search />
+              </div>
+              {showAccordion === "search" && (
+                <div className="">
+                  <SearchAccordion />
+                </div>
+              )}
+            </div>
             <UserIcon />
             <Cart />
           </div>
