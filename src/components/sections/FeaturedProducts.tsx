@@ -16,6 +16,10 @@ const FeaturedProducts = () => {
   const [iconHover, setIconHover] = useState<string>("");
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [viewedProduct, setViewedProduct] = useState<ProductsProps>();
+  const [liked, setLiked] = useState<number>();
+  const [favoritedProducts, setFavoritedProducts] = useState<ProductsProps[]>(
+    []
+  );
   const products = [
     {
       id: 1,
@@ -95,6 +99,23 @@ const FeaturedProducts = () => {
     setViewedProduct(item);
   };
 
+  const handleLikedAnimation = (product: ProductsProps) => {
+    const isLiked = favoritedProducts.some((p) => p.id === product.id);
+
+    if (isLiked) {
+      setFavoritedProducts((prevFavoritedProducts) =>
+        prevFavoritedProducts.filter((p) => p.id !== product.id)
+      );
+    } else {
+      setFavoritedProducts((prevFavoritedProducts) => [
+        ...prevFavoritedProducts,
+        product,
+      ]);
+    }
+
+    setLiked(product.id);
+  };
+
   return (
     <div className=" mt-6 pt-[15vh] bg-[#eef6eb]">
       <h2 className="font-bold lg:text-[32px] text-[26px] text-center">
@@ -129,9 +150,18 @@ const FeaturedProducts = () => {
                           <div
                             onMouseEnter={() => updateIconHover("heart")}
                             onMouseLeave={() => updateIconHover("")}
+                            onClick={() => handleLikedAnimation(product)}
                             className="bg-[#fff] hover:bg-[#a4c059] cursor-pointer transition-colors duration-500 ease-in-out p-2 rounded-full"
                           >
-                            <Heart iconHover={iconHover} />
+                            <Heart
+                              iconHover={iconHover}
+                              liked={
+                                liked &&
+                                favoritedProducts.some(
+                                  (p) => p.id === product.id
+                                )
+                              }
+                            />
                           </div>
                           <div
                             onMouseEnter={() => updateIconHover("eye")}
@@ -235,9 +265,18 @@ const FeaturedProducts = () => {
                           <div
                             onMouseEnter={() => updateIconHover("heart")}
                             onMouseLeave={() => updateIconHover("")}
+                            onClick={() => handleLikedAnimation(product)}
                             className="bg-[#fff] hover:bg-[#a4c059] cursor-pointer transition-colors duration-500 ease-in-out p-2 rounded-full"
                           >
-                            <Heart iconHover={iconHover} />
+                            <Heart
+                              iconHover={iconHover}
+                              liked={
+                                liked &&
+                                favoritedProducts.some(
+                                  (p) => p.id === product.id
+                                )
+                              }
+                            />
                           </div>
                           <div
                             onMouseEnter={() => updateIconHover("eye")}
