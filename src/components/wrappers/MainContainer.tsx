@@ -3,6 +3,7 @@ import Header from "../defaults/Header";
 import NavMenu from "../defaults/NavMenu";
 import PageTransition from "./PageTransition";
 import Footer from "../defaults/Footer";
+import BottomNav from "../defaults/BottomNav";
 
 interface MainContainerProps {
   children: ReactNode;
@@ -14,6 +15,7 @@ const MainContainer: FC<MainContainerProps> = ({ children }) => {
       <NavMenu />
       <PageTransition>{children}</PageTransition>
       <Footer />
+      <BottomNav />
     </div>
   );
 };
