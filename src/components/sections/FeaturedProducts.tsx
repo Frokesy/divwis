@@ -116,6 +116,10 @@ const FeaturedProducts = () => {
     setLiked(product.id);
   };
 
+  const request = window.indexedDB.open("MyFamily", 3);
+
+  console.log(request)
+
   return (
     <div className=" mt-6 pt-[15vh] bg-[#eef6eb]">
       <h2 className="font-bold lg:text-[32px] text-[26px] text-center">
