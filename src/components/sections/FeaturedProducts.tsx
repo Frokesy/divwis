@@ -124,7 +124,14 @@ const FeaturedProducts = () => {
   };
   return (
     <div className=" mt-6 pt-[15vh] bg-[#eef6eb]">
-      
+      {/* <main style={{ textAlign: "center", marginTop: "3rem" }}>
+        <h1>IndexedDB</h1>
+        {!isDBReady ? (
+          <button onClick={handleInitDB}>Init DB</button>
+        ) : (
+          <h2>DB is ready</h2>
+        )}
+      </main> */}
       <h2 className="font-bold lg:text-[32px] text-[26px] text-center">
         Featured Brand Products
       </h2>
