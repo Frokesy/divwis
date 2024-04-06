@@ -2,7 +2,6 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Compare, Eye, Heart } from "../svgs/Icons";
 import ViewProductModal from "../modals/ViewProductModal";
-import { initDB } from "../data/db";
 
 interface ProductsProps {
   id: number;
@@ -21,7 +20,6 @@ const FeaturedProducts = () => {
   const [favoritedProducts, setFavoritedProducts] = useState<ProductsProps[]>(
     []
   );
-  const [isDBReady, setIsDBReady] = useState<boolean>(false);
   const products = [
     {
       id: 1,
@@ -118,20 +116,8 @@ const FeaturedProducts = () => {
     setLiked(product.id);
   };
 
-  const handleInitDB = async () => {
-    const status = await initDB();
-    setIsDBReady(status);
-  };
   return (
     <div className=" mt-6 pt-[15vh] bg-[#eef6eb]">
-      {/* <main style={{ textAlign: "center", marginTop: "3rem" }}>
-        <h1>IndexedDB</h1>
-        {!isDBReady ? (
-          <button onClick={handleInitDB}>Init DB</button>
-        ) : (
-          <h2>DB is ready</h2>
-        )}
-      </main> */}
       <h2 className="font-bold lg:text-[32px] text-[26px] text-center">
         Featured Brand Products
       </h2>
