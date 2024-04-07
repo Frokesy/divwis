@@ -112,7 +112,6 @@ const FeaturedProducts = () => {
         product,
       ]);
     }
-
     setLiked(product.id);
   };
 
