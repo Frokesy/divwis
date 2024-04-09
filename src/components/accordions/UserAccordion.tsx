@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { FaHeart, FaPowerOff, FaUser } from "react-icons/fa";
 
 const UserAccordion = () => {
-  const [allUsers, setAllUsers] = useState([]);
+  const [data, setData] = useState([]);
   const idb = window.indexedDB;
 
   useEffect(() => {
@@ -14,11 +14,11 @@ const UserAccordion = () => {
 
         const tx = db.transaction("favorites", "readonly");
         const favorites = tx.objectStore("favorites");
-        const users = favorites.getAll();
+        const data = favorites.getAll();
 
-        users.onsuccess = (query) => {
+        data.onsuccess = (query) => {
           if (query.srcElement) {
-            setAllUsers((query.srcElement as IDBRequest).result);
+            setData((query.srcElement as IDBRequest).result);
           }
         };
 
@@ -31,7 +31,7 @@ const UserAccordion = () => {
     getAllData();
   }, [idb]);
 
-  console.log(allUsers);
+  console.log(data);
   return (
     <motion.div
       initial={{ opacity: 0, x: -40 }}
@@ -44,9 +44,12 @@ const UserAccordion = () => {
           <FaUser />
           <h2>My Account</h2>
         </div>
-        <div className="flex items-center space-x-2 hover:text-[#6eb356] hover:pl-2 cursor-pointer transition-all duration-300 ease-in-out">
-          <FaHeart />
-          <h2>My Favorites</h2>
+        <div className="flex justify-between items-center pr-3">
+          <div className="flex items-center space-x-2 hover:text-[#6eb356] hover:pl-2 cursor-pointer transition-all duration-300 ease-in-out">
+            <FaHeart />
+            <h2>My Favorites</h2>
+          </div>
+          <p className="text-[14px] bg-[#6eb356] px-1.5 text-[#fff] rounded-full">{data.length}</p>
         </div>
         <div className="flex items-center space-x-2 hover:text-[#6eb356] hover:pl-2 cursor-pointer transition-all duration-300 ease-in-out">
           <FaPowerOff />
