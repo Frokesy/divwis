@@ -124,6 +124,19 @@ const FeaturedProducts = () => {
       setFavoritedProducts((prevFavoritedProducts) =>
         prevFavoritedProducts.filter((p) => p.id !== product.id)
       );
+
+      dbPromise.onsuccess = function () {
+        const db = dbPromise.result;
+        const tx = db.transaction("favorites", "readwrite");
+        const favorites = tx.objectStore("favorites");
+        const deleteData = favorites.delete(product.id);
+
+        deleteData.onsuccess = () => {
+          tx.oncomplete = function () {
+            db.close();
+          };
+        };
+      };
     } else {
       setFavoritedProducts((prevFavoritedProducts) => [
         ...prevFavoritedProducts,
@@ -134,16 +147,9 @@ const FeaturedProducts = () => {
         const db = dbPromise.result;
         const tx = db.transaction("favorites", "readwrite");
         const favorites = tx.objectStore("favorites");
+        const addData = favorites.put(product);
 
-        const res = favorites.put(product);
-
-        res.onerror = (event) => {
-          console.error("An error occurred with IndexedDB");
-          console.error(event);
-        };
-
-        console.log("add");
-        res.onsuccess = () => {
+        addData.onsuccess = () => {
           tx.oncomplete = () => {
             db.close();
           };
