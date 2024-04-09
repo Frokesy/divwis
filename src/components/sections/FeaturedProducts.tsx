@@ -99,22 +99,6 @@ const FeaturedProducts = () => {
     setViewedProduct(item);
   };
 
-  const handleLikedAnimation = (product: ProductsProps) => {
-    const isLiked = favoritedProducts.some((p) => p.id === product.id);
-
-    if (isLiked) {
-      setFavoritedProducts((prevFavoritedProducts) =>
-        prevFavoritedProducts.filter((p) => p.id !== product.id)
-      );
-    } else {
-      setFavoritedProducts((prevFavoritedProducts) => [
-        ...prevFavoritedProducts,
-        product,
-      ]);
-    }
-    setLiked(product.id);
-  };
-
   const idb = window.indexedDB;
   const request = idb.open("divwis", 1);
   request.onerror = (event) => {
@@ -132,15 +116,41 @@ const FeaturedProducts = () => {
     }
   };
 
-  request.onsuccess = function () {
-    const db = request.result;
+  const handleLikedAnimation = (product: ProductsProps) => {
+    const isLiked = favoritedProducts.some((p) => p.id === product.id);
+    const dbPromise = idb.open("divwis", 1);
 
-    const tx = db.transaction("favorites", "readwrite");
-    const favorites = tx.objectStore("favorites");
+    if (isLiked) {
+      setFavoritedProducts((prevFavoritedProducts) =>
+        prevFavoritedProducts.filter((p) => p.id !== product.id)
+      );
+    } else {
+      setFavoritedProducts((prevFavoritedProducts) => [
+        ...prevFavoritedProducts,
+        product,
+      ]);
 
-    favoritedProducts.forEach((item) => favorites.add(item));
+      dbPromise.onsuccess = () => {
+        const db = dbPromise.result;
+        const tx = db.transaction("favorites", "readwrite");
+        const favorites = tx.objectStore("favorites");
 
-    return tx.oncomplete;
+        const res = favorites.put(product);
+
+        res.onerror = (event) => {
+          console.error("An error occurred with IndexedDB");
+          console.error(event);
+        };
+
+        console.log("add");
+        res.onsuccess = () => {
+          tx.oncomplete = () => {
+            db.close();
+          };
+        };
+      };
+    }
+    setLiked(product.id);
   };
 
   return (
