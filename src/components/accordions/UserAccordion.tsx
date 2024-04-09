@@ -31,7 +31,6 @@ const UserAccordion = () => {
     getAllData();
   }, [idb]);
 
-  console.log(data);
   return (
     <motion.div
       initial={{ opacity: 0, x: -40 }}

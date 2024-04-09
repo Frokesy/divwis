@@ -102,12 +102,10 @@ const FeaturedProducts = () => {
   const idb = window.indexedDB;
   const request = idb.open("divwis", 1);
   request.onerror = (event) => {
-    console.error("An error occurred with IndexedDB");
-    console.error(event);
+    console.error("An error occurred with IndexedDB:", event);
   };
 
-  request.onupgradeneeded = (event) => {
-    console.log(event);
+  request.onupgradeneeded = () => {
     const db = request.result;
 
     if (!db.objectStoreNames.contains("favorites")) {

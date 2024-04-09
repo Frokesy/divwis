@@ -19,6 +19,10 @@ const Trending = () => {
   const [activeId, setActiveId] = useState<number | null>();
   const [iconHover, setIconHover] = useState<string>("");
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [favoritedProducts, setFavoritedProducts] = useState<ProductsProps[]>(
+    []
+  );
+  const [liked, setLiked] = useState<number>();
   const [viewedProduct, setViewedProduct] = useState<ProductsProps>();
   const [productsPerCategory, setProductsPerCategory] =
     useState<ProductsProps[]>(products);
@@ -33,6 +37,64 @@ const Trending = () => {
   const handleClick = (item: ProductsProps) => {
     setIsOpen(true);
     setViewedProduct(item);
+  };
+
+  const idb = window.indexedDB;
+  const request = idb.open("divwis", 1);
+  request.onerror = (event) => {
+    console.error("An error occurred with IndexedDB:", event);
+  };
+
+  request.onupgradeneeded = () => {
+    const db = request.result;
+
+    if (!db.objectStoreNames.contains("favorites")) {
+      const objectStore = db.createObjectStore("favorites", { keyPath: "id" });
+      console.log(objectStore);
+    }
+  };
+
+  const handleLikedAnimation = (product: ProductsProps) => {
+    const isLiked = favoritedProducts.some((p) => p.id === product.id);
+    const dbPromise = idb.open("divwis", 1);
+
+    if (isLiked) {
+      setFavoritedProducts((prevFavoritedProducts) =>
+        prevFavoritedProducts.filter((p) => p.id !== product.id)
+      );
+
+      dbPromise.onsuccess = function () {
+        const db = dbPromise.result;
+        const tx = db.transaction("favorites", "readwrite");
+        const favorites = tx.objectStore("favorites");
+        const deleteData = favorites.delete(product.id);
+
+        deleteData.onsuccess = () => {
+          tx.oncomplete = function () {
+            db.close();
+          };
+        };
+      };
+    } else {
+      setFavoritedProducts((prevFavoritedProducts) => [
+        ...prevFavoritedProducts,
+        product,
+      ]);
+
+      dbPromise.onsuccess = () => {
+        const db = dbPromise.result;
+        const tx = db.transaction("favorites", "readwrite");
+        const favorites = tx.objectStore("favorites");
+        const addData = favorites.put(product);
+
+        addData.onsuccess = () => {
+          tx.oncomplete = () => {
+            db.close();
+          };
+        };
+      };
+    }
+    setLiked(product.id);
   };
 
   useEffect(() => {
@@ -129,8 +191,15 @@ const Trending = () => {
                       onMouseEnter={() => updateIconHover("heart")}
                       onMouseLeave={() => updateIconHover("")}
                       className="bg-[#fff] hover:bg-[#a4c059] cursor-pointer transition-colors duration-500 ease-in-out p-2 rounded-full"
+                      onClick={() => handleLikedAnimation(product)}
                     >
-                      <Heart iconHover={iconHover} />
+                      <Heart
+                        iconHover={iconHover}
+                        liked={
+                          liked &&
+                          favoritedProducts.some((p) => p.id === product.id)
+                        }
+                      />
                     </div>
                     <div
                       onMouseEnter={() => updateIconHover("eye")}
