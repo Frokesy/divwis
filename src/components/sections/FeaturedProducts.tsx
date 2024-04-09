@@ -115,6 +115,34 @@ const FeaturedProducts = () => {
     setLiked(product.id);
   };
 
+  const idb = window.indexedDB;
+  const request = idb.open("divwis", 1);
+  request.onerror = (event) => {
+    console.error("An error occurred with IndexedDB");
+    console.error(event);
+  };
+
+  request.onupgradeneeded = (event) => {
+    console.log(event);
+    const db = request.result;
+
+    if (!db.objectStoreNames.contains("favorites")) {
+      const objectStore = db.createObjectStore("favorites", { keyPath: "id" });
+      console.log(objectStore);
+    }
+  };
+
+  request.onsuccess = function () {
+    const db = request.result;
+
+    const tx = db.transaction("favorites", "readwrite");
+    const favorites = tx.objectStore("favorites");
+
+    favoritedProducts.forEach((item) => favorites.add(item));
+
+    return tx.oncomplete;
+  };
+
   return (
     <div className=" mt-6 pt-[15vh] bg-[#eef6eb]">
       <h2 className="font-bold lg:text-[32px] text-[26px] text-center">

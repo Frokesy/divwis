@@ -1,7 +1,37 @@
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 import { FaHeart, FaPowerOff, FaUser } from "react-icons/fa";
 
 const UserAccordion = () => {
+  const [allUsers, setAllUsers] = useState([]);
+  const idb = window.indexedDB;
+
+  useEffect(() => {
+    const getAllData = () => {
+      const dbPromise = idb.open("divwis", 1);
+      dbPromise.onsuccess = () => {
+        const db = dbPromise.result;
+
+        const tx = db.transaction("favorites", "readonly");
+        const favorites = tx.objectStore("favorites");
+        const users = favorites.getAll();
+
+        users.onsuccess = (query) => {
+          if (query.srcElement) {
+            setAllUsers((query.srcElement as IDBRequest).result);
+          }
+        };
+
+        tx.oncomplete = function () {
+          db.close();
+        };
+      };
+    };
+
+    getAllData();
+  }, [idb]);
+
+  console.log(allUsers);
   return (
     <motion.div
       initial={{ opacity: 0, x: -40 }}
