@@ -12,7 +12,7 @@ const MainContainer: FC<MainContainerProps> = ({ children }) => {
 
   setTimeout(() => {
     setLoading(true);
-  }, 2000);
+  }, 300);
   return (
     <div>
       {loading ? (

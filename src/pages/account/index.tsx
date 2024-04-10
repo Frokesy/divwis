@@ -10,6 +10,7 @@ import MainContainer from "../../components/wrappers/MainContainer";
 import { useState } from "react";
 import Profile from "../../components/account/Profile";
 import OrderHistory from "../../components/account/OrderHistory";
+import PaymentMethods from "../../components/account/PaymentMethods";
 
 const Account = () => {
   const [activeTab, setActiveTab] = useState("profile");
@@ -43,7 +44,7 @@ const Account = () => {
               } transition-all duration-300 ease-in-out hover:px-2 cursor-pointer text-[#404040] flex items-center space-x-3`}
             >
               <FaJournalWhills />
-              <h2 className="text-[15px]">Payment Details</h2>
+              <h2 className="text-[15px]">Payment Methods</h2>
             </div>
             <div
               onClick={() => setActiveTab("address")}
@@ -73,6 +74,7 @@ const Account = () => {
           <div className="w-[75%] h-[60vh] overflow-y-auto">
             {activeTab === "profile" && <Profile />}
             {activeTab === "history" && <OrderHistory />}
+            {activeTab === "payment-info" && <PaymentMethods />}
           </div>
         </div>
       </div>
