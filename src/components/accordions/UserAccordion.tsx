@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { FaHeart, FaPowerOff, FaUser } from "react-icons/fa";
+import { NavLink } from "react-router-dom";
 
 const UserAccordion = () => {
   const [data, setData] = useState([]);
@@ -39,16 +40,21 @@ const UserAccordion = () => {
       className="absolute -ml-[180px] bg-[#fff] top-14 pl-4 py-4 shadow-xl"
     >
       <div className="flex flex-col space-y-4 w-[200px]">
-        <div className="flex items-center space-x-2 hover:text-[#6eb356] hover:pl-2 cursor-pointer transition-all duration-300 ease-in-out">
+        <NavLink
+          to="/account"
+          className="flex items-center space-x-2 hover:text-[#6eb356] hover:pl-2 cursor-pointer transition-all duration-300 ease-in-out"
+        >
           <FaUser />
           <h2>My Account</h2>
-        </div>
+        </NavLink>
         <div className="flex justify-between items-center pr-3">
           <div className="flex items-center space-x-2 hover:text-[#6eb356] hover:pl-2 cursor-pointer transition-all duration-300 ease-in-out">
             <FaHeart />
             <h2>My Favorites</h2>
           </div>
-          <p className="text-[14px] bg-[#6eb356] px-1.5 text-[#fff] rounded-full">{data.length}</p>
+          <p className="text-[14px] bg-[#6eb356] px-1.5 text-[#fff] rounded-full">
+            {data.length}
+          </p>
         </div>
         <div className="flex items-center space-x-2 hover:text-[#6eb356] hover:pl-2 cursor-pointer transition-all duration-300 ease-in-out">
           <FaPowerOff />
