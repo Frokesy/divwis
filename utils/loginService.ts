@@ -46,7 +46,7 @@ export async function handleLogin(
       }, 2000);
       setLoading(false);
     } catch (error) {
-      toast.error(error, {
+      toast.error(error as string, {
         position: "top-center",
         theme: "dark",
         autoClose: 2000,

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Compare, Eye, Heart } from "../svgs/Icons";
 import ViewProductModal from "../modals/ViewProductModal";
@@ -156,6 +156,31 @@ const FeaturedProducts = () => {
     }
     setLiked(product.id);
   };
+
+  useEffect(() => {
+    const getAllData = () => {
+      const dbPromise = idb.open("divwis", 1);
+      dbPromise.onsuccess = () => {
+        const db = dbPromise.result;
+
+        const tx = db.transaction("favorites", "readonly");
+        const favorites = tx.objectStore("favorites");
+        const data = favorites.getAll();
+
+        data.onsuccess = (query) => {
+          if (query.srcElement) {
+            setFavoritedProducts((query.srcElement as IDBRequest).result);
+          }
+        };
+
+        tx.oncomplete = function () {
+          db.close();
+        };
+      };
+    };
+
+    getAllData();
+  }, [idb]);
 
   return (
     <div className=" mt-6 pt-[15vh] bg-[#eef6eb]">
