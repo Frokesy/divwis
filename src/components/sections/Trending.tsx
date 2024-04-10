@@ -22,7 +22,6 @@ const Trending = () => {
   const [favoritedProducts, setFavoritedProducts] = useState<ProductsProps[]>(
     []
   );
-  const [liked, setLiked] = useState<number>();
   const [viewedProduct, setViewedProduct] = useState<ProductsProps>();
   const [productsPerCategory, setProductsPerCategory] =
     useState<ProductsProps[]>(products);
@@ -94,7 +93,6 @@ const Trending = () => {
         };
       };
     }
-    setLiked(product.id);
   };
 
   useEffect(() => {
@@ -107,6 +105,31 @@ const Trending = () => {
       setProductsPerCategory(filteredProducts);
     }
   }, [activeTab]);
+
+  useEffect(() => {
+    const getAllData = () => {
+      const dbPromise = idb.open("divwis", 1);
+      dbPromise.onsuccess = () => {
+        const db = dbPromise.result;
+
+        const tx = db.transaction("favorites", "readonly");
+        const favorites = tx.objectStore("favorites");
+        const data = favorites.getAll();
+
+        data.onsuccess = (query) => {
+          if (query.srcElement) {
+            setFavoritedProducts((query.srcElement as IDBRequest).result);
+          }
+        };
+
+        tx.oncomplete = function () {
+          db.close();
+        };
+      };
+    };
+
+    getAllData();
+  }, [idb]);
 
   return (
     <div className=" mt-6 pt-[5vh] pb-[10vh]">
@@ -195,10 +218,9 @@ const Trending = () => {
                     >
                       <Heart
                         iconHover={iconHover}
-                        liked={
-                          liked &&
-                          favoritedProducts.some((p) => p.id === product.id)
-                        }
+                        liked={favoritedProducts.some(
+                          (p) => p.id === product.id
+                        )}
                       />
                     </div>
                     <div

@@ -16,7 +16,6 @@ const FeaturedProducts = () => {
   const [iconHover, setIconHover] = useState<string>("");
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [viewedProduct, setViewedProduct] = useState<ProductsProps>();
-  const [liked, setLiked] = useState<number>();
   const [favoritedProducts, setFavoritedProducts] = useState<ProductsProps[]>(
     []
   );
@@ -154,7 +153,6 @@ const FeaturedProducts = () => {
         };
       };
     }
-    setLiked(product.id);
   };
 
   useEffect(() => {
@@ -221,12 +219,9 @@ const FeaturedProducts = () => {
                           >
                             <Heart
                               iconHover={iconHover}
-                              liked={
-                                liked &&
-                                favoritedProducts.some(
-                                  (p) => p.id === product.id
-                                )
-                              }
+                              liked={favoritedProducts.some(
+                                (p) => p.id === product.id
+                              )}
                             />
                           </div>
                           <div
@@ -336,12 +331,9 @@ const FeaturedProducts = () => {
                           >
                             <Heart
                               iconHover={iconHover}
-                              liked={
-                                liked &&
-                                favoritedProducts.some(
-                                  (p) => p.id === product.id
-                                )
-                              }
+                              liked={favoritedProducts.some(
+                                (p) => p.id === product.id
+                              )}
                             />
                           </div>
                           <div
