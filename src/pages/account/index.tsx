@@ -9,6 +9,7 @@ import {
 import MainContainer from "../../components/wrappers/MainContainer";
 import { useState } from "react";
 import Profile from "../../components/account/Profile";
+import OrderHistory from "../../components/account/OrderHistory";
 
 const Account = () => {
   const [activeTab, setActiveTab] = useState("profile");
@@ -69,7 +70,10 @@ const Account = () => {
           </div>
 
           {/* main content */}
-          <div className="w-[75%] h-[60vh] overflow-y-auto">{activeTab && <Profile />}</div>
+          <div className="w-[75%] h-[60vh] overflow-y-auto">
+            {activeTab === "profile" && <Profile />}
+            {activeTab === "history" && <OrderHistory />}
+          </div>
         </div>
       </div>
     </MainContainer>

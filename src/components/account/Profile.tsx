@@ -16,7 +16,7 @@ const Profile = () => {
         <h2 className="text-[26px] font-bold font-mono uppercase text-[#808080] pb-10">
           Personal Information
         </h2>
-        <div className="flex items-center space-x-6 px-6">
+        <div className="flex items-center space-x-6">
           <div className="text-[#ccc] bg-[#f1f1f1] w-[8rem] flex items-center justify-center py-6 rounded-full">
             <FaUser size={80} />
           </div>
@@ -38,11 +38,11 @@ const Profile = () => {
         </div>
       </div>
 
-      <div className="mt-20 w-[70%]">
+      <div className="mt-20 w-[80%]">
         <h2 className="text-[26px] font-bold font-mono uppercase text-[#808080] pb-2">
           Address Book
         </h2>
-        <div className="flex justify-between px-6">
+        <div className="flex justify-between">
           <div className="">
             <h2 className="font-mono text-[#808080] uppercase font-semibold">
               default delivery address
@@ -71,7 +71,7 @@ const Profile = () => {
           Account Summary
         </h2>
 
-        <div className="flex justify-between px-6">
+        <div className="flex justify-between pr-6">
           <div className="flex flex-col items-center">
             <span className="text-[34px] font-bold text-[#21b169]">10</span>
             <p className="text-[14px]">Total Orders Completed</p>
