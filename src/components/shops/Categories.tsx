@@ -1,5 +1,10 @@
+import { FC } from "react";
 
-const Categories = () => {
+interface CategoryProps {
+  pageId: string | undefined;
+}
+
+const Categories: FC<CategoryProps> = ({ pageId }) => {
   const categories = [
     {
       id: 1,
@@ -27,6 +32,7 @@ const Categories = () => {
       quantity: 15,
     },
   ];
+  const id = parseInt(pageId as string);
 
   return (
     <div>
@@ -36,7 +42,10 @@ const Categories = () => {
         {categories.map((category) => (
           <div
             key={category.id}
-            className="flex items-center justify-between py-2"
+            className={`flex items-center justify-between py-2 ${
+              id === category.id &&
+              "bg-[#f1f1f1] pl-2 rounded-lg transition-all duration-500 ease-in-out"
+            }`}
           >
             <h2 className="text-[#333] text-[14px]">{category.name}</h2>
             <span className="text-[#333] text-[12px] bg-[#f1f1f1] py-1 px-2 rounded-lg">
