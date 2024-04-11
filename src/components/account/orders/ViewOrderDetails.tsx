@@ -4,11 +4,10 @@ import { FaArrowLeft } from "react-icons/fa";
 import OrderCard from "../../cards/OrderCard";
 
 interface OrderProps {
-  viewOrder: boolean;
-  setViewOrder: React.Dispatch<React.SetStateAction<boolean>>;
+  setActivePage: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const ViewOrderDetails: FC<OrderProps> = ({ viewOrder, setViewOrder }) => {
+const ViewOrderDetails: FC<OrderProps> = ({ setActivePage }) => {
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -20,7 +19,7 @@ const ViewOrderDetails: FC<OrderProps> = ({ viewOrder, setViewOrder }) => {
     >
       <button
         className="flex items-center justify-center space-x-3"
-        onClick={() => setViewOrder(!viewOrder)}
+        onClick={() => setActivePage("index")}
       >
         <FaArrowLeft />
         <span className="text-[18px] mt-0.5 font-semibold">Order Details</span>

@@ -1,15 +1,18 @@
 import OrderHistory from "./OrderHistory";
 import { useState } from "react";
 import ViewOrderDetails from "./ViewOrderDetails";
+import TrackOrder from "./TrackOrder";
 
 const Orders = () => {
-  const [viewOrder, setViewOrder] = useState(false);
+  const [activePage, setActivePage] = useState<string>("index");
   return (
     <div>
-      {viewOrder ? (
-        <ViewOrderDetails viewOrder={viewOrder} setViewOrder={setViewOrder} />
-      ) : (
-        <OrderHistory viewOrder={viewOrder} setViewOrder={setViewOrder} />
+      {activePage === "index" && <OrderHistory setActivePage={setActivePage} />}
+      {activePage === "viewOrder" && (
+        <ViewOrderDetails setActivePage={setActivePage} />
+      )}
+      {activePage === "trackOrder" && (
+        <TrackOrder setActivePage={setActivePage} />
       )}
     </div>
   );

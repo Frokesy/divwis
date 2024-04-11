@@ -1,13 +1,11 @@
 import { motion } from "framer-motion";
 import React, { FC } from "react";
-import { FaEye } from "react-icons/fa";
 
 interface OrderProps {
-  viewOrder: boolean;
-  setViewOrder: React.Dispatch<React.SetStateAction<boolean>>;
+  setActivePage: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const OrderHistory: FC<OrderProps> = ({ viewOrder, setViewOrder }) => {
+const OrderHistory: FC<OrderProps> = ({ setActivePage }) => {
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -68,17 +66,39 @@ const OrderHistory: FC<OrderProps> = ({ viewOrder, setViewOrder }) => {
                     <td className="pr-6 py-4 text-sm whitespace-nowrap">
                       03/12/2022
                     </td>
-                    <td className="py-4 text-sm text-center font-medium whitespace-nowrap">
+                    <td className="py-4 text-sm text-center text-[#63b356] font-medium whitespace-nowrap">
                       Delivered
                     </td>
                     <td className="px-6 py-4 text-sm font-medium text-center whitespace-nowrap">
-                      105.00
+                      150.00
                     </td>
                     <td
-                      onClick={() => setViewOrder(!viewOrder)}
+                      onClick={() => setActivePage("viewOrder")}
                       className="py-4 text-sm font-medium text-[#6eb356] flex justify-center whitespace-nowrap"
                     >
-                      <FaEye />
+                      View Details
+                    </td>
+                  </tr>
+                </tbody>
+                <tbody className="divide-y divide-gray-200">
+                  <tr className="cursor-pointer hover:text-[#3A5743] transition-all duration-500 ease-in-out text-[#8D9091] hover:text-semibold hover:bg-neutral-200">
+                    <td className="px-6 py-4 text-sm whitespace-nowrap">
+                      635981586200289
+                    </td>
+                    <td className="pr-6 py-4 text-sm whitespace-nowrap">
+                      03/12/2022
+                    </td>
+                    <td className="py-4 text-sm text-center text-[#ff7c08] font-medium whitespace-nowrap">
+                      Pending
+                    </td>
+                    <td className="px-6 py-4 text-sm font-medium text-center whitespace-nowrap">
+                      150.00
+                    </td>
+                    <td
+                      onClick={() => setActivePage("trackOrder")}
+                      className="py-4 text-sm font-medium text-[#ff7c08] flex justify-center whitespace-nowrap"
+                    >
+                      Track Order
                     </td>
                   </tr>
                 </tbody>
