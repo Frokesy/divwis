@@ -6,7 +6,7 @@ import {
 } from "react-icons/fa";
 import MainContainer from "../../components/wrappers/MainContainer";
 import { useState } from "react";
-import Profile from "../../components/account/Profile";
+import Profile from "../../components/account/profile";
 import OrderHistory from "../../components/account/OrderHistory";
 import PaymentMethods from "../../components/account/PaymentMethods";
 import AddressBook from "../../components/account/AddressBook";
@@ -16,7 +16,7 @@ const Account = () => {
   const [activeTab, setActiveTab] = useState("profile");
   return (
     <MainContainer>
-      <div className="pt-20 min-h-[90vh] bg-[#f1f1f1]">
+      <div className="pt-20 min-h-[90vh] pb-[10vh] bg-[#f1f1f1]">
         <div className="w-[80vw] mx-auto bg-[#fff] rounded-2xl shadow-lg py-10 px-10 flex justify-between">
           <div className="w-[20%] space-y-4">
             <div
@@ -62,7 +62,7 @@ const Account = () => {
           </div>
 
           {/* main content */}
-          <div className="w-[75%] h-[60vh] overflow-y-auto">
+          <div className="w-[75%] min-h-[65vh]">
             {activeTab === "profile" && <Profile />}
             {activeTab === "history" && <OrderHistory />}
             {activeTab === "payment-info" && <PaymentMethods />}

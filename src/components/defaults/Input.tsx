@@ -6,10 +6,11 @@ interface FormProps {
   nameErr?: string;
   emailErr?: string;
   passwordErr?: string;
+  fullBorder?: boolean;
 }
 const Input: FC<
   FormProps & React.InputHTMLAttributes<HTMLInputElement>
-> = ({ label, type, nameErr, emailErr, passwordErr, ...props }) => {
+> = ({ label, type, nameErr, emailErr, fullBorder, passwordErr, ...props }) => {
   return (
     <div>
       <div className="relative group text-[#333] mt-8">
@@ -19,19 +20,19 @@ const Input: FC<
           className={`
           ${
             nameErr &&
-            "outline-none border border-red-500 rounded-lg lg:text-[14px] text-[12px] w-full py-1 mt-1"
+            "outline-none border-b border-red-500 rounded-lg lg:text-[14px] text-[12px] w-full py-1 mt-1"
           }
           ${passwordErr && "outline-none border-b border-red-500 w-full py-1 mt-1"}
           ${
             emailErr &&
             "outline-none border-b border-red-500 w-full py-1 mt-1"
           }
-          w-full peer bg-transparent border-b border-[#808080] outline-none`}
+          w-full peer bg-transparent ${fullBorder ? 'border py-1.5 rounded-md px-3' : 'border-b'} border-[#808080] outline-none`}
           {...props}
         />
         <label
           htmlFor={label}
-          className="transform transition-all absolute top-0 lg:text-[14px] group-focus-within:pt-4 text-[13px] left-0 h-full flex items-center group-focus-within:text-[16px] peer-valid:text-[16px] group-focus-within:text-[#19483a] group-focus-within:font-mono group-focus-within:font-bold group-focus-within:-translate-y-full peer-valid:-translate-y-full peer-valid:text-[#19483a] peer-valid:font-mono peer-valid:font-bold peer-valid:ease-linear peer-valid:transition-all"
+          className={`transform transition-all absolute top-0 lg:text-[14px] ${fullBorder && 'px-3 group-focus-within:px-0'} group-focus-within:pt-4 text-[13px] left-0 h-full flex items-center group-focus-within:text-[16px] peer-valid:text-[16px] group-focus-within:text-[#19483a] group-focus-within:font-mono group-focus-within:font-bold group-focus-within:-translate-y-full peer-valid:-translate-y-full peer-valid:text-[#19483a] peer-valid:font-mono peer-valid:font-bold peer-valid:ease-linear peer-valid:transition-all`}
         >
           {label}
         </label>

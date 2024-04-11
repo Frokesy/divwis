@@ -1,8 +1,14 @@
 import { motion } from "framer-motion";
+import React, { FC } from "react";
 import { FaPhoneAlt, FaUser } from "react-icons/fa";
 import { FaLocationPin } from "react-icons/fa6";
 
-const Profile = () => {
+interface ProfileProps {
+  editStatus: boolean;
+  setEditStatus: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const AccountOverview: FC<ProfileProps> = ({ editStatus, setEditStatus }) => {
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -13,9 +19,17 @@ const Profile = () => {
       }}
     >
       <div className="">
-        <h2 className="text-[26px] font-bold font-mono uppercase text-[#808080] pb-10">
-          Personal Information
-        </h2>
+        <div className="flex items-center space-x-6 pb-10">
+          <h2 className="text-[26px] font-bold font-mono text-[#808080]">
+            Personal Information
+          </h2>
+          <p
+            className="text-[#6eb356] text-[15px] font-semibold cursor-pointer"
+            onClick={() => setEditStatus(!editStatus)}
+          >
+            Edit
+          </p>
+        </div>
         <div className="flex items-center space-x-6">
           <div className="text-[#ccc] bg-[#f1f1f1] w-[8rem] flex items-center justify-center py-6 rounded-full">
             <FaUser size={80} />
@@ -39,7 +53,7 @@ const Profile = () => {
       </div>
 
       <div className="mt-20 w-[80%]">
-        <h2 className="text-[26px] font-bold font-mono uppercase text-[#808080] pb-2">
+        <h2 className="text-[26px] font-bold font-mono text-[#808080] pb-2">
           Address Book
         </h2>
         <div className="flex justify-between">
@@ -67,7 +81,7 @@ const Profile = () => {
       </div>
 
       <div className="my-20">
-        <h2 className="text-[26px] font-bold font-mono uppercase text-[#808080] pb-2">
+        <h2 className="text-[26px] font-bold font-mono text-[#808080] pb-2">
           Account Summary
         </h2>
 
@@ -94,4 +108,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default AccountOverview;
