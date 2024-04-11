@@ -1,9 +1,7 @@
 import {
   FaAddressBook,
-  FaHistory,
   FaJournalWhills,
   FaPowerOff,
-  FaSquare,
   FaUserAlt,
 } from "react-icons/fa";
 import MainContainer from "../../components/wrappers/MainContainer";
@@ -12,6 +10,7 @@ import Profile from "../../components/account/Profile";
 import OrderHistory from "../../components/account/OrderHistory";
 import PaymentMethods from "../../components/account/PaymentMethods";
 import AddressBook from "../../components/account/AddressBook";
+import { FaSquareCheck } from "react-icons/fa6";
 
 const Account = () => {
   const [activeTab, setActiveTab] = useState("profile");
@@ -35,8 +34,8 @@ const Account = () => {
                 activeTab === "history" && "text-[#6eb356] font-bold"
               } transition-all duration-300 ease-in-out hover:px-2 cursor-pointer text-[#404040] flex items-center space-x-3`}
             >
-              <FaHistory />
-              <h2 className="text-[15px]">Order History</h2>
+              <FaSquareCheck />
+              <h2 className="text-[15px]">Orders</h2>
             </div>
             <div
               onClick={() => setActiveTab("payment-info")}
@@ -55,15 +54,6 @@ const Account = () => {
             >
               <FaAddressBook />
               <h2 className="text-[15px]">Address Book</h2>
-            </div>
-            <div
-              onClick={() => setActiveTab("tracking")}
-              className={`${
-                activeTab === "tracking" && "text-[#6eb356] font-bold"
-              } transition-all duration-300 ease-in-out hover:px-2 cursor-pointer text-[#404040] flex items-center space-x-3`}
-            >
-              <FaSquare />
-              <h2 className="text-[15px]">Order Tracking</h2>
             </div>
             <div className="text-[#ff0406] flex items-center space-x-3 transition-all duration-300 ease-in-out hover:px-2 cursor-pointer">
               <FaPowerOff />
