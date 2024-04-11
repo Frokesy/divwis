@@ -11,6 +11,7 @@ import { useState } from "react";
 import Profile from "../../components/account/Profile";
 import OrderHistory from "../../components/account/OrderHistory";
 import PaymentMethods from "../../components/account/PaymentMethods";
+import AddressBook from "../../components/account/AddressBook";
 
 const Account = () => {
   const [activeTab, setActiveTab] = useState("profile");
@@ -75,6 +76,7 @@ const Account = () => {
             {activeTab === "profile" && <Profile />}
             {activeTab === "history" && <OrderHistory />}
             {activeTab === "payment-info" && <PaymentMethods />}
+            {activeTab === "address" && <AddressBook />}
           </div>
         </div>
       </div>
