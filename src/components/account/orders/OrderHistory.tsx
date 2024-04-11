@@ -1,7 +1,13 @@
 import { motion } from "framer-motion";
+import React, { FC } from "react";
 import { FaEye } from "react-icons/fa";
 
-const OrderHistory = () => {
+interface OrderProps {
+  viewOrder: boolean;
+  setViewOrder: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const OrderHistory: FC<OrderProps> = ({ viewOrder, setViewOrder }) => {
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -12,7 +18,7 @@ const OrderHistory = () => {
       }}
     >
       <h2 className="text-[22px] font-bold font-mono text-[#808080]">
-        Recent Orders
+        Order History
       </h2>
 
       <div className="flex flex-col bg-white mt-4">
@@ -68,7 +74,10 @@ const OrderHistory = () => {
                     <td className="px-6 py-4 text-sm font-medium text-center whitespace-nowrap">
                       105.00
                     </td>
-                    <td className="py-4 text-sm font-medium text-[#6eb356] flex justify-center whitespace-nowrap">
+                    <td
+                      onClick={() => setViewOrder(!viewOrder)}
+                      className="py-4 text-sm font-medium text-[#6eb356] flex justify-center whitespace-nowrap"
+                    >
                       <FaEye />
                     </td>
                   </tr>

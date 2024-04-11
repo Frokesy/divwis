@@ -7,10 +7,10 @@ import {
 import MainContainer from "../../components/wrappers/MainContainer";
 import { useState } from "react";
 import Profile from "../../components/account/profile";
-import OrderHistory from "../../components/account/OrderHistory";
 import PaymentMethods from "../../components/account/PaymentMethods";
 import AddressBook from "../../components/account/AddressBook";
 import { FaSquareCheck } from "react-icons/fa6";
+import Orders from "../../components/account/orders";
 
 const Account = () => {
   const [activeTab, setActiveTab] = useState("profile");
@@ -29,9 +29,9 @@ const Account = () => {
               <h2 className="text-[15px]">Profile Details</h2>
             </div>
             <div
-              onClick={() => setActiveTab("history")}
+              onClick={() => setActiveTab("orders")}
               className={`${
-                activeTab === "history" && "text-[#6eb356] font-bold"
+                activeTab === "orders" && "text-[#6eb356] font-bold"
               } transition-all duration-300 ease-in-out hover:px-2 cursor-pointer text-[#404040] flex items-center space-x-3`}
             >
               <FaSquareCheck />
@@ -64,7 +64,7 @@ const Account = () => {
           {/* main content */}
           <div className="w-[75%] min-h-[65vh]">
             {activeTab === "profile" && <Profile />}
-            {activeTab === "history" && <OrderHistory />}
+            {activeTab === "orders" && <Orders />}
             {activeTab === "payment-info" && <PaymentMethods />}
             {activeTab === "address" && <AddressBook />}
           </div>
