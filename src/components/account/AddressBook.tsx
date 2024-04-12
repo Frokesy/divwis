@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { FaPen, FaTrash } from "react-icons/fa";
 
 const AddressBook = () => {
   return (
@@ -19,32 +20,65 @@ const AddressBook = () => {
         </p>
       </div>
 
-      <div className="grid grid-cols-2 w-[80%] gap-y-6 mt-6">
-        <div className="">
-          <p className="font-semibold mt-2 text-[18px]">FrokesLini Noah</p>
-          <p className="text-[#404040] text-[14px] mt-1">
-            Mayfair, Ile-Ife. Osun State, Nigeria.
-          </p>
-          <p className="text-[#404040] text-[14px]">(+234) 9157881431</p>
-          <p className="text-[13px] capitalize font-bold text-[#6eb356]">
-            default address.
-          </p>
+      <div className="grid grid-cols-2 w-[80%] gap-y-6 gap-x-10 mt-6">
+        <div className="border border-[#ccc] hover:shadow-lg transition-shadow duration-300 ease-in-out">
+          <div className="p-3">
+            <p className="font-semibold mt-2 text-[18px]">FrokesLini Noah</p>
+            <p className="text-[#404040] text-[14px] mt-1">
+              Mayfair, Ile-Ife. Osun State, Nigeria.
+            </p>
+            <p className="text-[#404040] text-[14px]">(+234) 9157881431</p>
+          </div>
+          <div className="border border-[#ccc] p-3 flex justify-between">
+            <p className="text-[13px] font-bold uppercase text-[#6eb356]">
+              default address.
+            </p>
+
+            <div className="flex items-center space-x-6">
+              <FaPen fill="#6eb356" className="cursor-pointer" />
+              <FaTrash fill="#ff0406" className="cursor-pointer" />
+            </div>
+          </div>
         </div>
 
-        <div className="">
-          <p className="font-semibold mt-2 text-[18px]">FrokesLini Noah</p>
-          <p className="text-[#404040] text-[14px] mt-1">
-            Mayfair, Ile-Ife. Osun State, Nigeria.
-          </p>
-          <p className="text-[#404040] text-[14px]">(+234) 9157881431</p>
+        <div className="border border-[#ccc] hover:shadow-lg transition-shadow duration-300 ease-in-out">
+          <div className="p-3">
+            <p className="font-semibold mt-2 text-[18px]">FrokesLini Noah</p>
+            <p className="text-[#404040] text-[14px] mt-1">
+              Mayfair, Ile-Ife. Osun State, Nigeria.
+            </p>
+            <p className="text-[#404040] text-[14px]">(+234) 9157881431</p>
+          </div>
+          <div className="border border-[#ccc] p-3 flex justify-between">
+            <p className="text-[13px] font-bold uppercase text-[#808080]">
+              set as default.
+            </p>
+
+            <div className="flex items-center space-x-6">
+              <FaPen fill="#6eb356" className="cursor-pointer" />
+              <FaTrash fill="#ff0406" className="cursor-pointer" />
+            </div>
+          </div>
         </div>
 
-        <div className="">
-          <p className="font-semibold mt-2">FrokesLini Noah</p>
-          <p className="text-[#404040] text-[14px] mt-1">
-            Mayfair, Ile-Ife. Osun State.
-          </p>
-          <p className="text-[#404040] text-[14px]">(+234) 9157881431</p>
+        <div className="border border-[#ccc] hover:shadow-lg transition-shadow duration-300 ease-in-out">
+          <div className="p-3">
+            <p className="font-semibold mt-2 text-[18px]">FrokesLini Noah</p>
+            <p className="text-[#404040] text-[14px] mt-1">
+              Mayfair, Ile-Ife. Osun State, Nigeria.
+            </p>
+            <p className="text-[#404040] text-[14px]">(+234) 9157881431</p>
+          </div>
+          <div className="border border-[#ccc] p-3 flex justify-between">
+            <p className="text-[13px] font-bold uppercase text-[#808080]">
+              set as default.
+            </p>
+
+            <div className="flex items-center space-x-6">
+              <FaPen fill="#6eb356" className="cursor-pointer" />
+              <FaTrash fill="#ff0406" className="cursor-pointer" />
+            </div>
+          </div>
         </div>
       </div>
     </motion.div>

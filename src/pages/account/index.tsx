@@ -1,13 +1,7 @@
-import {
-  FaAddressBook,
-  FaJournalWhills,
-  FaPowerOff,
-  FaUserAlt,
-} from "react-icons/fa";
+import { FaAddressBook, FaPowerOff, FaUserAlt } from "react-icons/fa";
 import MainContainer from "../../components/wrappers/MainContainer";
 import { useState } from "react";
 import Profile from "../../components/account/profile";
-import PaymentMethods from "../../components/account/PaymentMethods";
 import AddressBook from "../../components/account/AddressBook";
 import { FaSquareCheck } from "react-icons/fa6";
 import Orders from "../../components/account/orders";
@@ -38,15 +32,6 @@ const Account = () => {
               <h2 className="text-[15px]">Orders</h2>
             </div>
             <div
-              onClick={() => setActiveTab("payment-info")}
-              className={`${
-                activeTab === "payment-info" && "text-[#6eb356] font-bold"
-              } transition-all duration-300 ease-in-out hover:px-2 cursor-pointer text-[#404040] flex items-center space-x-3`}
-            >
-              <FaJournalWhills />
-              <h2 className="text-[15px]">Payment Methods</h2>
-            </div>
-            <div
               onClick={() => setActiveTab("address")}
               className={`${
                 activeTab === "address" && "text-[#6eb356] font-bold"
@@ -65,7 +50,6 @@ const Account = () => {
           <div className="w-[75%] min-h-[65vh]">
             {activeTab === "profile" && <Profile />}
             {activeTab === "orders" && <Orders />}
-            {activeTab === "payment-info" && <PaymentMethods />}
             {activeTab === "address" && <AddressBook />}
           </div>
         </div>
