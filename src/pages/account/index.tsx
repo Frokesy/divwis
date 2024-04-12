@@ -2,9 +2,9 @@ import { FaAddressBook, FaPowerOff, FaUserAlt } from "react-icons/fa";
 import MainContainer from "../../components/wrappers/MainContainer";
 import { useState } from "react";
 import Profile from "../../components/account/profile";
-import AddressBook from "../../components/account/AddressBook";
 import { FaSquareCheck } from "react-icons/fa6";
 import Orders from "../../components/account/orders";
+import Address from "../../components/account/address";
 
 const Account = () => {
   const [activeTab, setActiveTab] = useState("profile");
@@ -50,7 +50,7 @@ const Account = () => {
           <div className="w-[75%] min-h-[65vh]">
             {activeTab === "profile" && <Profile />}
             {activeTab === "orders" && <Orders />}
-            {activeTab === "address" && <AddressBook />}
+            {activeTab === "address" && <Address />}
           </div>
         </div>
       </div>
