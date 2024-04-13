@@ -32,7 +32,12 @@ const EditAddress: FC<AddressProps> = ({ editAddress, setEditAddress }) => {
         </div>
         <div className="flex justify-between space-x-10 mt-3">
           <Input type="number" label="Mobile Number" fullBorder />
-          <Input type="text" label="Additional Mobile Number" fullBorder />
+          <Input type="number" label="Additional Mobile Number" fullBorder />
+        </div>
+          <Input type="text" label="Delivery Address" fullBorder />
+        <div className="flex justify-between space-x-10 mt-3">
+          <Input type="text" label="Region" fullBorder />
+          <Input type="text" label="City" fullBorder />
         </div>
 
         <div className="flex justify-end">
