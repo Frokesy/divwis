@@ -1,10 +1,9 @@
+import { FC } from "react";
 import FiveStars from "../svgs/stars/FiveStars";
 import FourStars from "../svgs/stars/FourStars";
 import OneStar from "../svgs/stars/OneStar";
 import ThreeStars from "../svgs/stars/ThreeStars";
 import TwoStars from "../svgs/stars/TwoStars";
-import { products } from "../data/products";
-import { useState } from "react";
 
 interface ProductsProps {
   id: number;
@@ -14,20 +13,17 @@ interface ProductsProps {
   productImg: string;
 }
 
-const Rating = () => {
-  const [productsPerRating, setProductsPerRating] = useState<ProductsProps[]>(
-    []
-  );
+interface RatingProps {
+  productsPerRating: ProductsProps[];
+  filterProductsByRating: (n: number) => void;
+}
 
-  const filterProductsByRating = (rating: number) => {
-    const filteredProducts = products.filter(
-      (product) => parseFloat(product.review) === rating
-    );
+const Rating: FC<RatingProps> = ({
+  productsPerRating,
+  filterProductsByRating,
+}) => {
 
-    setProductsPerRating(filteredProducts);
-  };
-  console.log(productsPerRating);
-
+  console.log(productsPerRating)
   return (
     <div>
       <h3 className="font-semibold text-[18px] pt-6">Rating</h3>
