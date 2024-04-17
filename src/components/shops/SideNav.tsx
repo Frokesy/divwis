@@ -4,10 +4,12 @@ import Filter from "./Filter";
 import Rating from "./Rating";
 import Search from "./Search";
 import { products } from "../data/products";
-import { useState } from "react";
 
 interface SideNavProps {
   id: string | undefined;
+  productsPerRating: ProductsProps[];
+  setProductsPerRating: React.Dispatch<React.SetStateAction<ProductsProps[]>>;
+  setFilterType: React.Dispatch<React.SetStateAction<string>>;
 }
 
 interface ProductsProps {
@@ -18,10 +20,12 @@ interface ProductsProps {
   productImg: string;
 }
 
-const SideNav: FC<SideNavProps> = ({ id }) => {
-  const [productsPerRating, setProductsPerRating] = useState<ProductsProps[]>(
-    []
-  );
+const SideNav: FC<SideNavProps> = ({
+  id,
+  productsPerRating,
+  setProductsPerRating,
+  setFilterType
+}) => {
 
   const filterProductsByRating = (rating: number) => {
     const filteredProducts = products.filter(
@@ -29,14 +33,17 @@ const SideNav: FC<SideNavProps> = ({ id }) => {
     );
 
     setProductsPerRating(filteredProducts);
+    setFilterType("rating")
   };
-  console.log(productsPerRating);
   return (
     <div className="bg-[#fff] px-3 py-4 rounded-lg shadow-md">
       <Search />
       <Categories pageId={id} />
       <Filter />
-      <Rating filterProductsByRating={filterProductsByRating} productsPerRating={productsPerRating} />
+      <Rating
+        filterProductsByRating={filterProductsByRating}
+        productsPerRating={productsPerRating}
+      />
     </div>
   );
 };
