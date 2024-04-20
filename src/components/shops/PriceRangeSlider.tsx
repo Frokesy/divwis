@@ -38,13 +38,36 @@ const PriceRangeSlider = () => {
 
   return (
     <div className="flex flex-col">
-      <div className="w-[100%]">
+      <div className="slider-container w-[100%] h-[6px] relative bg-[#e4e4e4] rounded-[5px]">
+        <div className="price-slider h-[100%] left-[25%] right-[15%] absolute rounded-[5px] bg-[#01940b]"></div>
+      </div>
+      <div className="range-input relative">
         <input
           type="range"
+          className="min-range absolute w-[100%] h-[5px] bg-none top-[-5px] pointer-events-none cursor-pointer"
           min="0"
-          max="100"
+          max="10000"
           value={minPrice}
           onChange={handleMinChange}
+          step="1"
+        />
+        <input
+          type="range"
+          className="absolute w-[100%] h-[5px] bg-none top-[-5px] pointer-events-none cursor-pointer"
+          min="0"
+          max="10000"
+          value={maxPrice}
+          onChange={handleMaxChange}
+          step="1"
+        />
+      </div>
+
+      
+      {/* <div className="w-[100%]">
+        <input
+          type="range"
+          min="0"
+          max="100"
           className="h-[5px] w-[50%]"
           style={{ backgroundColor: "#FFA500" }}
         />
@@ -52,12 +75,10 @@ const PriceRangeSlider = () => {
           type="range"
           min="0"
           max="100"
-          value={maxPrice}
-          onChange={handleMaxChange}
           className="h-[5px] w-[50%]"
           style={{ backgroundColor: "#FFA500" }}
         />
-      </div>
+      </div> */}
       <div className="w-[100%]">
         <input
           type="number"

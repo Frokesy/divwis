@@ -38,3 +38,12 @@ input::-webkit-inner-spin-button {
  ::-webkit-scrollbar-thumb:hover {
     background: grey;
 }
+
+input[type="range"]::-webkit-slider-thumb {
+    height: 18px;
+    width: 18px;
+    border-radius: 70%;
+    background: #555;
+    pointer-events: auto;
+    -webkit-appearance: none;
+}
