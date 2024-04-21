@@ -22,8 +22,7 @@ const Rating: FC<RatingProps> = ({
   productsPerRating,
   filterProductsByRating,
 }) => {
-
-  console.log(productsPerRating)
+  console.log(productsPerRating);
   return (
     <div>
       <h3 className="font-semibold text-[18px] pt-6">Rating</h3>
@@ -31,7 +30,7 @@ const Rating: FC<RatingProps> = ({
       <div className="pt-4">
         <div
           onClick={() => filterProductsByRating(5)}
-          className="flex justify-between items-center"
+          className="flex justify-between items-center cursor-pointer"
         >
           <FiveStars />
           <span className="text-[#333] text-[12px] bg-[#f1f1f1] py-1 px-2 rounded-lg">
@@ -40,7 +39,7 @@ const Rating: FC<RatingProps> = ({
         </div>
         <div
           onClick={() => filterProductsByRating(4)}
-          className="flex justify-between items-center"
+          className="flex justify-between items-center cursor-pointer"
         >
           <FourStars />
           <span className="text-[#333] text-[12px] bg-[#f1f1f1] py-1 px-2 rounded-lg">
@@ -49,7 +48,7 @@ const Rating: FC<RatingProps> = ({
         </div>
         <div
           onClick={() => filterProductsByRating(3)}
-          className="flex justify-between items-center"
+          className="flex justify-between items-center cursor-pointer"
         >
           <ThreeStars />
           <span className="text-[#333] text-[12px] bg-[#f1f1f1] py-1 px-2 rounded-lg">
@@ -58,7 +57,7 @@ const Rating: FC<RatingProps> = ({
         </div>
         <div
           onClick={() => filterProductsByRating(2)}
-          className="flex justify-between items-center"
+          className="flex justify-between items-center cursor-pointer"
         >
           <TwoStars />
           <span className="text-[#333] text-[12px] bg-[#f1f1f1] py-1 px-2 rounded-lg">
@@ -67,7 +66,7 @@ const Rating: FC<RatingProps> = ({
         </div>
         <div
           onClick={() => filterProductsByRating(1)}
-          className="flex justify-between items-center"
+          className="flex justify-between items-center cursor-pointer"
         >
           <OneStar />
           <span className="text-[#333] text-[12px] bg-[#f1f1f1] py-1 px-2 rounded-lg">

@@ -4,10 +4,8 @@ const Filter = () => {
   return (
     <div>
       <div className="flex justify-between items-center mb-2 pt-6">
-        <h3 className="font-semibold text-[18px]">Filter</h3>
-        <p>By Price</p>
+        <h3 className="font-semibold text-[16px]">Filter By Price</h3>
       </div>
-
       <PriceRangeSlider />
     </div>
   );
