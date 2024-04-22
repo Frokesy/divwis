@@ -20,6 +20,7 @@ const Shops = () => {
   );
   const [productsPerPrice, setProductsPerPrice] = useState<ProductsProps[]>([]);
   const [productsPerCategory, setProductsPerCategory] = useState<ProductsProps[]>([]);
+  const [searchResults, setSearchResult] = useState<ProductsProps[]>([]);
   const [filterType, setFilterType] = useState<string>("");
   return (
     <MainContainer>
@@ -32,6 +33,7 @@ const Shops = () => {
               setProductsPerRating={setProductsPerRating}
               setProductsPerPrice={setProductsPerPrice}
               setProductsPerCategory={setProductsPerCategory}
+              setSearchResult={setSearchResult}
             />
           </div>
           <div className="main lg:w-[76%]">
@@ -40,6 +42,7 @@ const Shops = () => {
               productsPerRating={productsPerRating}
               productsPerPrice={productsPerPrice}
               productsPerCategory={productsPerCategory}
+              searchResults={searchResults}
             />
           </div>
         </div>

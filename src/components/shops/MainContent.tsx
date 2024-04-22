@@ -16,12 +16,14 @@ interface MainContentProps {
   productsPerRating: ProductsProps[];
   productsPerPrice: ProductsProps[];
   productsPerCategory: ProductsProps[];
+  searchResults: ProductsProps[];
 }
 const MainContent: FC<MainContentProps> = ({
   filterType,
   productsPerRating,
   productsPerPrice,
   productsPerCategory,
+  searchResults,
 }) => {
   const [filteredProducts, setFilteredProducts] =
     useState<ProductsProps[]>(products);
@@ -30,7 +32,14 @@ const MainContent: FC<MainContentProps> = ({
     filterType === "rating" && setFilteredProducts(productsPerRating);
     filterType === "price" && setFilteredProducts(productsPerPrice);
     filterType === "category" && setFilteredProducts(productsPerCategory);
-  }, [filterType, productsPerRating, productsPerPrice, productsPerCategory]);
+    filterType === "search" && setFilteredProducts(searchResults);
+  }, [
+    filterType,
+    productsPerRating,
+    productsPerPrice,
+    productsPerCategory,
+    searchResults,
+  ]);
   return (
     <div className="grid lg:grid-cols-3 grid-cols-1 lg:w-[100%] mt-10 lg:mt-0 mx-auto lg:gap-[1vw] gap-[3vh]">
       {filteredProducts.map((product) => (
