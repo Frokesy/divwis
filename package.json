@@ -10,7 +10,6 @@
         "preview": "vite preview"
     },
     "dependencies": {
-        "@material-ui/core": "^4.12.4",
         "@studio-freight/react-lenis": "^0.0.46",
         "@supabase/supabase-js": "^2.39.6",
         "framer-motion": "^11.0.5",
