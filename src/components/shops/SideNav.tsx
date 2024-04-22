@@ -1,4 +1,4 @@
-import { FC } from "react";
+import React, { FC } from "react";
 import Categories from "./Categories";
 import Filter from "./Filter";
 import Rating from "./Rating";
@@ -7,7 +7,7 @@ import { products } from "../data/products";
 
 interface SideNavProps {
   id: string | undefined;
-  productsPerRating: ProductsProps[];
+  setProductsPerPrice: React.Dispatch<React.SetStateAction<ProductsProps[]>>;
   setProductsPerRating: React.Dispatch<React.SetStateAction<ProductsProps[]>>;
   setFilterType: React.Dispatch<React.SetStateAction<string>>;
 }
@@ -22,28 +22,35 @@ interface ProductsProps {
 
 const SideNav: FC<SideNavProps> = ({
   id,
-  productsPerRating,
+  setProductsPerPrice,
   setProductsPerRating,
-  setFilterType
+  setFilterType,
 }) => {
-
   const filterProductsByRating = (rating: number) => {
     const filteredProducts = products.filter(
       (product) => parseFloat(product.review) === rating
     );
 
     setProductsPerRating(filteredProducts);
-    setFilterType("rating")
+    setFilterType("rating");
+  };
+
+  const filterProductsByPrice = (minPrice: number, maxPrice: number) => {
+    const filteredProducts = products.filter(
+      (product) =>
+        parseFloat(product.price) >= minPrice &&
+        parseFloat(product.price) <= maxPrice
+    );
+
+    setProductsPerPrice(filteredProducts);
+    setFilterType("price");
   };
   return (
     <div className="bg-[#fff] px-3 py-4 rounded-lg shadow-md">
       <Search />
       <Categories pageId={id} />
-      <Filter />
-      <Rating
-        filterProductsByRating={filterProductsByRating}
-        productsPerRating={productsPerRating}
-      />
+      <Filter filterProductsByPrice={filterProductsByPrice} />
+      <Rating filterProductsByRating={filterProductsByRating} />
     </div>
   );
 };

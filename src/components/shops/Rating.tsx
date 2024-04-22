@@ -5,24 +5,11 @@ import OneStar from "../svgs/stars/OneStar";
 import ThreeStars from "../svgs/stars/ThreeStars";
 import TwoStars from "../svgs/stars/TwoStars";
 
-interface ProductsProps {
-  id: number;
-  name: string;
-  price: string;
-  review: string;
-  productImg: string;
-}
-
 interface RatingProps {
-  productsPerRating: ProductsProps[];
   filterProductsByRating: (n: number) => void;
 }
 
-const Rating: FC<RatingProps> = ({
-  productsPerRating,
-  filterProductsByRating,
-}) => {
-  console.log(productsPerRating);
+const Rating: FC<RatingProps> = ({ filterProductsByRating }) => {
   return (
     <div>
       <h3 className="font-semibold text-[18px] pt-6">Rating</h3>

@@ -2,7 +2,7 @@ export const products = [
   {
     id: 1,
     name: "Strawberry Fruit",
-    price: "$100.00",
+    price: "100.00",
     review: "1",
     category: "vegetables",
     productImg: "/assets/products/p-sm-1.png",
@@ -10,7 +10,7 @@ export const products = [
   {
     id: 2,
     name: "Green Apple",
-    price: "$50.00",
+    price: "40.00",
     review: "4",
     category: "beans",
     productImg: "/assets/products/p-sm-2.png",
@@ -18,7 +18,7 @@ export const products = [
   {
     id: 3,
     name: "Red Apple",
-    price: "$50.00",
+    price: "50.00",
     review: "4",
     category: "sea-food",
     productImg: "/assets/products/p-sm-3.png",
@@ -26,7 +26,7 @@ export const products = [
   {
     id: 4,
     name: "Banana",
-    price: "$50.00",
+    price: "20.00",
     review: "5",
     category: "beans",
     productImg: "/assets/products/p-sm-2.png",
@@ -34,7 +34,7 @@ export const products = [
   {
     id: 5,
     name: "Strawberry",
-    price: "$100.00",
+    price: "10.00",
     review: "5",
     category: "beans",
     productImg: "/assets/products/p-sm-1.png",
@@ -42,7 +42,7 @@ export const products = [
   {
     id: 6,
     name: "Watermelon",
-    price: "$50.00",
+    price: "10.00",
     review: "4",
     category: "vegetables",
     productImg: "/assets/products/p-sm-4.png",
@@ -50,7 +50,7 @@ export const products = [
   {
     id: 7,
     name: "Red Apple",
-    price: "$50.00",
+    price: "30.00",
     review: "2",
     category: "sea-food",
     productImg: "/assets/products/p-sm-3.png",
@@ -58,7 +58,7 @@ export const products = [
   {
     id: 8,
     name: "Banana",
-    price: "$50.00",
+    price: "50.00",
     review: "3",
     category: "vegetables",
     productImg: "/assets/products/p-sm-1.png",
@@ -66,7 +66,7 @@ export const products = [
   {
     id: 9,
     name: "Blueberries",
-    price: "$100.00",
+    price: "80.00",
     review: "3",
     category: "beans",
     productImg: "/assets/products/p-sm-3.png",
@@ -74,7 +74,7 @@ export const products = [
   {
     id: 10,
     name: "Watermelon",
-    price: "$50.00",
+    price: "60.00",
     review: "2",
     category: "sea-food",
     productImg: "/assets/products/p-sm-1.png",
@@ -82,7 +82,7 @@ export const products = [
   {
     id: 11,
     name: "Red Apple",
-    price: "$50.00",
+    price: "90.00",
     review: "1",
     category: "sea-food",
     productImg: "/assets/products/p-sm-2.png",
@@ -90,7 +90,7 @@ export const products = [
   {
     id: 12,
     name: "Banana",
-    price: "$50.00",
+    price: "40.00",
     review: "5",
     category: "vegetables",
     productImg: "/assets/products/p-sm-4.png",
