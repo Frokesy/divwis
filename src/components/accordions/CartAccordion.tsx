@@ -1,8 +1,44 @@
 import { motion } from "framer-motion";
-import { cartItems } from "../data/cart";
 import { FaTrashAlt, FaWallet } from "react-icons/fa";
+import { useEffect, useState } from "react";
+
+interface CartProps {
+  id: number;
+  name: string;
+  price: string;
+  review: string;
+  productImg: string;
+  quantity: number;
+}
 
 const CartAccordion = () => {
+  const [data, setData] = useState<CartProps[]>([]);
+  const idb = window.indexedDB;
+
+  useEffect(() => {
+    const getAllData = () => {
+      const dbPromise = idb.open("divwis", 1);
+      dbPromise.onsuccess = () => {
+        const db = dbPromise.result;
+
+        const tx = db.transaction("cart", "readonly");
+        const favorites = tx.objectStore("cart");
+        const data = favorites.getAll();
+
+        data.onsuccess = (query) => {
+          if (query.srcElement) {
+            setData((query.srcElement as IDBRequest).result);
+          }
+        };
+
+        tx.oncomplete = function () {
+          db.close();
+        };
+      };
+    };
+
+    getAllData();
+  }, [idb]);
   return (
     <motion.div
       initial={{ opacity: 0, x: -40 }}
@@ -10,8 +46,8 @@ const CartAccordion = () => {
       transition={{ duration: 0.3, ease: "easeInOut" }}
       className="absolute -ml-[300px] bg-[#fff] top-14 pl-4 py-4 min-w-[400px] shadow-xl"
     >
-      <div className="space-y-3 h-[260px] overflow-y-auto">
-        {cartItems.map((item) => (
+      <div className="space-y-3 max-h-[260px] overflow-y-auto">
+        {data.map((item) => (
           <div className="" key={item.id}>
             <div className="flex items-center space-x-3">
               <img src={item.productImg} alt="img" className="w-[4rem]" />
@@ -20,7 +56,7 @@ const CartAccordion = () => {
                   {item.name}
                 </h2>
                 <div className="flex items-center space-x-4">
-                  <p className="text-[14px]">{item.price} x 1</p>
+                  <p className="text-[14px]">{item.price} x {item.quantity}</p>
                   <FaTrashAlt fill="#ff0406" />
                 </div>
               </div>
