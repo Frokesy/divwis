@@ -19,6 +19,7 @@ const Shops = () => {
     []
   );
   const [productsPerPrice, setProductsPerPrice] = useState<ProductsProps[]>([]);
+  const [productsPerCategory, setProductsPerCategory] = useState<ProductsProps[]>([]);
   const [filterType, setFilterType] = useState<string>("");
   return (
     <MainContainer>
@@ -27,9 +28,10 @@ const Shops = () => {
           <div className="lg:w-[22%]">
             <SideNav
               id={category_id}
-              setProductsPerRating={setProductsPerRating}
               setFilterType={setFilterType}
+              setProductsPerRating={setProductsPerRating}
               setProductsPerPrice={setProductsPerPrice}
+              setProductsPerCategory={setProductsPerCategory}
             />
           </div>
           <div className="main lg:w-[76%]">
@@ -37,6 +39,7 @@ const Shops = () => {
               filterType={filterType}
               productsPerRating={productsPerRating}
               productsPerPrice={productsPerPrice}
+              productsPerCategory={productsPerCategory}
             />
           </div>
         </div>

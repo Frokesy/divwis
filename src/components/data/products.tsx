@@ -12,7 +12,7 @@ export const products = [
     name: "Green Apple",
     price: "40.00",
     review: "4",
-    category: "beans",
+    category: "milk & dairy",
     productImg: "/assets/products/p-sm-2.png",
   },
   {
@@ -20,7 +20,7 @@ export const products = [
     name: "Red Apple",
     price: "50.00",
     review: "4",
-    category: "sea-food",
+    category: "cereals",
     productImg: "/assets/products/p-sm-3.png",
   },
   {
@@ -28,7 +28,7 @@ export const products = [
     name: "Banana",
     price: "20.00",
     review: "5",
-    category: "beans",
+    category: "meat",
     productImg: "/assets/products/p-sm-2.png",
   },
   {
@@ -36,7 +36,7 @@ export const products = [
     name: "Strawberry",
     price: "10.00",
     review: "5",
-    category: "beans",
+    category: "cereals",
     productImg: "/assets/products/p-sm-1.png",
   },
   {
@@ -52,7 +52,7 @@ export const products = [
     name: "Red Apple",
     price: "30.00",
     review: "2",
-    category: "sea-food",
+    category: "fruits",
     productImg: "/assets/products/p-sm-3.png",
   },
   {
@@ -60,7 +60,7 @@ export const products = [
     name: "Banana",
     price: "50.00",
     review: "3",
-    category: "vegetables",
+    category: "fruits",
     productImg: "/assets/products/p-sm-1.png",
   },
   {
@@ -68,7 +68,7 @@ export const products = [
     name: "Blueberries",
     price: "80.00",
     review: "3",
-    category: "beans",
+    category: "vegetables",
     productImg: "/assets/products/p-sm-3.png",
   },
   {
@@ -76,7 +76,7 @@ export const products = [
     name: "Watermelon",
     price: "60.00",
     review: "2",
-    category: "sea-food",
+    category: "cereals",
     productImg: "/assets/products/p-sm-1.png",
   },
   {
@@ -84,7 +84,7 @@ export const products = [
     name: "Red Apple",
     price: "90.00",
     review: "1",
-    category: "sea-food",
+    category: "meat",
     productImg: "/assets/products/p-sm-2.png",
   },
   {

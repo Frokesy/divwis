@@ -1,38 +1,52 @@
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 
 interface CategoryProps {
   pageId: string | undefined;
+  filterProductsByCategory: (category: string) => void;
 }
 
-const Categories: FC<CategoryProps> = ({ pageId }) => {
+const Categories: FC<CategoryProps> = ({
+  pageId,
+  filterProductsByCategory,
+}) => {
+  const id = parseInt(pageId as string);
+  const [activeCategory, setActiveCategory] = useState<number>();
   const categories = [
     {
       id: 1,
-      name: "Cereals",
+      name: "cereals",
       quantity: 20,
     },
     {
       id: 2,
-      name: "Fruits",
+      name: "fruits",
       quantity: 30,
     },
     {
       id: 3,
-      name: "Vegetables",
+      name: "vegetables",
       quantity: 40,
     },
     {
       id: 4,
-      name: "Meat",
+      name: "meat",
       quantity: 8,
     },
     {
       id: 5,
-      name: "Milk & Dairy",
+      name: "milk & dairy",
       quantity: 15,
     },
   ];
-  const id = parseInt(pageId as string);
+
+  const handleFilter = (id: number, category: string) => {
+    setActiveCategory(id);
+    filterProductsByCategory(category);
+  };
+
+  useEffect(() => {
+    setActiveCategory(id);
+  }, [id]);
 
   return (
     <div>
@@ -42,8 +56,9 @@ const Categories: FC<CategoryProps> = ({ pageId }) => {
         {categories.map((category) => (
           <div
             key={category.id}
-            className={`flex items-center justify-between py-2 ${
-              id === category.id &&
+            onClick={() => handleFilter(category.id, category.name)}
+            className={`flex items-center justify-between capitalize cursor-pointer py-2 ${
+              activeCategory === category.id &&
               "bg-[#f1f1f1] pl-2 rounded-lg transition-all duration-500 ease-in-out"
             }`}
           >

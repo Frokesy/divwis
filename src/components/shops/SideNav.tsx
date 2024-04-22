@@ -7,9 +7,10 @@ import { products } from "../data/products";
 
 interface SideNavProps {
   id: string | undefined;
+  setFilterType: React.Dispatch<React.SetStateAction<string>>;
   setProductsPerPrice: React.Dispatch<React.SetStateAction<ProductsProps[]>>;
   setProductsPerRating: React.Dispatch<React.SetStateAction<ProductsProps[]>>;
-  setFilterType: React.Dispatch<React.SetStateAction<string>>;
+  setProductsPerCategory: React.Dispatch<React.SetStateAction<ProductsProps[]>>;
 }
 
 interface ProductsProps {
@@ -22,9 +23,10 @@ interface ProductsProps {
 
 const SideNav: FC<SideNavProps> = ({
   id,
+  setFilterType,
   setProductsPerPrice,
   setProductsPerRating,
-  setFilterType,
+  setProductsPerCategory
 }) => {
   const filterProductsByRating = (rating: number) => {
     const filteredProducts = products.filter(
@@ -45,10 +47,19 @@ const SideNav: FC<SideNavProps> = ({
     setProductsPerPrice(filteredProducts);
     setFilterType("price");
   };
+
+  const filterProductsByCategory = (category: string) => {
+
+    const filteredProducts = products.filter(
+      (product) => product.category == category
+    );
+    setProductsPerCategory(filteredProducts);
+    setFilterType("category")
+  };
   return (
     <div className="bg-[#fff] px-3 py-4 rounded-lg shadow-md">
       <Search />
-      <Categories pageId={id} />
+      <Categories pageId={id} filterProductsByCategory={filterProductsByCategory} />
       <Filter filterProductsByPrice={filterProductsByPrice} />
       <Rating filterProductsByRating={filterProductsByRating} />
     </div>
