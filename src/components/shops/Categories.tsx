@@ -13,6 +13,11 @@ const Categories: FC<CategoryProps> = ({
   const [activeCategory, setActiveCategory] = useState<number>();
   const categories = [
     {
+      id: 6,
+      name: "all products",
+      quantity: 12,
+    },
+    {
       id: 1,
       name: "cereals",
       quantity: 20,

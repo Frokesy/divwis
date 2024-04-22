@@ -26,7 +26,7 @@ const SideNav: FC<SideNavProps> = ({
   setFilterType,
   setProductsPerPrice,
   setProductsPerRating,
-  setProductsPerCategory
+  setProductsPerCategory,
 }) => {
   const filterProductsByRating = (rating: number) => {
     const filteredProducts = products.filter(
@@ -49,17 +49,21 @@ const SideNav: FC<SideNavProps> = ({
   };
 
   const filterProductsByCategory = (category: string) => {
-
     const filteredProducts = products.filter(
       (product) => product.category == category
     );
-    setProductsPerCategory(filteredProducts);
-    setFilterType("category")
+    category === "all products"
+      ? setProductsPerCategory(products)
+      : setProductsPerCategory(filteredProducts);
+    setFilterType("category");
   };
   return (
     <div className="bg-[#fff] px-3 py-4 rounded-lg shadow-md">
       <Search />
-      <Categories pageId={id} filterProductsByCategory={filterProductsByCategory} />
+      <Categories
+        pageId={id}
+        filterProductsByCategory={filterProductsByCategory}
+      />
       <Filter filterProductsByPrice={filterProductsByPrice} />
       <Rating filterProductsByRating={filterProductsByRating} />
     </div>

@@ -1,6 +1,7 @@
 import FiveStars from "../svgs/stars/FiveStars";
 import { products } from "../data/products";
 import { FC, useEffect, useState } from "react";
+import { motion } from "framer-motion";
 
 interface ProductsProps {
   id: number;
@@ -33,7 +34,13 @@ const MainContent: FC<MainContentProps> = ({
   return (
     <div className="grid lg:grid-cols-3 grid-cols-1 lg:w-[100%] mt-10 lg:mt-0 mx-auto lg:gap-[1vw] gap-[3vh]">
       {filteredProducts.map((product) => (
-        <div
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{
+            duration: 0.3,
+            ease: "easeInOut",
+          }}
           key={product.id}
           className="flex flex-col w-[100%] bg-[#fff] rounded-lg"
         >
@@ -64,7 +71,7 @@ const MainContent: FC<MainContentProps> = ({
               <p className="text-[18px] font-bold">Shop Now</p>
             </div>
           </div>
-        </div>
+        </motion.div>
       ))}
     </div>
   );
