@@ -108,8 +108,10 @@ const FeaturedProducts = () => {
     const db = request.result;
 
     if (!db.objectStoreNames.contains("favorites")) {
-      const objectStore = db.createObjectStore("favorites", { keyPath: "id" });
-      console.log(objectStore);
+      db.createObjectStore("favorites", { keyPath: "id" });
+    }
+    if (!db.objectStoreNames.contains("cart")) {
+      db.createObjectStore("cart", { keyPath: "id" });
     }
   };
 

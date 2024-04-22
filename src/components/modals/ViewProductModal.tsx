@@ -18,7 +18,7 @@ interface ModalProps {
 }
 
 const ViewProductModal: FC<ModalProps> = ({ isOpen, setIsOpen, product }) => {
-  const [quantity, setQuantity] = useState<number>(0);
+  const [quantity, setQuantity] = useState<number>(1);
   const descs = [
     "Natural ingredients",
     "Tastes better with milk",
@@ -28,6 +28,33 @@ const ViewProductModal: FC<ModalProps> = ({ isOpen, setIsOpen, product }) => {
 
   const handleClick = (cmd: string) => {
     cmd === "increment" ? setQuantity(quantity + 1) : setQuantity(quantity - 1);
+  };
+
+  const addToCart = () => {
+    const item = {
+      id: product?.id,
+      name: product?.name,
+      price: product?.price,
+      review: product?.review,
+      productImg: product?.productImg,
+      quantity: quantity,
+    };
+
+    const idb = window.indexedDB;
+    const dbPromise = idb.open("divwis", 1);
+
+    dbPromise.onsuccess = () => {
+      const db = dbPromise.result;
+      const tx = db.transaction("cart", "readwrite");
+      const carts = tx.objectStore("cart");
+      const addData = carts.put(item);
+
+      addData.onsuccess = () => {
+        tx.oncomplete = () => {
+          db.close();
+        };
+      };
+    };
   };
 
   return (
@@ -96,12 +123,12 @@ const ViewProductModal: FC<ModalProps> = ({ isOpen, setIsOpen, product }) => {
               </div>
             </div>
 
-            <div className="flex items-center mt-3">
-              <button className="bg-[#ff7c08] text-[#fff] py-2 px-4 rounded-md">
+            <div className="flex justify-end mt-3">
+              <button
+                onClick={addToCart}
+                className="bg-[#ff7c08] text-[#fff] py-2 px-4 rounded-md"
+              >
                 Add to Cart
-              </button>
-              <button className="bg-[#fff] text-[#ff7c08] py-2 px-4 rounded-md ml-3">
-                Buy Now
               </button>
             </div>
           </div>
