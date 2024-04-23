@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Compare, Eye, Heart } from "../svgs/Icons";
 import { products } from "../data/products";
 import ViewProductModal from "../modals/ViewProductModal";
+import CompareModal from "../modals/CompareModal";
 
 interface ProductsProps {
   id: number;
@@ -18,6 +19,7 @@ const Trending = () => {
   const [activeTab, setActiveTab] = useState<string>("all");
   const [activeId, setActiveId] = useState<number | null>();
   const [iconHover, setIconHover] = useState<string>("");
+  const [activeIcon, setActiveIcon] = useState<string>("");
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [favoritedProducts, setFavoritedProducts] = useState<ProductsProps[]>(
     []
@@ -33,9 +35,12 @@ const Trending = () => {
     setIconHover(icon);
   };
 
-  const handleClick = (item: ProductsProps) => {
+  const handleClick = (item: ProductsProps, icon: string) => {
     setIsOpen(true);
     setViewedProduct(item);
+
+    icon === "eye" && setActiveIcon("eye");
+    icon === "compare" && setActiveIcon("compare");
   };
 
   const idb = window.indexedDB;
@@ -227,7 +232,7 @@ const Trending = () => {
                       onMouseEnter={() => updateIconHover("eye")}
                       onMouseLeave={() => updateIconHover("")}
                       className="bg-[#fff] hover:bg-[#a4c059] cursor-pointer transition-colors duration-500 ease-in-out p-2 rounded-full"
-                      onClick={() => handleClick(product)}
+                      onClick={() => handleClick(product, "eye")}
                     >
                       <Eye iconHover={iconHover} />
                     </div>
@@ -235,6 +240,7 @@ const Trending = () => {
                       onMouseEnter={() => updateIconHover("compare")}
                       onMouseLeave={() => updateIconHover("")}
                       className="bg-[#fff] hover:bg-[#a4c059] cursor-pointer transition-colors duration-500 ease-in-out p-2 rounded-full"
+                      onClick={() => handleClick(product, "compare")}
                     >
                       <Compare iconHover={iconHover} />
                     </div>
@@ -274,8 +280,16 @@ const Trending = () => {
           </motion.div>
         ))}
       </div>
-      {isOpen && (
+      {isOpen && activeIcon === "eye" && (
         <ViewProductModal
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
+          product={viewedProduct}
+        />
+      )}
+
+      {isOpen && activeIcon === "compare" && (
+        <CompareModal
           isOpen={isOpen}
           setIsOpen={setIsOpen}
           product={viewedProduct}
