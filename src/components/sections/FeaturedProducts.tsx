@@ -298,7 +298,10 @@ const FeaturedProducts = () => {
                     Get 50% Off on Selected Organic Items
                   </span>
                   <div className="mt-3">
-                    <button className="bg-[#fa961e] hover:bg-[#a4c059] transition-colors duration-500 ease-in-out text-[#fff] py-3 px-6 font-semibold">
+                    <button
+                      onClick={() => handleClick(product, "eye")}
+                      className="bg-[#fa961e] hover:bg-[#a4c059] transition-colors duration-500 ease-in-out text-[#fff] py-3 px-6 font-semibold"
+                    >
                       Shop Now
                     </button>
                   </div>
