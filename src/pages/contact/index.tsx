@@ -4,11 +4,11 @@ const Contact = () => {
   return (
     <MainContainer>
       <div className="bg-[#f1f1f1] min-h-[80vh] pb-[10vh] lg:pt-10 pt-4">
-        <div className="lg:w-[80vw] w-[95vw] mx-auto pt-[10vh]">
-          <h2 className="text-center text-[34px] font-semibold">
+        <div className="lg:w-[80vw] w-[95vw] mx-auto pt-[6vh]">
+          <h2 className="text-center text-[34px] mb-10 font-semibold">
             Get In Touch
           </h2>
-          <div className="w-[55%] space-y-10 bg-[#fff] p-6 mx-auto">
+          <div className="w-[55%] space-y-10 bg-[#fff] p-10 rounded-xl mx-auto">
             <div className="flex justify-between">
               <div className="flex flex-col space-y-1">
                 <label
@@ -20,7 +20,7 @@ const Contact = () => {
                 <input
                   type="text"
                   id="firstname"
-                  className="border border-[#ccc] outline-none px-3 py-1"
+                  className="border border-[#ccc] rounded-lg outline-none px-3 py-3 w-[300px]"
                   placeholder="First Name"
                 />
               </div>
@@ -31,7 +31,7 @@ const Contact = () => {
                 <input
                   type="text"
                   id="lastname"
-                  className="border border-[#ccc] outline-none px-3 py-1"
+                  className="border border-[#ccc] rounded-lg outline-none px-3 py-3 w-[300px]"
                   placeholder="Last Name"
                 />
               </div>
@@ -46,7 +46,7 @@ const Contact = () => {
                   type="email"
                   id="email"
                   placeholder="Email Address"
-                  className="border border-[#ccc] outline-none px-3 py-1"
+                  className="border border-[#ccc] rounded-lg outline-none px-3 py-3 w-[300px]"
                 />
               </div>
               <div className="flex flex-col space-y-1">
@@ -57,7 +57,7 @@ const Contact = () => {
                   type="number"
                   id="phone"
                   placeholder="Mobile Number"
-                  className="border border-[#ccc] outline-none px-3 py-1"
+                  className="border border-[#ccc] rounded-lg outline-none px-3 py-3 w-[300px]"
                 />
               </div>
             </div>
@@ -88,11 +88,11 @@ const Contact = () => {
               >
                 Message
               </label>
-              <textarea name="" id="message" className="border border-[#ccc] outline-none px-3 py-1" placeholder="send us a message..."></textarea>
+              <textarea name="" id="message" className="border border-[#ccc] outline-none px-3 py-1 h-[180px] rounded-lg" placeholder="send us a message..."></textarea>
             </div>
 
             <div className="mt-3 flex justify-end">
-                    <button className="bg-[#6eb356] hover:bg-[#fa961e] transition-colors duration-500 ease-in-out text-[#fff] py-3 px-6 font-semibold">
+                    <button className="bg-[#6eb356] hover:bg-[#fa961e] rounded-lg transition-colors duration-500 ease-in-out text-[#fff] py-3 px-6 font-semibold">
                       Send Message
                     </button>
                   </div>
