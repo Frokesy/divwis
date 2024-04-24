@@ -1,3 +1,5 @@
+import { NavLink } from "react-router-dom";
+
 const HeroSection = () => {
   return (
     <div className="h-[80vh] lg:w-[95vw] w-[90vw] mx-auto flex lg:flex-row flex-col lg:justify-between lg:my-[10vh] lg:mt-0 mt-[13vh]">
@@ -15,12 +17,12 @@ const HeroSection = () => {
             Get your groceries in as fast and easy as you want it.
           </p>
           <div className="flex space-x-10 lg:mt-10 mt-4 lg:w-[70%]">
-            <button className="bg-[#ff7c08] hover:bg-[#7ea405] transition-colors duration-500 ease-in-out w-[50%] text-[#fff] text-[18px] font-bold px-8 py-2">
+            <NavLink to={"/shops/0"} className="bg-[#ff7c08] hover:bg-[#7ea405] transition-colors duration-500 ease-in-out w-[50%] text-[#fff] text-[18px] font-bold px-8 py-2">
               Shop Now
-            </button>
-            <button className="bg-[#7ea405] hover:bg-[#ff7c08] transition-colors duration-500 ease-in-out w-[50%] text-[#fff] text-[18px] font-bold px-8 py-2">
+            </NavLink>
+            <NavLink to={"/contact"} className="bg-[#7ea405] hover:bg-[#ff7c08] transition-colors duration-500 ease-in-out w-[50%] text-[#fff] text-[18px] font-bold px-8 py-2">
               Contact Us
-            </button>
+            </NavLink>
           </div>
         </div>
 
