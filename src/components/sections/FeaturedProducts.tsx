@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Compare, Eye, Heart } from "../svgs/Icons";
 import ViewProductModal from "../modals/ViewProductModal";
+import CompareModal from "../modals/CompareModal";
 
 interface ProductsProps {
   id: number;
@@ -19,6 +20,8 @@ const FeaturedProducts = () => {
   const [favoritedProducts, setFavoritedProducts] = useState<ProductsProps[]>(
     []
   );
+  const [activeIcon, setActiveIcon] = useState<string>("");
+
   const products = [
     {
       id: 1,
@@ -93,9 +96,12 @@ const FeaturedProducts = () => {
     setIconHover(icon);
   };
 
-  const handleClick = (item: ProductsProps) => {
+  const handleClick = (item: ProductsProps, icon: string) => {
     setIsOpen(true);
     setViewedProduct(item);
+
+    icon === "eye" && setActiveIcon("eye");
+    icon === "compare" && setActiveIcon("compare");
   };
 
   const idb = window.indexedDB;
@@ -230,7 +236,7 @@ const FeaturedProducts = () => {
                             onMouseEnter={() => updateIconHover("eye")}
                             onMouseLeave={() => updateIconHover("")}
                             className="bg-[#fff] hover:bg-[#a4c059] cursor-pointer transition-colors duration-500 ease-in-out p-2 rounded-full"
-                            onClick={() => handleClick(product)}
+                            onClick={() => handleClick(product, "eye")}
                           >
                             <Eye iconHover={iconHover} />
                           </div>
@@ -238,6 +244,7 @@ const FeaturedProducts = () => {
                             onMouseEnter={() => updateIconHover("compare")}
                             onMouseLeave={() => updateIconHover("")}
                             className="bg-[#fff] hover:bg-[#a4c059] cursor-pointer transition-colors duration-500 ease-in-out p-2 rounded-full"
+                            onClick={() => handleClick(product, "compare")}
                           >
                             <Compare iconHover={iconHover} />
                           </div>
@@ -342,7 +349,7 @@ const FeaturedProducts = () => {
                             onMouseEnter={() => updateIconHover("eye")}
                             onMouseLeave={() => updateIconHover("")}
                             className="bg-[#fff] hover:bg-[#a4c059] cursor-pointer transition-colors duration-500 ease-in-out p-2 rounded-full"
-                            onClick={() => handleClick(product)}
+                            onClick={() => handleClick(product, "eye")}
                           >
                             <Eye iconHover={iconHover} />
                           </div>
@@ -350,6 +357,7 @@ const FeaturedProducts = () => {
                             onMouseEnter={() => updateIconHover("compare")}
                             onMouseLeave={() => updateIconHover("")}
                             className="bg-[#fff] hover:bg-[#a4c059] cursor-pointer transition-colors duration-500 ease-in-out p-2 rounded-full"
+                            onClick={() => handleClick(product, "compare")}
                           >
                             <Compare iconHover={iconHover} />
                           </div>
@@ -389,8 +397,16 @@ const FeaturedProducts = () => {
 
       <img src="/assets/bg-shape-2.png" alt="bg" className="pt-[15vh]" />
 
-      {isOpen && (
+      {isOpen && activeIcon === "eye" && (
         <ViewProductModal
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
+          product={viewedProduct}
+        />
+      )}
+
+      {isOpen && activeIcon === "compare" && (
+        <CompareModal
           isOpen={isOpen}
           setIsOpen={setIsOpen}
           product={viewedProduct}
