@@ -208,6 +208,8 @@ const FeaturedProducts = () => {
                   className="flex lg:flex-row flex-col lg:space-x-3 rounded-lg p-2 bg-[#fff]"
                   onMouseEnter={() => updateActiveState(product.id)}
                   onMouseLeave={() => updateActiveState(null)}
+                  onTouchMove={() => updateActiveState(product.id)}
+                  onScroll={() => updateActiveState(product.id)}
                 >
                   <div className="bg-[#f1f1f1] lg:w-[250px] rounded-lg relative">
                     {activeId === product.id && (
@@ -270,11 +272,10 @@ const FeaturedProducts = () => {
                       <span className="text-[#808080] line-through">
                         $200.00
                       </span>
-                      <span className="text-[#ff3b30] font-semibold">
+                      <span className="text-[#ff3b30] font-semibold lg:pb-0 pb-6">
                         {product.price}
                       </span>
                     </div>
-                    <p className="text-[14px] mt-2 text-[#19483a]">Shop Now</p>
                   </div>
                 </div>
               )
@@ -324,6 +325,8 @@ const FeaturedProducts = () => {
                   className="flex lg:flex-row flex-col lg:space-x-3 rounded-lg p-2 bg-[#fff]"
                   onMouseEnter={() => updateActiveState(product.id)}
                   onMouseLeave={() => updateActiveState(null)}
+                  onTouchMove={() => updateActiveState(product.id)}
+                  onScroll={() => updateActiveState(product.id)}
                 >
                   <div className="bg-[#f1f1f1] lg:w-[250px] rounded-lg relative">
                     {activeId === product.id && (
@@ -386,11 +389,10 @@ const FeaturedProducts = () => {
                       <span className="text-[#808080] line-through">
                         $200.00
                       </span>
-                      <span className="text-[#ff3b30] font-semibold">
+                      <span className="text-[#ff3b30] font-semibold lg:pb-0 pb-6">
                         {product.price}
                       </span>
                     </div>
-                    <p className="text-[14px] mt-2 text-[#19483a]">Shop Now</p>
                   </div>
                 </div>
               )

@@ -11,9 +11,10 @@ const Drawer = () => {
           transition={{ type: "ease", stiffness: 60 }}
         >
           <span>Home</span>
-          <span>About</span>
-          <span>Blog</span>
-          <span>FAQs</span>
+          <span>My Account</span>
+          <span>My Favorites</span>
+          <span>Shop</span>
+          <span>Contact Us</span>
           <div className="flex">
             <button className="bg-[#19483A] text-[#fff] py-2 px-6 rounded-lg">
               Get Started

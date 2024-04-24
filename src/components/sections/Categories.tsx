@@ -64,6 +64,8 @@ const Categories = () => {
               className="flex flex-col relative border border-[#f9e7e6] rounded-md py-6 px-12 items-center"
               onMouseLeave={() => updateArrowState(0)}
               onMouseEnter={() => updateArrowState(category.id)}
+              onTouchMove={() => updateArrowState(category.id)}
+              onScroll={() => updateArrowState(category.id)}
             >
               <div
                 style={{ borderColor: category.borderColor }}
