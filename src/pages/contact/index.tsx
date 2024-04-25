@@ -2,7 +2,7 @@ import MainContainer from "../../components/wrappers/MainContainer";
 
 const Contact = () => {
   return (
-    <MainContainer>
+    <MainContainer active="contact">
       <div className="bg-[#f1f1f1] min-h-[80vh] pb-[10vh] lg:pt-10 pt-4">
         <div className="lg:w-[80vw] w-[95vw] mx-auto pt-[6vh]">
           <h2 className="text-center text-[34px] mb-10 font-semibold">

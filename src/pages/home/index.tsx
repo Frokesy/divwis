@@ -6,7 +6,7 @@ import MainContainer from "../../components/wrappers/MainContainer";
 
 const Home = () => {
   return (
-    <MainContainer>
+    <MainContainer active="home">
       <HeroSection />
       <Categories />
       <FeaturedProducts />

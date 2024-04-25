@@ -19,15 +19,26 @@ const EditProfile: FC<ProfileProps> = ({ editStatus, setEditStatus }) => {
       }}
     >
       <div className="">
-        <h2 className="text-[26px] font-bold font-mono text-[#808080] pb-6">
-          Update Profile
-        </h2>
+        <div className="flex lg:block space-x-3">
+          <button
+            className="block lg:hidden"
+            onClick={() => setEditStatus(!editStatus)}
+          >
+            <FaArrowLeft />
+          </button>
+          <h2 className="lg:text-[26px] text-[20px] font-bold font-mono lg:text-[#808080] lg:pb-6">
+            Update Profile
+          </h2>
 
-        <button onClick={() => setEditStatus(!editStatus)}>
-          <FaArrowLeft />
-        </button>
+          <button
+            className="hidden lg:block"
+            onClick={() => setEditStatus(!editStatus)}
+          >
+            <FaArrowLeft />
+          </button>
+        </div>
 
-        <div className="w-[60%]">
+        <div className="lg:w-[60%] w-[85vw]">
           <div className="flex justify-between space-x-10">
             <Input type="text" label="First Name" fullBorder />
             <Input type="text" label="Last Name" fullBorder />
@@ -37,16 +48,17 @@ const EditProfile: FC<ProfileProps> = ({ editStatus, setEditStatus }) => {
             <Input type="text" label="Email Address" fullBorder />
           </div>
 
-          <button className="bg-[#6eb356] mt-6 hover:bg-[#fa961e] transition-colors duration-500 ease-in-out text-[#fff] py-2 px-6 font-semibold rounded-lg">
-            Update Profile
-          </button>
+          <div className="flex justify-end">
+            <button className="bg-[#6eb356] mt-6 hover:bg-[#fa961e] transition-colors duration-500 ease-in-out text-[#fff] py-2 px-6 font-semibold rounded-lg">
+              Update Profile
+            </button>
+          </div>
         </div>
 
-
-        <div className="w-[60%]">
-        <h2 className="text-[26px] font-bold font-mono text-[#808080] pt-16">
-          Change Password
-        </h2>
+        <div className="lg:w-[60%] w-[85vw]">
+          <h2 className="lg:text-[26px] text-[20px] font-bold font-mono lg:text-[#808080] pt-16 mb-6 lg:mb-0">
+            Change Password
+          </h2>
           <div className="flex justify-between space-x-10">
             <Input type="text" label="Email Address" fullBorder />
             <Input type="password" label="Old Password" fullBorder />
@@ -56,9 +68,11 @@ const EditProfile: FC<ProfileProps> = ({ editStatus, setEditStatus }) => {
             <Input type="password" label="Re-type Password" fullBorder />
           </div>
 
-          <button className="bg-[#6eb356] mt-6 hover:bg-[#fa961e] transition-colors duration-500 ease-in-out text-[#fff] py-2 px-6 font-semibold rounded-lg">
-            Update Profile
-          </button>
+          <div className="flex justify-end">
+            <button className="bg-[#6eb356] mt-6 hover:bg-[#fa961e] transition-colors duration-500 ease-in-out text-[#fff] py-2 px-6 font-semibold rounded-lg">
+              Update Profile
+            </button>
+          </div>
         </div>
       </div>
     </motion.div>

@@ -23,7 +23,7 @@ const Shops = () => {
   const [searchResults, setSearchResult] = useState<ProductsProps[]>([]);
   const [filterType, setFilterType] = useState<string>("");
   return (
-    <MainContainer>
+    <MainContainer active="shop">
       <div className="bg-[#f1f1f1] min-h-[80vh] pb-[10vh] lg:pt-10 pt-4">
         <div className="flex lg:w-[80vw] w-[95vw] mx-auto lg:flex-row flex-col justify-between pt-[10vh]">
           <div className="lg:w-[22%]">

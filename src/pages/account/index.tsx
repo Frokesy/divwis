@@ -9,10 +9,11 @@ import Address from "../../components/account/address";
 const Account = () => {
   const [activeTab, setActiveTab] = useState("profile");
   return (
-    <MainContainer>
+    <MainContainer active="account">
       <div className="pt-20 min-h-[90vh] pb-[10vh] bg-[#f1f1f1]">
-        <div className="w-[80vw] mx-auto bg-[#fff] rounded-2xl shadow-lg py-10 px-10 flex justify-between">
-          <div className="w-[20%] space-y-4">
+        <div className="lg:w-[80vw] w-[95vw] mx-auto bg-[#fff] rounded-2xl shadow-lg py-10 lg:px-10 px-6 flex justify-between lg:flex-row flex-col lg:space-y-0 space-y-10">
+          <div className="lg:w-[20%] w-[100%] space-y-4">
+            <h2 className="lg:hidden block font-semibold text-[18px]">Manage My Account</h2>
             <div
               onClick={() => setActiveTab("profile")}
               className={`${

@@ -6,8 +6,9 @@ import Footer from "../defaults/Footer";
 import BottomNav from "../defaults/BottomNav";
 interface MainContainerProps {
   children: ReactNode;
+  active: string;
 }
-const MainContainer: FC<MainContainerProps> = ({ children }) => {
+const MainContainer: FC<MainContainerProps> = ({ children, active }) => {
   const [loading, setLoading] = useState<boolean>(false);
 
   setTimeout(() => {
@@ -21,7 +22,7 @@ const MainContainer: FC<MainContainerProps> = ({ children }) => {
           <NavMenu />
           <PageTransition>{children}</PageTransition>
           <Footer />
-          <BottomNav />
+          <BottomNav active={active} />
         </div>
       ) : (
         <div className="flex justify-center items-center min-h-screen">
