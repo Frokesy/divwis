@@ -18,23 +18,33 @@ const EditAddress: FC<AddressProps> = ({ editAddress, setEditAddress }) => {
         ease: "easeInOut",
       }}
     >
-      <h2 className="text-[22px] font-bold font-mono text-[#808080] pb-6">
-        Edit Address
-      </h2>
-      <button onClick={() => setEditAddress(!editAddress)}>
-        <FaArrowLeft />
-      </button>
-
-      <div className="w-[60%]">
+      <div className="flex lg:block space-x-3 items-center">
+        <button
+          className="block lg:hidden"
+          onClick={() => setEditAddress(!editAddress)}
+        >
+          <FaArrowLeft />
+        </button>
+        <h2 className="lg:text-[22px] text-[20px] font-bold font-mono lg:text-[#808080] lg:pb-6">
+          Edit Address
+        </h2>
+        <button
+          className="lg:block hidden"
+          onClick={() => setEditAddress(!editAddress)}
+        >
+          <FaArrowLeft />
+        </button>
+      </div>
+      <div className="lg:w-[60%]">
         <div className="flex justify-between space-x-10">
           <Input type="text" label="First Name" fullBorder />
           <Input type="text" label="Last Name" fullBorder />
         </div>
         <div className="flex justify-between space-x-10 mt-3">
           <Input type="number" label="Mobile Number" fullBorder />
-          <Input type="number" label="Additional Mobile Number" fullBorder />
+          <Input type="number" label="Phone Number" fullBorder />
         </div>
-          <Input type="text" label="Delivery Address" fullBorder />
+        <Input type="text" label="Delivery Address" fullBorder />
         <div className="flex justify-between space-x-10 mt-3">
           <Input type="text" label="Region" fullBorder />
           <Input type="text" label="City" fullBorder />

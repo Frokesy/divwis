@@ -17,10 +17,10 @@ const AddressBook: FC<AddressProps> = ({ editAddress, setEditAddress }) => {
         ease: "easeInOut",
       }}
     >
-      <h2 className="text-[22px] font-bold font-mono text-[#808080]">
+      <h2 className="lg:text-[22px] text-[18px] font-bold font-mono lg:text-[#808080]">
         Addresses (3)
       </h2>
-      <div className="grid grid-cols-2 w-[80%] gap-y-6 gap-x-10 mt-6">
+      <div className="grid lg:grid-cols-2 lg:w-[80%] gap-y-6 gap-x-10 mt-6">
         <div className="border border-[#ccc] hover:shadow-lg transition-shadow duration-300 ease-in-out">
           <div className="p-3">
             <p className="font-semibold mt-2 text-[18px]">FrokesLini Noah</p>

@@ -16,36 +16,42 @@ const TrackOrder: FC<OrderProps> = ({ setActivePage }) => {
         ease: "easeInOut",
       }}
     >
-<div className="flex lg:block space-x-3 items-center">
-          <button
-            className="block lg:hidden"
-            onClick={() => setActivePage("index")}
-          >
-            <FaArrowLeft />
-          </button>
-          <h2 className="lg:text-[26px] text-[20px] font-bold font-mono lg:text-[#808080] lg:pb-6">
-            Order Tracking
-          </h2>
+      <div className="flex lg:block space-x-3 items-center">
+        <button
+          className="block lg:hidden"
+          onClick={() => setActivePage("index")}
+        >
+          <FaArrowLeft />
+        </button>
+        <h2 className="lg:text-[26px] text-[20px] font-bold font-mono lg:text-[#808080] lg:pb-6">
+          Order Tracking
+        </h2>
 
-          <button
-            className="hidden lg:block"
-            onClick={() => setActivePage("index")}
-          >
-            <FaArrowLeft />
-          </button>
-        </div>
+        <button
+          className="hidden lg:block"
+          onClick={() => setActivePage("index")}
+        >
+          <FaArrowLeft />
+        </button>
+      </div>
 
       <div className="mt-6">
         <div className="flex items-center mt-10">
           <div className="flex flex-col items-center relative">
-            <FaCheckCircle fill="#6eb356" className="lg:text-[30px] text-[24px]" />
+            <FaCheckCircle
+              fill="#6eb356"
+              className="lg:text-[30px] text-[24px]"
+            />
             <h2 className="absolute top-10 lg:text-[14px] text-[12px] text-[#6eb356] font-semibold">
               Pending
             </h2>
           </div>
           <div className="h-1 w-[200px] -ml-1 bg-[#6eb356] z-10"></div>
           <div className="flex flex-col relative items-center">
-            <FaCheckCircle fill="#6eb356" className="lg:text-[30px] text-[24px] -ml-1" />
+            <FaCheckCircle
+              fill="#6eb356"
+              className="lg:text-[30px] text-[24px] -ml-1"
+            />
             <h2 className="absolute top-10 lg:text-[14px] text-[12px] text-[#6eb356] font-semibold">
               Processing
             </h2>
