@@ -48,7 +48,7 @@ const Account = () => {
           </div>
 
           {/* main content */}
-          <div className="w-[75%] min-h-[65vh]">
+          <div className="lg:w-[75%] w-[100%] min-h-[65vh]">
             {activeTab === "profile" && <Profile />}
             {activeTab === "orders" && <Orders />}
             {activeTab === "address" && <Address />}

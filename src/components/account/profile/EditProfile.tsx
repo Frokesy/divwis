@@ -38,7 +38,7 @@ const EditProfile: FC<ProfileProps> = ({ editStatus, setEditStatus }) => {
           </button>
         </div>
 
-        <div className="lg:w-[60%] w-[85vw]">
+        <div className="lg:w-[60%] w-[100%]">
           <div className="flex justify-between space-x-10">
             <Input type="text" label="First Name" fullBorder />
             <Input type="text" label="Last Name" fullBorder />
@@ -55,7 +55,7 @@ const EditProfile: FC<ProfileProps> = ({ editStatus, setEditStatus }) => {
           </div>
         </div>
 
-        <div className="lg:w-[60%] w-[85vw]">
+        <div className="lg:w-[60%] w-[100%]">
           <h2 className="lg:text-[26px] text-[20px] font-bold font-mono lg:text-[#808080] pt-16 mb-6 lg:mb-0">
             Change Password
           </h2>

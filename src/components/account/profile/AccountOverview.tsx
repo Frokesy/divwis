@@ -90,7 +90,7 @@ const AccountOverview: FC<ProfileProps> = ({ editStatus, setEditStatus }) => {
           Account Summary
         </h2>
 
-        <div className="grid lg:grid-cols-4 grid-cols-2 w-[90vw] lg:w-[100%] gap-y-10 lg:pr-6 mx-auto">
+        <div className="grid lg:grid-cols-4 grid-cols-2 gap-y-10 lg:pr-6 mx-auto">
           <div className="flex flex-col items-center">
             <span className="text-[34px] font-bold text-[#21b169]">10</span>
             <p className="text-[14px]">Total Orders Completed</p>
