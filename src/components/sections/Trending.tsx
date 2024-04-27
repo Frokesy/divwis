@@ -197,6 +197,9 @@ const Trending = () => {
             }}
             onMouseEnter={() => updateActiveState(product.id)}
             onMouseLeave={() => updateActiveState(null)}
+            onTouchMove={() => updateActiveState(product.id)}
+            onTouchEnd={() => updateActiveState(null)}
+            onScroll={() => updateActiveState(product.id)}
             key={product.id}
             className="flex flex-col w-[100%] border border-[#f1f1f1] hover:shadow-xl transition-shadow duration-500 ease-in-out rounded-md px-4 mt-10 pb-4 relative"
           >

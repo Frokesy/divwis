@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { NavLink } from "react-router-dom";
 
 const Drawer = () => {
   return (
@@ -10,11 +11,11 @@ const Drawer = () => {
           animate={{ x: 0 }}
           transition={{ type: "ease", stiffness: 60 }}
         >
-          <span>Home</span>
-          <span>My Account</span>
+          <NavLink to={"/"}>Home</NavLink>
+          <NavLink to="/account">My Account</NavLink>
           <span>My Favorites</span>
-          <span>Shop</span>
-          <span>Contact Us</span>
+          <NavLink to="/shops/0">Shop</NavLink>
+          <NavLink to="/contact">Contact Us</NavLink>
           <div className="flex">
             <button className="bg-[#19483A] text-[#fff] py-2 px-6 rounded-lg">
               Get Started
