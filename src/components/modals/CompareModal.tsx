@@ -2,7 +2,7 @@ import { FC } from "react";
 import ModalContainer from "../wrappers/ModalContainer";
 import FiveStars from "../svgs/stars/FiveStars";
 import { FaCheckCircle } from "react-icons/fa";
-import { FaArrowsLeftRight } from "react-icons/fa6";
+import { FaArrowsLeftRight, FaArrowsUpDown } from "react-icons/fa6";
 
 interface ProductsProps {
   id: number;
@@ -28,9 +28,9 @@ const CompareModal: FC<ModalProps> = ({ isOpen, setIsOpen, product }) => {
 
   return (
     <ModalContainer isOpen={isOpen} setIsOpen={setIsOpen}>
-      <div className="w-[70vw] flex justify-between items-center space-x-10">
+      <div className="lg:w-[70vw] w-[85vw] flex lg:flex-row flex-col justify-between items-center lg:space-x-10 space-y-6 lg:space-y-0">
         {product && (
-          <div className="flex space-x-4 w-[45%] border border-[#ccc] px-6 py-10 rounded-lg hover:shadow-xl transition-shadow duration-300 ease-in-out">
+          <div className="flex space-x-4 lg:w-[45%] border border-[#ccc] px-6 py-10 rounded-lg hover:shadow-xl transition-shadow duration-300 ease-in-out">
             <div className="w-[100px]">
               <img
                 src={product.productImg}
@@ -72,12 +72,16 @@ const CompareModal: FC<ModalProps> = ({ isOpen, setIsOpen, product }) => {
           </div>
         )}
 
-        <div className="">
+        <div className="lg:block hidden">
           <FaArrowsLeftRight size={40} fill="#808080" />
         </div>
 
+        <div className="lg:hidden block">
+          <FaArrowsUpDown size={40} fill="#808080" />
+        </div>
+
         {product && (
-          <div className="flex space-x-4 w-[50%] border border-[#ccc] px-6 py-10 rounded-lg hover:shadow-xl transition-shadow duration-300 ease-in-out">
+          <div className="flex space-x-4 lg:w-[50%] border border-[#ccc] px-6 py-10 rounded-lg hover:shadow-xl transition-shadow duration-300 ease-in-out">
             <div className="w-[100px]">
               <img
                 src={product.productImg}

@@ -60,15 +60,15 @@ const ViewProductModal: FC<ModalProps> = ({ isOpen, setIsOpen, product }) => {
   return (
     <ModalContainer isOpen={isOpen} setIsOpen={setIsOpen}>
       {product && (
-        <div className="flex justify-between items-center space-x-10 w-[60vw]">
-          <div className="w-[450px]">
+        <div className="flex lg:flex-row flex-col justify-between items-center lg:space-x-10 lg:w-[60vw] w-[85vw] overflow-y-auto">
+          <div className="lg:w-[450px]">
             <img
               src={product.productImg}
               className="w-[100%] h-[300px]"
               alt="productImg"
             />
           </div>
-          <div className="flex flex-col w-[50%]">
+          <div className="flex flex-col lg:w-[50%] w-[100%]">
             <h3 className="font-bold text-[24px] mt-2">{product.name}</h3>
             <div className="flex items-center space-x-2">
               <div className="text-[#808080] flex items-center space-x-2 lg:mt-0 lg:text-[15px] mt-2 text-[13px]">
