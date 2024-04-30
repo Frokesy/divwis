@@ -8,6 +8,7 @@ interface ProductsProps {
   id: number;
   name: string;
   price: string;
+  priceId?: string;
   review: string;
   productImg: string;
 }

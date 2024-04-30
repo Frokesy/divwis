@@ -7,6 +7,7 @@ interface ProductsProps {
   id: number;
   name: string;
   price: string;
+  priceId?: string;
   review: string;
   productImg: string;
 }
@@ -35,6 +36,7 @@ const ViewProductModal: FC<ModalProps> = ({ isOpen, setIsOpen, product }) => {
       id: product?.id,
       name: product?.name,
       price: product?.price,
+      priceId: product?.priceId,
       review: product?.review,
       productImg: product?.productImg,
       quantity: quantity,

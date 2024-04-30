@@ -6,6 +6,7 @@ interface CartProps {
   id: number;
   name: string;
   price: string;
+  priceId?: string;
   review: string;
   productImg: string;
   quantity: number;
@@ -13,32 +14,75 @@ interface CartProps {
 
 const CartAccordion = () => {
   const [data, setData] = useState<CartProps[]>([]);
+  const [totalCost, setTotalCost] = useState<number>()
   const idb = window.indexedDB;
 
-  useEffect(() => {
-    const getAllData = () => {
-      const dbPromise = idb.open("divwis", 1);
-      dbPromise.onsuccess = () => {
-        const db = dbPromise.result;
+  const getAllData = () => {
+    const dbPromise = idb.open("divwis", 1);
+    dbPromise.onsuccess = () => {
+      const db = dbPromise.result;
 
-        const tx = db.transaction("cart", "readonly");
-        const favorites = tx.objectStore("cart");
-        const data = favorites.getAll();
+      const tx = db.transaction("cart", "readonly");
+      const cart = tx.objectStore("cart");
+      const data = cart.getAll();
 
-        data.onsuccess = (query) => {
-          if (query.srcElement) {
-            setData((query.srcElement as IDBRequest).result);
-          }
-        };
+      data.onsuccess = (query) => {
+        if (query.srcElement) {
+          setData((query.srcElement as IDBRequest).result);
+        }
+      };
 
+      tx.oncomplete = function () {
+        db.close();
+      };
+    };
+  };
+
+  const getTotalCost = () => {
+    const totalCost = data.reduce((acc, item) => acc + (parseInt(item.price) * item.quantity), 0);
+    setTotalCost(totalCost);
+  }
+  
+
+  const handleDelete = (item: CartProps) => {
+    const dbPromise = idb.open("divwis", 1);
+    dbPromise.onsuccess = function () {
+      const db = dbPromise.result;
+      const tx = db.transaction("cart", "readwrite");
+      const cart = tx.objectStore("cart");
+      const deleteData = cart.delete(item.id);
+
+      deleteData.onsuccess = () => {
         tx.oncomplete = function () {
+          getAllData();
+          getTotalCost();
           db.close();
         };
       };
     };
+  };
 
+  const handleCheckout = async() => {
+    await fetch('http://localhost:4000/checkout', {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ items: data })
+    }).then((response) => {
+      return response.json();
+    }).then((response) => {
+      if (response.url) {
+        window.location.assign(response.url)
+      }
+    })
+  }
+
+  useEffect(() => {
     getAllData();
-  }, [idb]);
+    getTotalCost();
+  });
+
   return (
     <motion.div
       initial={{ opacity: 0, x: -40 }}
@@ -56,8 +100,13 @@ const CartAccordion = () => {
                   {item.name}
                 </h2>
                 <div className="flex items-center space-x-4">
-                  <p className="text-[14px]">{item.price} x {item.quantity}</p>
-                  <FaTrashAlt fill="#ff0406" />
+                  <p className="text-[14px]">
+                    {item.price} x {item.quantity}
+                  </p>
+                  <FaTrashAlt
+                    onClick={() => handleDelete(item)}
+                    fill="#ff0406"
+                  />
                 </div>
               </div>
             </div>
@@ -68,9 +117,9 @@ const CartAccordion = () => {
       <div className="pr-4">
         <div className="flex justify-between mt-4 items-center">
           <h2 className="text-[#333] text-[18px]">Subtotal:</h2>
-          <p className="text-[#6eb356]">$1200.00</p>
+          <p className="text-[#6eb356]">${totalCost}</p>
         </div>
-        <button className="flex items-center justify-center w-[100%] bg-[#6eb356] hover:bg-[#ff7c08] transition-colors duration-500 ease-in-out text-[#fff] py-3 mt-3 space-x-3 text-[18px] font-semibold">
+        <button onClick={handleCheckout} className="flex items-center justify-center w-[100%] bg-[#6eb356] hover:bg-[#ff7c08] transition-colors duration-500 ease-in-out text-[#fff] py-3 mt-3 space-x-3 text-[18px] font-semibold">
           <FaWallet />
           <span>Checkout</span>
         </button>
