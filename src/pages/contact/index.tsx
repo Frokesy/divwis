@@ -20,44 +20,47 @@ const Contact = () => {
                 <input
                   type="text"
                   id="firstname"
-                  className="border border-[#ccc] rounded-lg outline-none px-3 lg:py-3 py-2 lg:w-[300px]"
+                  className="border border-[#ccc] rounded-lg outline-none px-3 lg:py-3 py-2 lg:w-[100%]"
                   placeholder="First Name"
                 />
               </div>
-              <div className="flex flex-col space-y-1 w-[45%] lg:w-[100%]">
+              <div className="flex flex-col space-y-1 w-[45%]">
                 <label htmlFor="lastname" className="font-semibold text-[18px]">
                   Last Name:
                 </label>
                 <input
                   type="text"
                   id="lastname"
-                  className="border border-[#ccc] rounded-lg outline-none px-3 lg:py-3 py-2 lg:w-[300px]"
+                  className="border border-[#ccc] rounded-lg outline-none px-3 lg:py-3 py-2 lg:w-[100%]"
                   placeholder="Last Name"
                 />
               </div>
             </div>
 
             <div className="flex justify-between">
-              <div className="flex flex-col space-y-1 w-[45%] lg:w-[100%]">
-                <label htmlFor="email" className="font-semibold text-[18px]">
-                  Email Address:
+              <div className="flex flex-col space-y-1 w-[45%]">
+                <label
+                  htmlFor="firstname"
+                  className="font-semibold text-[18px]"
+                >
+                  Email:
                 </label>
                 <input
                   type="email"
                   id="email"
+                  className="border border-[#ccc] rounded-lg outline-none px-3 lg:py-3 py-2 lg:w-[100%]"
                   placeholder="Email Address"
-                  className="border border-[#ccc] rounded-lg outline-none px-3 lg:py-3 py-2 lg:w-[300px]"
                 />
               </div>
-              <div className="flex flex-col space-y-1 w-[45%] lg:w-[100%]">
-                <label htmlFor="phone" className="font-semibold text-[18px]">
+              <div className="flex flex-col space-y-1 w-[45%]">
+                <label htmlFor="lastname" className="font-semibold text-[18px]">
                   Mobile Number:
                 </label>
                 <input
                   type="number"
                   id="phone"
+                  className="border border-[#ccc] rounded-lg outline-none px-3 lg:py-3 py-2 lg:w-[100%]"
                   placeholder="Mobile Number"
-                  className="border border-[#ccc] rounded-lg outline-none px-3 lg:py-3 py-2 lg:w-[300px]"
                 />
               </div>
             </div>
