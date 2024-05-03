@@ -63,13 +63,13 @@ const ViewProductModal: FC<ModalProps> = ({ isOpen, setIsOpen, product }) => {
           toast.success("Added to Cart!", {
             position: "top-center",
             theme: "light",
-            autoClose: 1000,
+            autoClose: 500,
             hideProgressBar: true,
             draggable: true,
           });
           setTimeout(() => {
             setIsOpen(!isOpen)
-          }, 2500)
+          }, 2000)
           db.close();
         };
       };

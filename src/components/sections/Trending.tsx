@@ -133,7 +133,7 @@ const Trending = () => {
           toast.success("Added to Cart!", {
             position: "top-center",
             theme: "light",
-            autoClose: 1000,
+            autoClose: 500,
             hideProgressBar: true,
             draggable: true,
           });
