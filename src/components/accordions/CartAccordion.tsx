@@ -101,7 +101,7 @@ const CartAccordion = () => {
                 </h2>
                 <div className="flex items-center space-x-4">
                   <p className="text-[14px]">
-                    {item.price} x {item.quantity}
+                    ${item.price} x {item.quantity}
                   </p>
                   <FaTrashAlt
                     onClick={() => handleDelete(item)}

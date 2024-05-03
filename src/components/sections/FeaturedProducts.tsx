@@ -26,63 +26,63 @@ const FeaturedProducts = () => {
     {
       id: 1,
       name: "Strawberry Fruit",
-      price: "$100.00",
+      price: "100.00",
       review: "4.5",
       productImg: "/assets/products/p-sm-1.png",
     },
     {
       id: 2,
       name: "Green Apple",
-      price: "$50.00",
+      price: "50.00",
       review: "4.5",
       productImg: "/assets/products/p-sm-2.png",
     },
     {
       id: 3,
       name: "Red Apple",
-      price: "$50.00",
+      price: "50.00",
       review: "4.5",
       productImg: "/assets/products/p-sm-3.png",
     },
     {
       id: 4,
       name: "Banana",
-      price: "$50.00",
+      price: "50.00",
       review: "4.5",
       productImg: "/assets/products/p-sm-4.png",
     },
     {
       id: 5,
       name: "Broyler Chicken",
-      price: "$50.00",
+      price: "50.00",
       review: "4.5",
       productImg: "/assets/products/p-sm-5.png",
     },
     {
       id: 6,
       name: "Orange Juice",
-      price: "$150.00",
+      price: "150.00",
       review: "4.5",
       productImg: "/assets/products/pago.png",
     },
     {
       id: 7,
       name: "Grapes",
-      price: "$50.00",
+      price: "50.00",
       review: "4.5",
       productImg: "/assets/products/p-sm-4.png",
     },
     {
       id: 8,
       name: "Tomatoes",
-      price: "$50.00",
+      price: "50.00",
       review: "4.5",
       productImg: "/assets/products/p-sm-2.png",
     },
     {
       id: 0,
       name: "Tomatoes",
-      price: "$50.00",
+      price: "50.00",
       review: "4.5",
       productImg: "/assets/products/p-sm-2.png",
     },
@@ -205,7 +205,7 @@ const FeaturedProducts = () => {
               product.id > 4 && (
                 <div
                   key={product.id}
-                  className="flex lg:flex-row flex-col lg:space-x-3 rounded-lg p-2 bg-[#fff]"
+                  className="flex lg:flex-row flex-col lg:space-x-3 rounded-lg p-2 bg-[#fff] items-center"
                   onMouseEnter={() => updateActiveState(product.id)}
                   onMouseLeave={() => updateActiveState(null)}
                   onTouchMove={() => updateActiveState(product.id)}
@@ -273,7 +273,7 @@ const FeaturedProducts = () => {
                         $200.00
                       </span>
                       <span className="text-[#ff3b30] font-semibold lg:pb-0 pb-6">
-                        {product.price}
+                        ${product.price}
                       </span>
                     </div>
                   </div>
@@ -322,7 +322,7 @@ const FeaturedProducts = () => {
               product.id < 4 && (
                 <div
                   key={product.id}
-                  className="flex lg:flex-row flex-col lg:space-x-3 rounded-lg p-2 bg-[#fff]"
+                  className="flex lg:flex-row flex-col lg:space-x-3 rounded-lg p-2 bg-[#fff] items-center"
                   onMouseEnter={() => updateActiveState(product.id)}
                   onMouseLeave={() => updateActiveState(null)}
                   onTouchMove={() => updateActiveState(product.id)}
@@ -390,7 +390,7 @@ const FeaturedProducts = () => {
                         $200.00
                       </span>
                       <span className="text-[#ff3b30] font-semibold lg:pb-0 pb-6">
-                        {product.price}
+                        ${product.price}
                       </span>
                     </div>
                   </div>

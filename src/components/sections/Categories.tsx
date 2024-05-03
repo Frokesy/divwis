@@ -57,7 +57,7 @@ const Categories = () => {
             Our top categories
           </h2>
         </div>
-        <div className="lg:w-[80vw] w-[90vw] mx-auto flex lg:flex-row flex-col lg:space-y-0 space-y-10 justify-between py-10 px-20 relative border border-dashed z-0 bg-[#fff] border-[#ff973a] rounded-lg">
+        <div className="lg:w-[80vw] w-[90vw] mx-auto flex lg:flex-row justify-between flex-col lg:space-y-0 space-y-10 p-10 relative border border-dashed z-0 bg-[#fff] border-[#ff973a] rounded-lg">
           {categories.map((category) => (
             <div
               key={category.id}

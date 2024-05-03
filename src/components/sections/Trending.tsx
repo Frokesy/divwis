@@ -5,11 +5,16 @@ import { Compare, Eye, Heart } from "../svgs/Icons";
 import { products } from "../data/products";
 import ViewProductModal from "../modals/ViewProductModal";
 import CompareModal from "../modals/CompareModal";
+import { toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Loader from "../defaults/Loader";
 
 interface ProductsProps {
   id: number;
   name: string;
   price: string;
+  priceId?: string;
   review: string;
   category: string;
   productImg: string;
@@ -17,6 +22,7 @@ interface ProductsProps {
 
 const Trending = () => {
   const [activeTab, setActiveTab] = useState<string>("all");
+  const [loading, setLoading] = useState<boolean>(false);
   const [activeId, setActiveId] = useState<number | null>();
   const [iconHover, setIconHover] = useState<string>("");
   const [activeIcon, setActiveIcon] = useState<string>("");
@@ -100,6 +106,43 @@ const Trending = () => {
     }
   };
 
+  const addToCart = (product: ProductsProps) => {
+    setLoading(true);
+    const item = {
+      id: product?.id,
+      name: product?.name,
+      price: product?.price,
+      priceId: product?.priceId,
+      review: product?.review,
+      productImg: product?.productImg,
+      quantity: 1,
+    };
+
+    const idb = window.indexedDB;
+    const dbPromise = idb.open("divwis", 1);
+
+    dbPromise.onsuccess = () => {
+      const db = dbPromise.result;
+      const tx = db.transaction("cart", "readwrite");
+      const carts = tx.objectStore("cart");
+      const addData = carts.put(item);
+
+      addData.onsuccess = () => {
+        tx.oncomplete = () => {
+          setLoading(false);
+          toast.success("Added to Cart!", {
+            position: "top-center",
+            theme: "light",
+            autoClose: 1000,
+            hideProgressBar: true,
+            draggable: true,
+          });
+          db.close();
+        };
+      };
+    };
+  };
+
   useEffect(() => {
     if (activeTab === "all") {
       setProductsPerCategory(products);
@@ -138,6 +181,7 @@ const Trending = () => {
 
   return (
     <div className=" mt-6 pt-[5vh] pb-[10vh]">
+      <ToastContainer />
       <div className="flex lg:flex-row flex-col justify-between items-center w-[80vw] mx-auto">
         <h2 className="text-[26px] font-semibold">Top Trending Products</h2>
 
@@ -259,7 +303,7 @@ const Trending = () => {
               </span>
             </div>
             <span className="pt-2 text-[#ff0406] font-bold text-[18px]">
-              {product.price}
+              ${product.price}
             </span>
             <div className="w-[100%] bg-[#ecf0e8] my-3 rounded-lg">
               <div className="bg-[#6eb356] w-[60%] h-[8px] rounded-lg"></div>
@@ -274,9 +318,14 @@ const Trending = () => {
                   initial={{ opacity: 0, y: -30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, ease: "easeInOut" }}
-                  className="bg-[#ff7c08] text-[#fff] hover:bg-[#6eb356] transition-colors duration-500 ease-in-out hover:text-[#fff] cursor-pointer my-6 py-3 rounded-lg flex items-center justify-center"
+                  onClick={() => addToCart(product)}
+                  className="bg-[#ff7c08] text-[#fff] hover:bg-[#6eb356] transition-colors duration-500 ease-in-out hover:text-[#fff] cursor-pointer my-6 py-3 rounded-lg flex items-center justify-center w-[100%] h-[50px]"
                 >
-                  <p className="text-[18px] font-bold">Add to cart</p>
+                  {loading ? (
+                    <Loader />
+                  ) : (
+                    <p className="text-[18px] font-bold">Add to cart</p>
+                  )}
                 </motion.div>
               )}
             </div>

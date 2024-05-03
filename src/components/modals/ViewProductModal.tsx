@@ -2,6 +2,10 @@ import React, { FC, useState } from "react";
 import ModalContainer from "../wrappers/ModalContainer";
 import FiveStars from "../svgs/stars/FiveStars";
 import { FaCheckCircle } from "react-icons/fa";
+import Loader from "../defaults/Loader";
+import { toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 interface ProductsProps {
   id: number;
@@ -20,6 +24,7 @@ interface ModalProps {
 
 const ViewProductModal: FC<ModalProps> = ({ isOpen, setIsOpen, product }) => {
   const [quantity, setQuantity] = useState<number>(1);
+  const [loading, setLoading] = useState<boolean>(false);
   const descs = [
     "Natural ingredients",
     "Tastes better with milk",
@@ -32,6 +37,7 @@ const ViewProductModal: FC<ModalProps> = ({ isOpen, setIsOpen, product }) => {
   };
 
   const addToCart = () => {
+    setLoading(true);
     const item = {
       id: product?.id,
       name: product?.name,
@@ -53,6 +59,17 @@ const ViewProductModal: FC<ModalProps> = ({ isOpen, setIsOpen, product }) => {
 
       addData.onsuccess = () => {
         tx.oncomplete = () => {
+          setLoading(false);
+          toast.success("Added to Cart!", {
+            position: "top-center",
+            theme: "light",
+            autoClose: 1000,
+            hideProgressBar: true,
+            draggable: true,
+          });
+          setTimeout(() => {
+            setIsOpen(!isOpen)
+          }, 2500)
           db.close();
         };
       };
@@ -61,6 +78,7 @@ const ViewProductModal: FC<ModalProps> = ({ isOpen, setIsOpen, product }) => {
 
   return (
     <ModalContainer isOpen={isOpen} setIsOpen={setIsOpen}>
+      <ToastContainer />
       {product && (
         <div className="flex lg:flex-row flex-col justify-between items-center lg:space-x-10 lg:w-[60vw] w-[85vw] overflow-y-auto">
           <div className="lg:w-[450px]">
@@ -128,9 +146,9 @@ const ViewProductModal: FC<ModalProps> = ({ isOpen, setIsOpen, product }) => {
             <div className="flex justify-end mt-3">
               <button
                 onClick={addToCart}
-                className="bg-[#ff7c08] text-[#fff] py-2 px-4 rounded-md"
+                className="bg-[#ff7c08] text-[#fff] h-[40px] w-[120px] rounded-md flex items-center justify-center"
               >
-                Add to Cart
+                {loading ? <Loader /> : "Add to Cart"}
               </button>
             </div>
           </div>
