@@ -6,6 +6,7 @@ import Account from "./pages/account";
 import Contact from "./pages/contact";
 import Success from "./pages/res/success";
 import Cancel from "./pages/res/cancel";
+import MobileCart from "./pages/cart";
 
 function App() {
   const router = createBrowserRouter([
@@ -14,7 +15,8 @@ function App() {
     { path: "/account", element: <Account /> },
     { path: "/contact", element: <Contact /> },
     { path: "/success", element: <Success /> },
-    { path: "/cancel", element: <Cancel /> }
+    { path: "/cancel", element: <Cancel /> },
+    { path: "/cart", element: <MobileCart /> }
   ]);
 
   return (

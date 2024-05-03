@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { FaHome, FaSearch, FaUser } from "react-icons/fa";
-import { FaBagShopping } from "react-icons/fa6";
+import { FaBagShopping, FaCartShopping } from "react-icons/fa6";
 import { NavLink } from "react-router-dom";
 
 interface BottomNavProps {
@@ -10,7 +10,7 @@ interface BottomNavProps {
 const BottomNav: FC<BottomNavProps> = ({ active }) => {
   return (
     <div className="fixed lg:hidden block bottom-0 w-[100%] bg-[#fff] z-30">
-      <div className="px-6 flex justify-between py-4 text-[14px]">
+      <div className="px-6 flex justify-between items-center text-[14px]">
         <NavLink
           to="/" 
           className={`flex flex-col items-center transition-all duration-500 ease-in-out space-y-1 ${
@@ -32,6 +32,16 @@ const BottomNav: FC<BottomNavProps> = ({ active }) => {
           <FaSearch />
           <h2>Search</h2>
         </div>
+        <NavLink
+          to={"/cart"}
+          className={`flex flex-col items-center transition-all duration-500 ease-in-out p-3 my-3 rounded-full ${
+            active === "cart"
+              ? "text-[#fff] bg-[#ff7c08]"
+              : "text-[#808080] border border-[#808080]"
+          }`}
+        >
+          <FaCartShopping size={24} />
+        </NavLink>
         <NavLink
           to={"/shops/0"}
           className={`flex flex-col items-center transition-all duration-500 ease-in-out space-y-1 ${

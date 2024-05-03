@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AuthModal from "../modals/AuthModal";
 import { supabase } from "../../../utils/supabaseClient";
 import { FaEnvelope } from "react-icons/fa";
@@ -25,24 +25,28 @@ const Header = () => {
 
   const id = localStorage.getItem("id");
 
-  const getUsername = async () => {
-    const { data: user, error } = await supabase
-      .from("users")
-      .select("*")
-      .eq("userId", id);
+  useEffect(() => {
+    const getUsername = async () => {
+      const { data: user, error } = await supabase
+        .from("users")
+        .select("*")
+        .eq("userId", id);
 
-    if (!error) {
-      setName(user[0]?.name);
-    }
-  };
+      if (!error) {
+        setName(user[0]?.name);
+      }
+    };
 
-  getUsername();
+    getUsername();
+  }, [id]);
 
   return (
     <>
       <div className="bg-[#6eb356] text-[#fff] w-[100%] lg:block hidden pt-3 pb-10">
         <div className="w-[80vw] mx-auto flex justify-between">
-          <h2 className="text-[16px] font-semibold">Welcome to our Store{`, ${name}`}</h2>
+          <h2 className="text-[16px] font-semibold">
+            Welcome to our Store{`, ${name}`}
+          </h2>
           <div className="flex items-center space-x-6">
             <div className="flex items-center space-x-2">
               <FaEnvelope />
