@@ -7,10 +7,12 @@ import { Cart, Search, UserIcon } from "../svgs/Icons";
 import SearchAccordion from "../accordions/SearchAccordion";
 import UserAccordion from "../accordions/UserAccordion";
 import CartAccordion from "../accordions/CartAccordion";
+import LogoutModal from "../modals/LogoutModal";
 
 const NavMenu = () => {
-  const [openDrawer, setOpenDrawer] = useState(false);
-  const [showAccordion, setShowAccordion] = useState("");
+  const [openDrawer, setOpenDrawer] = useState<boolean>(false);
+  const [showLogoutModal, setShowLogoutModal] = useState<boolean>(false);
+  const [showAccordion, setShowAccordion] = useState<string>("");
   const categories = [
     { id: 1, name: "Cereals" },
     { id: 2, name: "Fruits" },
@@ -18,6 +20,10 @@ const NavMenu = () => {
     { id: 4, name: "Meat" },
     { id: 5, name: "Milk & Dairy" },
   ];
+
+  const logout = () => {
+    setShowLogoutModal(true);
+  };
 
   return (
     <div className="w-[100%] lg:absolute lg:top-12 fixed top-0 z-40">
@@ -61,7 +67,7 @@ const NavMenu = () => {
               onMouseEnter={() => setShowAccordion("user")}
             >
               <UserIcon />
-              {showAccordion === "user" && <UserAccordion />}
+              {showAccordion === "user" && <UserAccordion logout={logout} />}
             </div>
             <div
               className="cursor-pointer"
@@ -73,6 +79,7 @@ const NavMenu = () => {
           </div>
         </div>
       </div>
+      {showLogoutModal && <LogoutModal isOpen={showLogoutModal} setIsOpen={setShowLogoutModal} />}
       {openDrawer && <Drawer />}
     </div>
   );

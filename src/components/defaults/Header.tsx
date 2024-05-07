@@ -6,10 +6,10 @@ import { FaLocationDot } from "react-icons/fa6";
 import { Phone } from "../svgs/Icons";
 
 const Header = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [fromHome, setFromHome] = useState(false);
-  const [activeTab, setActiveTab] = useState("");
-  const [name, setName] = useState("");
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [fromHome, setFromHome] = useState<boolean>(false);
+  const [activeTab, setActiveTab] = useState<string>("");
+  const [name, setName] = useState<string>("");
 
   const handleClick = (tab: string) => {
     setIsOpen(true);
