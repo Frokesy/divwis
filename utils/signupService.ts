@@ -47,7 +47,7 @@ export async function handleSignup(
         } else {
           toast.success("Account created successfully!", {
             position: "top-center",
-            theme: "dark",
+            theme: "light",
             autoClose: 2000,
             hideProgressBar: true,
             draggable: true,
@@ -61,7 +61,7 @@ export async function handleSignup(
     } catch (error) {
       toast.error(error as string, {
         position: "top-center",
-        theme: "dark",
+        theme: "light",
         autoClose: 2000,
         hideProgressBar: true,
         draggable: true,

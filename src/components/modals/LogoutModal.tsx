@@ -1,6 +1,7 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import ModalContainer from "../wrappers/ModalContainer";
 import { handleLogout } from "../../../utils/logoutService.ts";
+import Loader from "../defaults/Loader.tsx";
 
 interface ModalProps {
   isOpen: boolean;
@@ -8,23 +9,24 @@ interface ModalProps {
 }
 
 const LogoutModal: FC<ModalProps> = ({ isOpen, setIsOpen }) => {
+  const [loading, setLoading] = useState<boolean>(false);
   return (
     <ModalContainer isOpen={isOpen} setIsOpen={setIsOpen}>
-      <h2>Are you sure you want to logout?</h2>
+      <h2 className="">Are you sure you want to logout?</h2>
       <div className="flex justify-end mt-6">
         <button
           onClick={() => setIsOpen(false)}
-          className="px-4 py-1 bg-[#ccc] text-[#333] font-semibold rounded-md"
+          className="px-4 py-1 bg-[#ccc] text-[#333] h-[40px] w-[85px] text-[14px] font-semibold rounded-md"
         >
           Cancel
         </button>
         <button
           onClick={() => {
-            handleLogout(isOpen, setIsOpen);
+            handleLogout(isOpen, setIsOpen, setLoading);
           }}
-          className="px-4 py-1 bg-[#ff0406] text-[#fff] font-semibold rounded-md ml-4"
+          className="px-4 py-1 bg-[#ff0406] text-[#fff] h-[40px] w-[85px] font-semibold rounded-md ml-4 text-[14px]"
         >
-          Logout
+          {loading ? <Loader /> : "Logout"}
         </button>
       </div>
     </ModalContainer>

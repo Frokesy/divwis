@@ -45,7 +45,7 @@ const Header = () => {
       <div className="bg-[#6eb356] text-[#fff] w-[100%] lg:block hidden pt-3 pb-10">
         <div className="w-[80vw] mx-auto flex justify-between">
           <h2 className="text-[16px] font-semibold">
-            Welcome to our Store{`, ${name}`}
+            Welcome to our Store{id ? `, ${name}` : '.'}
           </h2>
           <div className="flex items-center space-x-6">
             <div className="flex items-center space-x-2">

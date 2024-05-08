@@ -189,41 +189,19 @@ const AuthModal: FC<ModalProps> = ({
           <div className="flex justify-between mt-6 items-center">
             <span className="text-[13px] text-[#19483a]">Forgot password?</span>
             {active === "login" ? (
-              <div className="">
-                {loading ? (
-                  <button
-                    onClick={() => handleSubmit("login")}
-                    className="bg-[#19483a] text-[#fff] text-[14px] rounded-lg font-semibold px-8 py-1.5"
-                  >
-                    <Loader />
-                  </button>
-                ) : (
-                  <button
-                    onClick={() => handleSubmit("login")}
-                    className="bg-[#19483a] text-[#fff] text-[14px] rounded-lg font-semibold px-8 py-1"
-                  >
-                    Login
-                  </button>
-                )}
-              </div>
+              <button
+                onClick={() => handleSubmit("login")}
+                className="bg-[#19483a] text-[#fff] text-[14px] h-[40px] w-[110px] rounded-lg font-semibold px-8 py-1.5"
+              >
+                {loading ? <Loader /> : "Login"}
+              </button>
             ) : (
-              <div className="">
-                {loading ? (
-                  <button
-                    onClick={() => handleSubmit("login")}
-                    className="bg-[#19483a] text-[#fff] text-[14px] rounded-lg font-semibold px-8 py-1.5"
-                  >
-                    <Loader />
-                  </button>
-                ) : (
-                  <button
-                    onClick={() => handleSubmit("login")}
-                    className="bg-[#19483a] text-[#fff] text-[14px] rounded-lg font-semibold px-8 py-1"
-                  >
-                    Signup
-                  </button>
-                )}
-              </div>
+              <button
+                onClick={() => handleSubmit("login")}
+                className="bg-[#19483a] text-[#fff] text-[14px] rounded-lg font-semibold px-8 py-1.5"
+              >
+                {loading ? <Loader /> : "Signup"}
+              </button>
             )}
           </div>
         </div>

@@ -17,10 +17,10 @@ const HeroSection = () => {
             Get your groceries in as fast and easy as you want it.
           </p>
           <div className="flex lg:mt-10 mt-4 lg:w-[80%]">
-            <NavLink to={"/shops/0"} className="bg-[#ff7c08] hover:bg-[#7ea405] transition-colors duration-500 ease-in-out text-[#fff] text-[18px] font-bold px-8 py-2">
+            <NavLink to={"/shops/0"} className="bg-[#ff7c08] hover:bg-[#7ea405] transition-colors duration-500 ease-in-out text-[#fff] lg:text-[18px] font-bold lg:px-8 px-6 py-2">
               Shop Now
             </NavLink>
-            <NavLink to={"/contact"} className="bg-[#7ea405] hover:bg-[#ff7c08] ml-10 transition-colors duration-500 ease-in-out text-[#fff] text-[18px] font-bold px-8 py-2">
+            <NavLink to={"/contact"} className="bg-[#7ea405] hover:bg-[#ff7c08] ml-10 transition-colors duration-500 ease-in-out text-[#fff] lg:text-[18px] font-bold lg:px-8 px-6 py-2">
               Contact Us
             </NavLink>
           </div>

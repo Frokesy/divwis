@@ -36,7 +36,7 @@ export async function handleLogin(
       localStorage.setItem("id", id);
       toast.success("Login successful!", {
         position: "top-center",
-        theme: "dark",
+        theme: "light",
         autoClose: 2000,
         hideProgressBar: true,
         draggable: true,
@@ -48,7 +48,7 @@ export async function handleLogin(
     } catch (error) {
       toast.error(error as string, {
         position: "top-center",
-        theme: "dark",
+        theme: "light",
         autoClose: 2000,
         hideProgressBar: true,
         draggable: true,
