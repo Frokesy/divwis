@@ -12,8 +12,9 @@ interface ProductsProps {
   name: string;
   price: string;
   priceId?: string;
-  review: string;
-  productImg: string;
+  review?: string;
+  image: string;
+  category: string;
 }
 
 interface ModalProps {
@@ -44,7 +45,7 @@ const ViewProductModal: FC<ModalProps> = ({ isOpen, setIsOpen, product }) => {
       price: product?.price,
       priceId: product?.priceId,
       review: product?.review,
-      productImg: product?.productImg,
+      productImg: product?.image,
       quantity: quantity,
     };
 
@@ -83,7 +84,7 @@ const ViewProductModal: FC<ModalProps> = ({ isOpen, setIsOpen, product }) => {
         <div className="flex lg:flex-row flex-col justify-between items-center lg:space-x-10 lg:w-[60vw] w-[85vw] overflow-y-auto">
           <div className="lg:w-[450px]">
             <img
-              src={product.productImg}
+              src={product.image}
               className="w-[100%] h-[300px]"
               alt="productImg"
             />

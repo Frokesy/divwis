@@ -8,8 +8,9 @@ interface ProductsProps {
   name: string;
   price: string;
   priceId?: string;
-  review: string;
-  productImg: string;
+  review?: string;
+  image: string;
+  category: string;
 }
 
 interface MainContentProps {
@@ -43,6 +44,8 @@ const MainContent: FC<MainContentProps> = ({
     productsPerCategory,
     searchResults,
   ]);
+
+  console.log(products)
   return (
     <div>
       <div className="grid lg:grid-cols-3 grid-cols-1 lg:w-[100%] mt-10 lg:mt-0 mx-auto lg:gap-[1vw] gap-[3vh]">
@@ -64,7 +67,7 @@ const MainContent: FC<MainContentProps> = ({
                 </h2>
               </div>
               <img
-                src={product.productImg}
+                src={product.image}
                 alt="product"
                 className="mt-10 lg:h-[200px] lg:w-[250px] w-[350px] h-[270px]"
               />

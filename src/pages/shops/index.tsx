@@ -10,8 +10,8 @@ interface ProductsProps {
   name: string;
   price: string;
   priceId?: string;
-  review: string;
-  productImg: string;
+  review?: string;
+  image: string;
 }
 
 const Shops = () => {

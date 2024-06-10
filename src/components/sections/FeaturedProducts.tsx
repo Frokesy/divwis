@@ -3,13 +3,15 @@ import { motion } from "framer-motion";
 import { Compare, Eye, Heart } from "../svgs/Icons";
 import ViewProductModal from "../modals/ViewProductModal";
 import CompareModal from "../modals/CompareModal";
+import { products } from "../data/products";
 
 interface ProductsProps {
   id: number;
   name: string;
   price: string;
-  review: string;
-  productImg: string;
+  review?: string;
+  image: string;
+  category: string;
 }
 
 const FeaturedProducts = () => {
@@ -22,71 +24,71 @@ const FeaturedProducts = () => {
   );
   const [activeIcon, setActiveIcon] = useState<string>("");
 
-  const products = [
-    {
-      id: 1,
-      name: "Strawberry Fruit",
-      price: "100.00",
-      review: "4.5",
-      productImg: "/assets/products/p-sm-1.png",
-    },
-    {
-      id: 2,
-      name: "Green Apple",
-      price: "50.00",
-      review: "4.5",
-      productImg: "/assets/products/p-sm-2.png",
-    },
-    {
-      id: 3,
-      name: "Red Apple",
-      price: "50.00",
-      review: "4.5",
-      productImg: "/assets/products/p-sm-3.png",
-    },
-    {
-      id: 4,
-      name: "Banana",
-      price: "50.00",
-      review: "4.5",
-      productImg: "/assets/products/p-sm-4.png",
-    },
-    {
-      id: 5,
-      name: "Broyler Chicken",
-      price: "50.00",
-      review: "4.5",
-      productImg: "/assets/products/p-sm-5.png",
-    },
-    {
-      id: 6,
-      name: "Orange Juice",
-      price: "150.00",
-      review: "4.5",
-      productImg: "/assets/products/pago.png",
-    },
-    {
-      id: 7,
-      name: "Grapes",
-      price: "50.00",
-      review: "4.5",
-      productImg: "/assets/products/p-sm-4.png",
-    },
-    {
-      id: 8,
-      name: "Tomatoes",
-      price: "50.00",
-      review: "4.5",
-      productImg: "/assets/products/p-sm-2.png",
-    },
-    {
-      id: 0,
-      name: "Tomatoes",
-      price: "50.00",
-      review: "4.5",
-      productImg: "/assets/products/p-sm-2.png",
-    },
-  ];
+  // const products = [
+  //   {
+  //     id: 1,
+  //     name: "Strawberry Fruit",
+  //     price: "100.00",
+  //     review: "4.5",
+  //     image: "/assets/products/p-sm-1.png",
+  //   },
+  //   {
+  //     id: 2,
+  //     name: "Green Apple",
+  //     price: "50.00",
+  //     review: "4.5",
+  //     image: "/assets/products/p-sm-2.png",
+  //   },
+  //   {
+  //     id: 3,
+  //     name: "Red Apple",
+  //     price: "50.00",
+  //     review: "4.5",
+  //     image: "/assets/products/p-sm-3.png",
+  //   },
+  //   {
+  //     id: 4,
+  //     name: "Banana",
+  //     price: "50.00",
+  //     review: "4.5",
+  //     image: "/assets/products/p-sm-4.png",
+  //   },
+  //   {
+  //     id: 5,
+  //     name: "Broyler Chicken",
+  //     price: "50.00",
+  //     review: "4.5",
+  //     image: "/assets/products/p-sm-5.png",
+  //   },
+  //   {
+  //     id: 6,
+  //     name: "Orange Juice",
+  //     price: "150.00",
+  //     review: "4.5",
+  //     image: "/assets/products/pago.png",
+  //   },
+  //   {
+  //     id: 7,
+  //     name: "Grapes",
+  //     price: "50.00",
+  //     review: "4.5",
+  //     image: "/assets/products/p-sm-4.png",
+  //   },
+  //   {
+  //     id: 8,
+  //     name: "Tomatoes",
+  //     price: "50.00",
+  //     review: "4.5",
+  //     image: "/assets/products/p-sm-2.png",
+  //   },
+  //   {
+  //     id: 0,
+  //     name: "Tomatoes",
+  //     price: "50.00",
+  //     review: "4.5",
+  //     image: "/assets/products/p-sm-2.png",
+  //   },
+  // ];
 
   const updateActiveState = (id: number | null) => {
     setActiveId(id);
@@ -254,7 +256,7 @@ const FeaturedProducts = () => {
                       </motion.div>
                     )}
                     <img
-                      src={product.productImg}
+                      src={product.image}
                       alt="product"
                       className="lg:w-[100%] lg:h-[120px] w-[350px] h-[270px]"
                     />
@@ -371,7 +373,7 @@ const FeaturedProducts = () => {
                       </motion.div>
                     )}
                     <img
-                      src={product.productImg}
+                      src={product.image}
                       alt="product"
                       className="lg:w-[100%] lg:h-[120px] w-[350px] h-[270px]"
                     />

@@ -9,8 +9,9 @@ interface ProductsProps {
   name: string;
   price: string;
   priceId?: string;
-  review: string;
-  productImg: string;
+  review?: string;
+  image: string;
+  category: string;
 }
 
 interface ModalProps {
@@ -34,7 +35,7 @@ const CompareModal: FC<ModalProps> = ({ isOpen, setIsOpen, product }) => {
           <div className="flex space-x-4 lg:w-[45%] border border-[#ccc] px-6 py-10 rounded-lg hover:shadow-xl transition-shadow duration-300 ease-in-out">
             <div className="w-[100px]">
               <img
-                src={product.productImg}
+                src={product.image}
                 className="w-[100%] h-[70px]"
                 alt="productImg"
               />
@@ -85,7 +86,7 @@ const CompareModal: FC<ModalProps> = ({ isOpen, setIsOpen, product }) => {
           <div className="flex space-x-4 lg:w-[50%] border border-[#ccc] px-6 py-10 rounded-lg hover:shadow-xl transition-shadow duration-300 ease-in-out">
             <div className="w-[100px]">
               <img
-                src={product.productImg}
+                src={product.image}
                 className="w-[100%] h-[70px]"
                 alt="productImg"
               />

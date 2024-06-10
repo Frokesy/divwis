@@ -19,8 +19,9 @@ interface ProductsProps {
   name: string;
   price: string;
   priceId?: string;
-  review: string;
-  productImg: string;
+  review?: string;
+  image: string;
+  category: string;
 }
 
 const SideNav: FC<SideNavProps> = ({
@@ -33,7 +34,7 @@ const SideNav: FC<SideNavProps> = ({
 }) => {
   const filterProductsByRating = (rating: number) => {
     const filteredProducts = products.filter(
-      (product) => parseFloat(product.review) === rating
+      (product) => parseFloat(product.review as string) === rating
     );
 
     setProductsPerRating(filteredProducts);
