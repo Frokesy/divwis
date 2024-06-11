@@ -15,9 +15,9 @@ interface ProductsProps {
   name: string;
   price: string;
   priceId?: string;
-  review: string;
+  review?: string;
   category: string;
-  productImg: string;
+  image: string;
 }
 
 const Trending = () => {
@@ -114,7 +114,7 @@ const Trending = () => {
       price: product?.price,
       priceId: product?.priceId,
       review: product?.review,
-      productImg: product?.productImg,
+      productImg: product?.image,
       quantity: 1,
     };
 
@@ -249,7 +249,7 @@ const Trending = () => {
           >
             <div className="relative w-[100%] flex items-center">
               <img
-                src={product.productImg}
+                src={product.image}
                 alt="product"
                 className="object-cover lg:w-auto lg:h-[200px] w-[350px] h-[270px]"
               />

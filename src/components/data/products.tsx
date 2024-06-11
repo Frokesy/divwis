@@ -8,6 +8,7 @@ interface ProductsProps {
   review?: string;
   image: string;
   category: string;
+  featured?: boolean;
 }
 
 

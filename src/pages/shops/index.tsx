@@ -12,6 +12,7 @@ interface ProductsProps {
   priceId?: string;
   review?: string;
   image: string;
+  category: string;
 }
 
 const Shops = () => {

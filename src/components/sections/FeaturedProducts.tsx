@@ -12,6 +12,7 @@ interface ProductsProps {
   review?: string;
   image: string;
   category: string;
+  featured?: boolean;
 }
 
 const FeaturedProducts = () => {
@@ -189,7 +190,7 @@ const FeaturedProducts = () => {
 
     getAllData();
   }, [idb]);
-
+console.log(products)
   return (
     <div className=" mt-6 pt-[15vh] bg-[#eef6eb]">
       <h2 className="font-bold lg:text-[32px] text-[26px] text-center">
@@ -202,7 +203,7 @@ const FeaturedProducts = () => {
 
       <div className="grid lg:grid-cols-3 grid-cols-1 gap-x-[1vw] lg:gap-y-0 gap-y-4 lg:w-[80vw] w-[90vw] mx-auto mt-10">
         <div className="w-[100%] space-y-4">
-          {products.map(
+          {products.slice(0,9).map(
             (product) =>
               product.id > 4 && (
                 <div
@@ -287,7 +288,7 @@ const FeaturedProducts = () => {
         <div className="lg:block hidden">
           {products.map(
             (product) =>
-              product.id === 0 && (
+              product.featured === true && (
                 <div
                   key={product.id}
                   className="bg-[#fff] flex flex-col pt-10 px-6"
