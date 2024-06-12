@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 interface ProductsProps {
   id: number;
   name: string;
-  price: string;
+  default_price: string;
   priceId?: string;
   review?: string;
   image: string;
@@ -81,7 +81,7 @@ const MainContent: FC<MainContentProps> = ({
                 </span>
               </div>
               <span className="pt-2 text-[#ff0406] font-bold text-[18px]">
-                ${product.price}
+                ${product.default_price}
               </span>
               <div
                 onClick={() => handleClick(product)}

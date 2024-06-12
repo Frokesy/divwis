@@ -10,7 +10,7 @@ import "react-toastify/dist/ReactToastify.css";
 interface ProductsProps {
   id: number;
   name: string;
-  price: string;
+  default_price: string;
   priceId?: string;
   review?: string;
   image: string;
@@ -42,7 +42,7 @@ const ViewProductModal: FC<ModalProps> = ({ isOpen, setIsOpen, product }) => {
     const item = {
       id: product?.id,
       name: product?.name,
-      price: product?.price,
+      price: product?.default_price,
       priceId: product?.priceId,
       review: product?.review,
       productImg: product?.image,
@@ -100,7 +100,7 @@ const ViewProductModal: FC<ModalProps> = ({ isOpen, setIsOpen, product }) => {
             <div className="flex space-x-3 text-[15px]">
               <span className="text-[#808080] line-through">$200.00</span>
               <span className="text-[#ff3b30] font-semibold">
-                {product.price}
+                {product.default_price}
               </span>
             </div>
             <h2 className="font-bold text-[18px] mt-6">Description</h2>

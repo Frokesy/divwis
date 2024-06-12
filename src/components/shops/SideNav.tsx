@@ -17,7 +17,7 @@ interface SideNavProps {
 interface ProductsProps {
   id: number;
   name: string;
-  price: string;
+  default_price: string;
   priceId?: string;
   review?: string;
   image: string;
@@ -44,8 +44,8 @@ const SideNav: FC<SideNavProps> = ({
   const filterProductsByPrice = (minPrice: number, maxPrice: number) => {
     const filteredProducts = products.filter(
       (product) =>
-        parseFloat(product.price) >= minPrice &&
-        parseFloat(product.price) <= maxPrice
+        parseFloat(product.default_price) >= minPrice &&
+        parseFloat(product.default_price) <= maxPrice
     );
 
     setProductsPerPrice(filteredProducts);

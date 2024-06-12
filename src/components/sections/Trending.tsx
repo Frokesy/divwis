@@ -13,7 +13,7 @@ import Loader from "../defaults/Loader";
 interface ProductsProps {
   id: number;
   name: string;
-  price: string;
+  default_price: string;
   priceId?: string;
   review?: string;
   category: string;
@@ -111,7 +111,7 @@ const Trending = () => {
     const item = {
       id: product?.id,
       name: product?.name,
-      price: product?.price,
+      price: product?.default_price,
       priceId: product?.priceId,
       review: product?.review,
       productImg: product?.image,
@@ -303,7 +303,7 @@ const Trending = () => {
               </span>
             </div>
             <span className="pt-2 text-[#ff0406] font-bold text-[18px]">
-              ${product.price}
+              ${product.default_price}
             </span>
             <div className="w-[100%] bg-[#ecf0e8] my-3 rounded-lg">
               <div className="bg-[#6eb356] w-[60%] h-[8px] rounded-lg"></div>

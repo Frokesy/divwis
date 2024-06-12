@@ -8,7 +8,7 @@ import { products } from "../data/products";
 interface ProductsProps {
   id: number;
   name: string;
-  price: string;
+  default_price: string;
   review?: string;
   image: string;
   category: string;
@@ -24,72 +24,9 @@ const FeaturedProducts = () => {
     []
   );
   const [activeIcon, setActiveIcon] = useState<string>("");
-
-  // const products = [
-  //   {
-  //     id: 1,
-  //     name: "Strawberry Fruit",
-  //     price: "100.00",
-  //     review: "4.5",
-  //     image: "/assets/products/p-sm-1.png",
-  //   },
-  //   {
-  //     id: 2,
-  //     name: "Green Apple",
-  //     price: "50.00",
-  //     review: "4.5",
-  //     image: "/assets/products/p-sm-2.png",
-  //   },
-  //   {
-  //     id: 3,
-  //     name: "Red Apple",
-  //     price: "50.00",
-  //     review: "4.5",
-  //     image: "/assets/products/p-sm-3.png",
-  //   },
-  //   {
-  //     id: 4,
-  //     name: "Banana",
-  //     price: "50.00",
-  //     review: "4.5",
-  //     image: "/assets/products/p-sm-4.png",
-  //   },
-  //   {
-  //     id: 5,
-  //     name: "Broyler Chicken",
-  //     price: "50.00",
-  //     review: "4.5",
-  //     image: "/assets/products/p-sm-5.png",
-  //   },
-  //   {
-  //     id: 6,
-  //     name: "Orange Juice",
-  //     price: "150.00",
-  //     review: "4.5",
-  //     image: "/assets/products/pago.png",
-  //   },
-  //   {
-  //     id: 7,
-  //     name: "Grapes",
-  //     price: "50.00",
-  //     review: "4.5",
-  //     image: "/assets/products/p-sm-4.png",
-  //   },
-  //   {
-  //     id: 8,
-  //     name: "Tomatoes",
-  //     price: "50.00",
-  //     review: "4.5",
-  //     image: "/assets/products/p-sm-2.png",
-  //   },
-  //   {
-  //     id: 0,
-  //     name: "Tomatoes",
-  //     price: "50.00",
-  //     review: "4.5",
-  //     image: "/assets/products/p-sm-2.png",
-  //   },
-  // ];
+  const productSet: ProductsProps[] = (
+    products.slice(0, 10)
+  )
 
   const updateActiveState = (id: number | null) => {
     setActiveId(id);
@@ -190,7 +127,7 @@ const FeaturedProducts = () => {
 
     getAllData();
   }, [idb]);
-console.log(products)
+console.log(productSet)
   return (
     <div className=" mt-6 pt-[15vh] bg-[#eef6eb]">
       <h2 className="font-bold lg:text-[32px] text-[26px] text-center">
@@ -203,9 +140,8 @@ console.log(products)
 
       <div className="grid lg:grid-cols-3 grid-cols-1 gap-x-[1vw] lg:gap-y-0 gap-y-4 lg:w-[80vw] w-[90vw] mx-auto mt-10">
         <div className="w-[100%] space-y-4">
-          {products.slice(0,9).map(
-            (product) =>
-              product.id > 4 && (
+          {productSet.slice(0,4).map(
+            (product) => (
                 <div
                   key={product.id}
                   className="flex lg:flex-row flex-col lg:space-x-3 rounded-lg p-2 bg-[#fff] items-center"
@@ -276,7 +212,7 @@ console.log(products)
                         $200.00
                       </span>
                       <span className="text-[#ff3b30] font-semibold lg:pb-0 pb-6">
-                        ${product.price}
+                        ${product.default_price}
                       </span>
                     </div>
                   </div>
@@ -320,9 +256,8 @@ console.log(products)
         </div>
 
         <div className="w-[100%] space-y-4">
-          {products.map(
-            (product) =>
-              product.id < 4 && (
+          {productSet.slice(4, 8).map(
+            (product) => (
                 <div
                   key={product.id}
                   className="flex lg:flex-row flex-col lg:space-x-3 rounded-lg p-2 bg-[#fff] items-center"
@@ -393,7 +328,7 @@ console.log(products)
                         $200.00
                       </span>
                       <span className="text-[#ff3b30] font-semibold lg:pb-0 pb-6">
-                        ${product.price}
+                        ${product.default_price}
                       </span>
                     </div>
                   </div>
