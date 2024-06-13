@@ -8,11 +8,12 @@ import ViewProductModal from "../../components/modals/ViewProductModal";
 interface ProductsProps {
   id: number;
   name: string;
-  price: string;
+  default_price: string;
   priceId?: string;
   review?: string;
   image: string;
   category: string;
+  desc: string;
 }
 
 const Shops = () => {

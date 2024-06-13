@@ -13,6 +13,7 @@ interface ProductsProps {
   image: string;
   category: string;
   featured?: boolean;
+  desc: string;
 }
 
 const FeaturedProducts = () => {
@@ -127,7 +128,6 @@ const FeaturedProducts = () => {
 
     getAllData();
   }, [idb]);
-console.log(productSet)
   return (
     <div className=" mt-6 pt-[15vh] bg-[#eef6eb]">
       <h2 className="font-bold lg:text-[32px] text-[26px] text-center">

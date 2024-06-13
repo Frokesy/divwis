@@ -11,6 +11,7 @@ interface ProductsProps {
   review?: string;
   image: string;
   category: string;
+  desc: string;
 }
 
 interface MainContentProps {

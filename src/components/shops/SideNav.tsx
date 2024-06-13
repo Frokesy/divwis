@@ -22,6 +22,7 @@ interface ProductsProps {
   review?: string;
   image: string;
   category: string;
+  desc: string;
 }
 
 const SideNav: FC<SideNavProps> = ({

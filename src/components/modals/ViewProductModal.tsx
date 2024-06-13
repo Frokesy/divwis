@@ -1,7 +1,6 @@
 import React, { FC, useState } from "react";
 import ModalContainer from "../wrappers/ModalContainer";
 import FiveStars from "../svgs/stars/FiveStars";
-import { FaCheckCircle } from "react-icons/fa";
 import Loader from "../defaults/Loader";
 import { toast } from "react-toastify";
 import { ToastContainer } from "react-toastify";
@@ -15,6 +14,7 @@ interface ProductsProps {
   review?: string;
   image: string;
   category: string;
+  desc: string;
 }
 
 interface ModalProps {
@@ -26,12 +26,6 @@ interface ModalProps {
 const ViewProductModal: FC<ModalProps> = ({ isOpen, setIsOpen, product }) => {
   const [quantity, setQuantity] = useState<number>(1);
   const [loading, setLoading] = useState<boolean>(false);
-  const descs = [
-    "Natural ingredients",
-    "Tastes better with milk",
-    "Vitamins B2, B3 and B6",
-    "Refrigerate for freshness",
-  ];
 
   const handleClick = (cmd: string) => {
     cmd === "increment" ? setQuantity(quantity + 1) : setQuantity(quantity - 1);
@@ -77,6 +71,7 @@ const ViewProductModal: FC<ModalProps> = ({ isOpen, setIsOpen, product }) => {
     };
   };
 
+
   return (
     <ModalContainer isOpen={isOpen} setIsOpen={setIsOpen}>
       <ToastContainer />
@@ -98,27 +93,13 @@ const ViewProductModal: FC<ModalProps> = ({ isOpen, setIsOpen, product }) => {
               </div>
             </div>
             <div className="flex space-x-3 text-[15px]">
-              <span className="text-[#808080] line-through">$200.00</span>
+              {/* <span className="text-[#808080] line-through">${product.default_price}</span> */}
               <span className="text-[#ff3b30] font-semibold">
-                {product.default_price}
+                ${product.default_price}
               </span>
             </div>
             <h2 className="font-bold text-[18px] mt-6">Description</h2>
-            <p className="text-[#808080] pt-1">
-              Clicks-and-mortar "outside the bethinking. Interactively
-              disseminate innovative intellectual relationships
-            </p>
-            <div className="mt-2 space-y-3">
-              {descs.map((desc, index) => (
-                <div
-                  key={index}
-                  className="flex items-center text-[#808080] text-[14px] space-x-3"
-                >
-                  <FaCheckCircle fill="#6eb356" size={20} />
-                  <p>{desc}</p>
-                </div>
-              ))}
-            </div>
+            <div className="">{product.desc}</div>
 
             <div className="mt-6">
               <h2 className="text-[18px] font-semibold mb-2">Quantity:</h2>

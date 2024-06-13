@@ -9,6 +9,7 @@ interface ProductsProps {
   image: string;
   category: string;
   featured?: boolean;
+  desc: string;
 }
 
 

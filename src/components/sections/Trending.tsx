@@ -18,6 +18,7 @@ interface ProductsProps {
   review?: string;
   category: string;
   image: string;
+  desc: string;
 }
 
 const Trending = () => {
@@ -198,13 +199,13 @@ const Trending = () => {
           </span>
           <span
             className={`cursor-pointer transition-all duration-200 ease-in-out ${
-              activeTab === "sea-food"
+              activeTab === "fruits"
                 ? "text-[#fa961e] font-semibold"
                 : "text-[#333]"
             }`}
-            onClick={() => setActiveTab("sea-food")}
+            onClick={() => setActiveTab("fruits")}
           >
-            Sea Food
+            Fruits
           </span>
           <span
             className={`cursor-pointer transition-all duration-200 ease-in-out ${
@@ -219,13 +220,13 @@ const Trending = () => {
           <span className="lg:hidden"></span>
           <span
             className={`cursor-pointer transition-all duration-200 ease-in-out ${
-              activeTab === "beans"
+              activeTab === "meat"
                 ? "text-[#fa961e] font-semibold"
                 : "text-[#333]"
             }`}
-            onClick={() => setActiveTab("beans")}
+            onClick={() => setActiveTab("meat")}
           >
-            Beans & Peas
+            Meat
           </span>
         </div>
       </div>
@@ -251,7 +252,7 @@ const Trending = () => {
               <img
                 src={product.image}
                 alt="product"
-                className="object-cover lg:w-auto lg:h-[200px] w-[350px] h-[270px]"
+                className="object-cover lg:w-[100%] lg:h-[200px] w-[350px] h-[270px]"
               />
 
               {activeId === product.id && (
