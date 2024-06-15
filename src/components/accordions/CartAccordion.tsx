@@ -18,6 +18,7 @@ const CartAccordion = () => {
   const [totalCost, setTotalCost] = useState<number>();
   const [loading, setLoading] = useState<boolean>(false);
   const idb = window.indexedDB;
+  const id = localStorage.getItem("id");
 
   const getAllData = () => {
     const dbPromise = idb.open("divwis", 1);
@@ -73,7 +74,7 @@ const CartAccordion = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ items: data }),
+      body: JSON.stringify({ items: data, id, totalCost }),
     })
       .then((response) => {
         return response.json();
