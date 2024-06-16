@@ -110,7 +110,7 @@ const CartAccordion = () => {
             {data.map((item) => (
               <div className="" key={item.id}>
                 <div className="flex items-center space-x-3">
-                  <img src={item.productImg} alt="img" className="w-[4rem]" />
+                  <img src={item.productImg} alt="img" className="w-[4rem] h-[3rem]" />
                   <div className="flex flex-col space-y-1">
                     <h2 className="text-[16px] font-bold text-[#333]">
                       {item.name}
