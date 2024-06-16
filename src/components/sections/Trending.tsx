@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import FiveStars from "../svgs/stars/FiveStars";
 import { motion } from "framer-motion";
 import { Compare, Eye, Heart } from "../svgs/Icons";
-import { products } from "../data/products";
+import { getProducts } from "../data/products";
 import ViewProductModal from "../modals/ViewProductModal";
 import CompareModal from "../modals/CompareModal";
 import { toast } from "react-toastify";
@@ -22,6 +22,7 @@ interface ProductsProps {
 }
 
 const Trending = () => {
+  const [products, setProducts] = useState<ProductsProps[]>([])
   const [activeTab, setActiveTab] = useState<string>("all");
   const [loading, setLoading] = useState<boolean>(false);
   const [activeId, setActiveId] = useState<number | null>();
@@ -153,7 +154,16 @@ const Trending = () => {
       );
       setProductsPerCategory(filteredProducts);
     }
-  }, [activeTab]);
+  }, [activeTab, products]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const fetchedProducts = await getProducts();
+      setProducts(fetchedProducts);
+    };
+
+    fetchData();
+  }, []);
 
   useEffect(() => {
     const getAllData = () => {

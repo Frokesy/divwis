@@ -12,7 +12,7 @@ interface ProductsProps {
   desc: string;
 }
 
-async function fetchProducts() {
+async function fetchProducts(): Promise<ProductsProps[]> {
   const { data, error } = await supabase.from("products").select("*");
 
   if (error) {
@@ -23,6 +23,7 @@ async function fetchProducts() {
   return data as ProductsProps[];
 }
 
-const products: ProductsProps[] = await fetchProducts();
-
-export { products };
+export async function getProducts(): Promise<ProductsProps[]> {
+  const products = await fetchProducts();
+  return products;
+}

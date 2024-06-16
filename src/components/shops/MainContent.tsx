@@ -1,5 +1,5 @@
 import FiveStars from "../svgs/stars/FiveStars";
-import { products } from "../data/products";
+import { getProducts } from "../data/products";
 import { FC, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
@@ -30,6 +30,7 @@ const MainContent: FC<MainContentProps> = ({
   searchResults,
   handleClick
 }) => {
+  const [products, setProducts] = useState<ProductsProps[]>([])
   const [filteredProducts, setFilteredProducts] =
     useState<ProductsProps[]>(products);
 
@@ -46,7 +47,14 @@ const MainContent: FC<MainContentProps> = ({
     searchResults,
   ]);
 
-  console.log(products)
+  useEffect(() => {
+    const fetchData = async () => {
+      const fetchedProducts = await getProducts();
+      setProducts(fetchedProducts);
+    };
+
+    fetchData();
+  }, []);
   return (
     <div>
       <div className="grid lg:grid-cols-3 grid-cols-1 lg:w-[100%] mt-10 lg:mt-0 mx-auto lg:gap-[1vw] gap-[3vh]">

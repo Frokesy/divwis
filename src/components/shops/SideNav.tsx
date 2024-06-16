@@ -1,9 +1,9 @@
-import React, { FC } from "react";
+import React, { FC, useEffect, useState } from "react";
 import Categories from "./Categories";
 import Filter from "./Filter";
 import Rating from "./Rating";
 import Search from "./Search";
-import { products } from "../data/products";
+import { getProducts } from "../data/products";
 
 interface SideNavProps {
   id: string | undefined;
@@ -33,6 +33,7 @@ const SideNav: FC<SideNavProps> = ({
   setProductsPerCategory,
   setSearchResult
 }) => {
+  const [products, setProducts] = useState<ProductsProps[]>([])
   const filterProductsByRating = (rating: number) => {
     const filteredProducts = products.filter(
       (product) => parseFloat(product.review as string) === rating
@@ -70,6 +71,15 @@ const SideNav: FC<SideNavProps> = ({
     setSearchResult(filteredSearch);
     setFilterType("search")
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const fetchedProducts = await getProducts();
+      setProducts(fetchedProducts);
+    };
+
+    fetchData();
+  }, []);
   return (
     <div className="bg-[#fff] px-3 py-4 rounded-lg shadow-md">
       <Search filterBySearch={filterBySearch} />

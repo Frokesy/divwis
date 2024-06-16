@@ -1,6 +1,29 @@
-import { products } from "../data/products";
+import { useEffect, useState } from "react";
+import { getProducts } from "../data/products";
+
+interface ProductsProps {
+  id: number;
+  name: string;
+  default_price: string;
+  priceId?: string;
+  review?: string;
+  image: string;
+  category: string;
+  featured?: boolean;
+  desc: string;
+}
 
 const OrderCard = () => {
+  const [products, setProducts] = useState<ProductsProps[]>([])
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const fetchedProducts = await getProducts();
+      setProducts(fetchedProducts);
+    };
+
+    fetchData();
+  }, []);
   return (
     <div className="">
       {products.slice(0, 2).map((product) => (

@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { Compare, Eye, Heart } from "../svgs/Icons";
 import ViewProductModal from "../modals/ViewProductModal";
 import CompareModal from "../modals/CompareModal";
-import { products } from "../data/products";
+import { getProducts } from "../data/products";
 
 interface ProductsProps {
   id: number;
@@ -16,7 +16,9 @@ interface ProductsProps {
   desc: string;
 }
 
-const FeaturedProducts = () => {
+const FeaturedProducts =  () => {
+  const [products, setProducts] = useState<ProductsProps[]>([])
+
   const [activeId, setActiveId] = useState<number | null>();
   const [iconHover, setIconHover] = useState<string>("");
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -25,9 +27,7 @@ const FeaturedProducts = () => {
     []
   );
   const [activeIcon, setActiveIcon] = useState<string>("");
-  const productSet: ProductsProps[] = (
-    products.slice(0, 10)
-  )
+  const productSet: ProductsProps[] = products.slice(0, 10);
 
   const updateActiveState = (id: number | null) => {
     setActiveId(id);
@@ -105,6 +105,15 @@ const FeaturedProducts = () => {
   };
 
   useEffect(() => {
+    const fetchData = async () => {
+      const fetchedProducts = await getProducts();
+      setProducts(fetchedProducts);
+    };
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
     const getAllData = () => {
       const dbPromise = idb.open("divwis", 1);
       dbPromise.onsuccess = () => {
@@ -140,85 +149,79 @@ const FeaturedProducts = () => {
 
       <div className="grid lg:grid-cols-3 grid-cols-1 gap-x-[1vw] lg:gap-y-0 gap-y-4 lg:w-[80vw] w-[90vw] mx-auto mt-10">
         <div className="w-[100%] space-y-4">
-          {productSet.slice(0,4).map(
-            (product) => (
-                <div
-                  key={product.id}
-                  className="flex lg:flex-row flex-col lg:space-x-3 rounded-lg p-2 bg-[#fff] items-center"
-                  onMouseEnter={() => updateActiveState(product.id)}
-                  onMouseLeave={() => updateActiveState(null)}
-                  onTouchMove={() => updateActiveState(product.id)}
-                  onScroll={() => updateActiveState(product.id)}
-                >
-                  <div className="bg-[#f1f1f1] lg:w-[250px] rounded-lg relative">
-                    {activeId === product.id && (
-                      <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.5, ease: "easeInOut" }}
-                        className="bg-[#000] bg-opacity-50 rounded-lg absolute top-0 w-[100%] h-[100%]"
+          {productSet.slice(0, 4).map((product) => (
+            <div
+              key={product.id}
+              className="flex lg:flex-row flex-col lg:space-x-3 rounded-lg p-2 bg-[#fff] items-center"
+              onMouseEnter={() => updateActiveState(product.id)}
+              onMouseLeave={() => updateActiveState(null)}
+              onTouchMove={() => updateActiveState(product.id)}
+              onScroll={() => updateActiveState(product.id)}
+            >
+              <div className="bg-[#f1f1f1] lg:w-[250px] rounded-lg relative">
+                {activeId === product.id && (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.5, ease: "easeInOut" }}
+                    className="bg-[#000] bg-opacity-50 rounded-lg absolute top-0 w-[100%] h-[100%]"
+                  >
+                    <div className="flex items-center justify-center h-[100%] space-x-2">
+                      <div
+                        onMouseEnter={() => updateIconHover("heart")}
+                        onMouseLeave={() => updateIconHover("")}
+                        onClick={() => handleLikedAnimation(product)}
+                        className="bg-[#fff] hover:bg-[#a4c059] cursor-pointer transition-colors duration-500 ease-in-out p-2 rounded-full"
                       >
-                        <div className="flex items-center justify-center h-[100%] space-x-2">
-                          <div
-                            onMouseEnter={() => updateIconHover("heart")}
-                            onMouseLeave={() => updateIconHover("")}
-                            onClick={() => handleLikedAnimation(product)}
-                            className="bg-[#fff] hover:bg-[#a4c059] cursor-pointer transition-colors duration-500 ease-in-out p-2 rounded-full"
-                          >
-                            <Heart
-                              iconHover={iconHover}
-                              liked={favoritedProducts.some(
-                                (p) => p.id === product.id
-                              )}
-                            />
-                          </div>
-                          <div
-                            onMouseEnter={() => updateIconHover("eye")}
-                            onMouseLeave={() => updateIconHover("")}
-                            className="bg-[#fff] hover:bg-[#a4c059] cursor-pointer transition-colors duration-500 ease-in-out p-2 rounded-full"
-                            onClick={() => handleClick(product, "eye")}
-                          >
-                            <Eye iconHover={iconHover} />
-                          </div>
-                          <div
-                            onMouseEnter={() => updateIconHover("compare")}
-                            onMouseLeave={() => updateIconHover("")}
-                            className="bg-[#fff] hover:bg-[#a4c059] cursor-pointer transition-colors duration-500 ease-in-out p-2 rounded-full"
-                            onClick={() => handleClick(product, "compare")}
-                          >
-                            <Compare iconHover={iconHover} />
-                          </div>
-                        </div>
-                      </motion.div>
-                    )}
-                    <img
-                      src={product.image}
-                      alt="product"
-                      className="lg:w-[100%] lg:h-[120px] w-[350px] h-[270px]"
-                    />
-                  </div>
-                  <div className="flex flex-col w-[100%]">
-                    <div className="flex items-center space-x-2">
-                      <div className="text-[#808080] lg:mt-0 lg:text-[15px] mt-2 text-[13px]">
-                        {product.review}/5 (4.2k reviews)
+                        <Heart
+                          iconHover={iconHover}
+                          liked={favoritedProducts.some(
+                            (p) => p.id === product.id
+                          )}
+                        />
+                      </div>
+                      <div
+                        onMouseEnter={() => updateIconHover("eye")}
+                        onMouseLeave={() => updateIconHover("")}
+                        className="bg-[#fff] hover:bg-[#a4c059] cursor-pointer transition-colors duration-500 ease-in-out p-2 rounded-full"
+                        onClick={() => handleClick(product, "eye")}
+                      >
+                        <Eye iconHover={iconHover} />
+                      </div>
+                      <div
+                        onMouseEnter={() => updateIconHover("compare")}
+                        onMouseLeave={() => updateIconHover("")}
+                        className="bg-[#fff] hover:bg-[#a4c059] cursor-pointer transition-colors duration-500 ease-in-out p-2 rounded-full"
+                        onClick={() => handleClick(product, "compare")}
+                      >
+                        <Compare iconHover={iconHover} />
                       </div>
                     </div>
-                    <h3 className="font-bold text-[18px] mt-2">
-                      {product.name}
-                    </h3>
-                    <div className="flex space-x-3 text-[15px] mt-2">
-                      <span className="text-[#808080] line-through">
-                        $200.00
-                      </span>
-                      <span className="text-[#ff3b30] font-semibold lg:pb-0 pb-6">
-                        ${product.default_price}
-                      </span>
-                    </div>
+                  </motion.div>
+                )}
+                <img
+                  src={product.image}
+                  alt="product"
+                  className="lg:w-[100%] lg:h-[120px] w-[350px] h-[270px]"
+                />
+              </div>
+              <div className="flex flex-col w-[100%]">
+                <div className="flex items-center space-x-2">
+                  <div className="text-[#808080] lg:mt-0 lg:text-[15px] mt-2 text-[13px]">
+                    {product.review}/5 (4.2k reviews)
                   </div>
                 </div>
-              )
-          )}
+                <h3 className="font-bold text-[18px] mt-2">{product.name}</h3>
+                <div className="flex space-x-3 text-[15px] mt-2">
+                  <span className="text-[#808080] line-through">$200.00</span>
+                  <span className="text-[#ff3b30] font-semibold lg:pb-0 pb-6">
+                    ${product.default_price}
+                  </span>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
 
         <div className="lg:block hidden">
@@ -256,85 +259,79 @@ const FeaturedProducts = () => {
         </div>
 
         <div className="w-[100%] space-y-4">
-          {productSet.slice(4, 8).map(
-            (product) => (
-                <div
-                  key={product.id}
-                  className="flex lg:flex-row flex-col lg:space-x-3 rounded-lg p-2 bg-[#fff] items-center"
-                  onMouseEnter={() => updateActiveState(product.id)}
-                  onMouseLeave={() => updateActiveState(null)}
-                  onTouchMove={() => updateActiveState(product.id)}
-                  onScroll={() => updateActiveState(product.id)}
-                >
-                  <div className="bg-[#f1f1f1] lg:w-[250px] rounded-lg relative">
-                    {activeId === product.id && (
-                      <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.5, ease: "easeInOut" }}
-                        className="bg-[#000] bg-opacity-50 rounded-lg absolute top-0 w-[100%] h-[100%]"
+          {productSet.slice(4, 8).map((product) => (
+            <div
+              key={product.id}
+              className="flex lg:flex-row flex-col lg:space-x-3 rounded-lg p-2 bg-[#fff] items-center"
+              onMouseEnter={() => updateActiveState(product.id)}
+              onMouseLeave={() => updateActiveState(null)}
+              onTouchMove={() => updateActiveState(product.id)}
+              onScroll={() => updateActiveState(product.id)}
+            >
+              <div className="bg-[#f1f1f1] lg:w-[250px] rounded-lg relative">
+                {activeId === product.id && (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.5, ease: "easeInOut" }}
+                    className="bg-[#000] bg-opacity-50 rounded-lg absolute top-0 w-[100%] h-[100%]"
+                  >
+                    <div className="flex items-center justify-center h-[100%] space-x-2">
+                      <div
+                        onMouseEnter={() => updateIconHover("heart")}
+                        onMouseLeave={() => updateIconHover("")}
+                        onClick={() => handleLikedAnimation(product)}
+                        className="bg-[#fff] hover:bg-[#a4c059] cursor-pointer transition-colors duration-500 ease-in-out p-2 rounded-full"
                       >
-                        <div className="flex items-center justify-center h-[100%] space-x-2">
-                          <div
-                            onMouseEnter={() => updateIconHover("heart")}
-                            onMouseLeave={() => updateIconHover("")}
-                            onClick={() => handleLikedAnimation(product)}
-                            className="bg-[#fff] hover:bg-[#a4c059] cursor-pointer transition-colors duration-500 ease-in-out p-2 rounded-full"
-                          >
-                            <Heart
-                              iconHover={iconHover}
-                              liked={favoritedProducts.some(
-                                (p) => p.id === product.id
-                              )}
-                            />
-                          </div>
-                          <div
-                            onMouseEnter={() => updateIconHover("eye")}
-                            onMouseLeave={() => updateIconHover("")}
-                            className="bg-[#fff] hover:bg-[#a4c059] cursor-pointer transition-colors duration-500 ease-in-out p-2 rounded-full"
-                            onClick={() => handleClick(product, "eye")}
-                          >
-                            <Eye iconHover={iconHover} />
-                          </div>
-                          <div
-                            onMouseEnter={() => updateIconHover("compare")}
-                            onMouseLeave={() => updateIconHover("")}
-                            className="bg-[#fff] hover:bg-[#a4c059] cursor-pointer transition-colors duration-500 ease-in-out p-2 rounded-full"
-                            onClick={() => handleClick(product, "compare")}
-                          >
-                            <Compare iconHover={iconHover} />
-                          </div>
-                        </div>
-                      </motion.div>
-                    )}
-                    <img
-                      src={product.image}
-                      alt="product"
-                      className="lg:w-[100%] lg:h-[120px] w-[350px] h-[270px]"
-                    />
-                  </div>
-                  <div className="flex flex-col w-[100%]">
-                    <div className="flex items-center space-x-2">
-                      <div className="text-[#808080] lg:mt-0 lg:text-[15px] mt-2 text-[13px]">
-                        {product.review}/5 (4.2k reviews)
+                        <Heart
+                          iconHover={iconHover}
+                          liked={favoritedProducts.some(
+                            (p) => p.id === product.id
+                          )}
+                        />
+                      </div>
+                      <div
+                        onMouseEnter={() => updateIconHover("eye")}
+                        onMouseLeave={() => updateIconHover("")}
+                        className="bg-[#fff] hover:bg-[#a4c059] cursor-pointer transition-colors duration-500 ease-in-out p-2 rounded-full"
+                        onClick={() => handleClick(product, "eye")}
+                      >
+                        <Eye iconHover={iconHover} />
+                      </div>
+                      <div
+                        onMouseEnter={() => updateIconHover("compare")}
+                        onMouseLeave={() => updateIconHover("")}
+                        className="bg-[#fff] hover:bg-[#a4c059] cursor-pointer transition-colors duration-500 ease-in-out p-2 rounded-full"
+                        onClick={() => handleClick(product, "compare")}
+                      >
+                        <Compare iconHover={iconHover} />
                       </div>
                     </div>
-                    <h3 className="font-bold text-[18px] mt-2">
-                      {product.name}
-                    </h3>
-                    <div className="flex space-x-3 text-[15px] mt-2">
-                      <span className="text-[#808080] line-through">
-                        $200.00
-                      </span>
-                      <span className="text-[#ff3b30] font-semibold lg:pb-0 pb-6">
-                        ${product.default_price}
-                      </span>
-                    </div>
+                  </motion.div>
+                )}
+                <img
+                  src={product.image}
+                  alt="product"
+                  className="lg:w-[100%] lg:h-[120px] w-[350px] h-[270px]"
+                />
+              </div>
+              <div className="flex flex-col w-[100%]">
+                <div className="flex items-center space-x-2">
+                  <div className="text-[#808080] lg:mt-0 lg:text-[15px] mt-2 text-[13px]">
+                    {product.review}/5 (4.2k reviews)
                   </div>
                 </div>
-              )
-          )}
+                <h3 className="font-bold text-[18px] mt-2">{product.name}</h3>
+                <div className="flex space-x-3 text-[15px] mt-2">
+                  <span className="text-[#808080] line-through">$200.00</span>
+                  <span className="text-[#ff3b30] font-semibold lg:pb-0 pb-6">
+                    ${product.default_price}
+                  </span>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
 
