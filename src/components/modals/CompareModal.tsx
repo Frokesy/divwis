@@ -51,7 +51,7 @@ const CompareModal: FC<ModalProps> = ({ isOpen, setIsOpen, product }) => {
               <div className="flex space-x-3 text-[15px]">
                 <span className="text-[#808080] line-through">$200.00</span>
                 <span className="text-[#ff3b30] font-semibold">
-                  {product.price}
+                  {product.default_price}
                 </span>
               </div>
               <h2 className="font-bold text-[18px] mt-6">Description</h2>
@@ -102,7 +102,7 @@ const CompareModal: FC<ModalProps> = ({ isOpen, setIsOpen, product }) => {
               <div className="flex space-x-3 text-[15px]">
                 <span className="text-[#808080] line-through">$200.00</span>
                 <span className="text-[#ff3b30] font-semibold">
-                  {product.price}
+                  {product.default_price}
                 </span>
               </div>
               <h2 className="font-bold text-[18px] mt-6">Description</h2>

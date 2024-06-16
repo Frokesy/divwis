@@ -23,14 +23,14 @@ const OrderCard = () => {
             <div className="flex lg:flex-row flex-col lg:items-center justify-between lg:w-[100%] w-[77vw]">
               <div className="flex items-center space-x-6">
                 <img
-                  src={product.productImg}
+                  src={product.image}
                   alt="product"
                   className="w-[104px] h-[104px] object-cover"
                 />
                 <div className="">
                   <h2 className="lg:text-[20px]">{product.name}</h2>
                   <p className="text-[#808080] lg:text-[14px] text-[12px] my-2">QTY: 1</p>
-                  <p className="lg:text-[15px] text-[13px] font-semibold">{product.price}</p>
+                  <p className="lg:text-[15px] text-[13px] font-semibold">{product.default_price}</p>
                 </div>
               </div>
               <div className="flex justify-end">
