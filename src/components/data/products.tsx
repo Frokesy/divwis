@@ -12,10 +12,17 @@ interface ProductsProps {
   desc: string;
 }
 
+async function fetchProducts() {
+  const { data, error } = await supabase.from("products").select("*");
 
-const { data, error } = await supabase.from("products").select("*");
+  if (error) {
+    console.log(error);
+    return [];
+  }
 
-if (error) {
-  console.log(error);
+  return data as ProductsProps[];
 }
-export const products: ProductsProps[] = data as ProductsProps[];
+
+const products: ProductsProps[] = await fetchProducts();
+
+export { products };
