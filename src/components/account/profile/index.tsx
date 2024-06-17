@@ -9,6 +9,7 @@ interface UserProps {
   id: number;
   name: string;
   userId: string;
+  phone: string;
 }
 const Profile = () => {
   const [editStatus, setEditStatus] = useState<boolean>(false);
@@ -34,7 +35,7 @@ const Profile = () => {
   return (
     <div>
       {editStatus ? (
-        <EditProfile editStatus={editStatus} setEditStatus={setEditStatus} />
+        <EditProfile editStatus={editStatus} setEditStatus={setEditStatus} userData={userData} />
       ) : (
         <AccountOverview editStatus={editStatus} setEditStatus={setEditStatus} userData={userData} />
       )}

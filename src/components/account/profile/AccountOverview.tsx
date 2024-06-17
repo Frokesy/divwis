@@ -14,6 +14,7 @@ interface UserProps {
   id: number;
   name: string;
   userId: string;
+  phone: string;
 }
 
 const AccountOverview: FC<ProfileProps> = ({
@@ -64,7 +65,7 @@ const AccountOverview: FC<ProfileProps> = ({
                 </div>
                 <div className="flex items-center text-[14px] space-x-2 text-[#404040]">
                   <FaPhoneAlt />
-                  <p>(+234) 9157881431</p>
+                  <p>{user.phone ? user.phone : 'null'}</p>
                 </div>
                 <div className="flex items-center text-[14px] space-x-2 text-[#404040]">
                   <FaLocationPin />
