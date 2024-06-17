@@ -70,7 +70,7 @@ const EditProfile: FC<ProfileProps> = ({ editStatus, setEditStatus }) => {
 
           <div className="flex justify-end">
             <button className="bg-[#6eb356] mt-6 hover:bg-[#fa961e] transition-colors duration-500 ease-in-out text-[#fff] py-2 px-6 font-semibold rounded-lg">
-              Update Profile
+              Update Password
             </button>
           </div>
         </div>
