@@ -59,7 +59,7 @@ const EditAddress: FC<AddressProps> = ({
     const isDeliveryAddressValid = validateField(addressBook.deliveryAddress);
     const isRegionValid = validateField(addressBook.region);
     const isCityValid = validateField(addressBook.city);
-
+  
     setError({
       name: isNameValid ? "" : "name is required",
       mobileNumber: isMobileNumberValid ? "" : "mobile number is required",
@@ -67,7 +67,7 @@ const EditAddress: FC<AddressProps> = ({
       region: isRegionValid ? "" : "region must be set",
       city: isCityValid ? "" : "city must be set",
     });
-
+  
     if (
       isNameValid &&
       isMobileNumberValid &&
@@ -76,6 +76,17 @@ const EditAddress: FC<AddressProps> = ({
       isCityValid
     ) {
       try {
+        const { data: existingAddresses, error: fetchError } = await supabase
+          .from("address")
+          .select("*")
+          .eq("userId", userData?.[0].userId);
+  
+        if (fetchError) {
+          throw fetchError;
+        }
+  
+        const isDefault = existingAddresses.length === 0;
+        
         const { data, error } = await supabase.from("address").insert([
           {
             userId: userData?.[0].userId,
@@ -84,9 +95,10 @@ const EditAddress: FC<AddressProps> = ({
             deliveryAddress: addressBook.deliveryAddress,
             region: addressBook.region,
             city: addressBook.city,
+            default: isDefault,
           },
         ]);
-
+  
         if (error) {
           throw error;
         } else {
@@ -100,7 +112,7 @@ const EditAddress: FC<AddressProps> = ({
           });
           setTimeout(() => {
             window.location.reload();
-          }, 2500)
+          }, 2500);
           return data;
         }
       } catch (error) {
@@ -114,7 +126,7 @@ const EditAddress: FC<AddressProps> = ({
         setLoading(false);
       }
     } else {
-      setLoading(false)
+      setLoading(false);
       if (!isNameValid) {
         setTimeout(() => {
           setError((prevState) => ({ ...prevState, name: "" }));
@@ -142,6 +154,7 @@ const EditAddress: FC<AddressProps> = ({
       }
     }
   };
+  
   return (
     <motion.div
       initial={{ opacity: 0 }}
