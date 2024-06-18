@@ -4,7 +4,7 @@ import { FaPen, FaTrash } from "react-icons/fa";
 import { supabase } from "../../../../utils/supabaseClient";
 import Spinner from "../../defaults/Spinner";
 
-interface AddressProps {
+interface AddressBookProps {
   editAddress: boolean;
   setEditAddress: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -21,7 +21,7 @@ interface AddressProps {
   userId: string;
 }
 
-const AddressBook: FC<AddressProps> = ({ editAddress, setEditAddress }) => {
+const AddressBook: FC<AddressBookProps> = ({ editAddress, setEditAddress }) => {
   const [addresses, setAddresses] = useState<AddressProps[]>([]);
 
   const fetchAddresses = async () => {

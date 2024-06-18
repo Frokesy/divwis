@@ -6,12 +6,26 @@ import { supabase } from "../../../../utils/supabaseClient";
 import { ToastContainer, toast } from "react-toastify";
 import Loader from "../../defaults/Loader";
 
+interface UserProps {
+  created_at: string;
+  email: string;
+  id: number;
+  name: string;
+  userId: string;
+  phone: string;
+}
+
 interface AddressProps {
   editAddress: boolean;
   setEditAddress: React.Dispatch<React.SetStateAction<boolean>>;
+  userData?: UserProps[];
 }
 
-const EditAddress: FC<AddressProps> = ({ editAddress, setEditAddress }) => {
+const AddNewAddress: FC<AddressProps> = ({
+  editAddress,
+  setEditAddress,
+  userData,
+}) => {
   const [addressBook, setAddressBook] = useState({
     name: "",
     mobileNumber: "",
@@ -29,7 +43,6 @@ const EditAddress: FC<AddressProps> = ({ editAddress, setEditAddress }) => {
   });
 
   const [loading, setLoading] = useState<boolean>(false);
-  const id = localStorage.getItem("id");
 
   const validateField = (value: string) => {
     if (value === "") {
@@ -39,7 +52,7 @@ const EditAddress: FC<AddressProps> = ({ editAddress, setEditAddress }) => {
     }
   };
 
-  const handleEditAddress = async () => {
+  const saveAddress = async () => {
     setLoading(true);
     const isNameValid = validateField(addressBook.name);
     const isMobileNumberValid = validateField(addressBook.mobileNumber);
@@ -66,7 +79,7 @@ const EditAddress: FC<AddressProps> = ({ editAddress, setEditAddress }) => {
         const { data: existingAddresses, error: fetchError } = await supabase
           .from("address")
           .select("*")
-          .eq("userId", id);
+          .eq("userId", userData?.[0].userId);
 
         if (fetchError) {
           throw fetchError;
@@ -76,7 +89,7 @@ const EditAddress: FC<AddressProps> = ({ editAddress, setEditAddress }) => {
 
         const { data, error } = await supabase.from("address").insert([
           {
-            userId: id,
+            userId: userData?.[0].userId,
             name: addressBook.name,
             mobileNumber: addressBook.mobileNumber,
             deliveryAddress: addressBook.deliveryAddress,
@@ -141,6 +154,7 @@ const EditAddress: FC<AddressProps> = ({ editAddress, setEditAddress }) => {
       }
     }
   };
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -159,7 +173,7 @@ const EditAddress: FC<AddressProps> = ({ editAddress, setEditAddress }) => {
           <FaArrowLeft />
         </button>
         <h2 className="lg:text-[22px] text-[20px] font-bold font-mono lg:text-[#808080] lg:pb-6">
-          Edit Address
+          Add new Address
         </h2>
         <button
           className="lg:block hidden"
@@ -226,10 +240,10 @@ const EditAddress: FC<AddressProps> = ({ editAddress, setEditAddress }) => {
 
         <div className="flex justify-end">
           <button
-            onClick={handleEditAddress}
+            onClick={saveAddress}
             className="bg-[#6eb356] mt-6 hover:bg-[#fa961e] transition-colors duration-500 ease-in-out text-[#fff] flex items-center justify-center h-[40px] w-[140px] font-semibold rounded-lg"
           >
-            {loading ? <Loader /> : "Save"}
+            {loading ? <Loader /> : "Register"}
           </button>
         </div>
       </div>
@@ -237,4 +251,4 @@ const EditAddress: FC<AddressProps> = ({ editAddress, setEditAddress }) => {
   );
 };
 
-export default EditAddress;
+export default AddNewAddress;

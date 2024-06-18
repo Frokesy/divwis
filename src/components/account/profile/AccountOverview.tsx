@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import React, { FC, useEffect, useState } from "react";
 import { FaEdit, FaPhoneAlt, FaUser } from "react-icons/fa";
 import { FaLocationPin } from "react-icons/fa6";
-import EditAddress from "../address/EditAddress";
+import AddNewAddress from "../address/AddNewAddress";
 import Spinner from "../../defaults/Spinner";
 import { supabase } from "../../../../utils/supabaseClient";
 
@@ -64,7 +64,7 @@ const AccountOverview: FC<ProfileProps> = ({
       }}
     >
       {editAddress ? (
-        <EditAddress
+        <AddNewAddress
           editAddress={editAddress}
           setEditAddress={setEditAddress}
           userData={userData}
@@ -132,7 +132,7 @@ const AccountOverview: FC<ProfileProps> = ({
                       <h2 className="font-mono text-[#808080] uppercase font-semibold">
                         delivery addresses
                       </h2>
-                      <div className="grid lg:grid-cols-2 grid-cols-1 lg:gap-[10vw] gap-[5vh]">
+                      <div className="grid lg:grid-cols-2 grid-cols-1 lg:gap-x-[10vw] gap-[5vh]">
                         {addresses.map((address) => (
                           <div key={address.id} className="space-y-2">
                             <p className="font-semibold mt-2">{address.name}</p>
