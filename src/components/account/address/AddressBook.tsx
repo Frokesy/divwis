@@ -3,6 +3,7 @@ import { FC, useEffect, useState } from "react";
 import { FaPen, FaTrash } from "react-icons/fa";
 import { supabase } from "../../../../utils/supabaseClient";
 import Spinner from "../../defaults/Spinner";
+import { ToastContainer, toast } from "react-toastify";
 
 interface AddressBookProps {
   getClickedAddress: (address: AddressProps) => void;
@@ -32,6 +33,28 @@ const AddressBook: FC<AddressBookProps> = ({ getClickedAddress }) => {
     setAddresses(address as AddressProps[]);
   };
 
+  const deleteAddress = async (address: AddressProps) => {
+
+    const { error } = await supabase
+      .from("address")
+      .delete()
+      .eq("id", address.id);
+
+      if (error) {
+        console.log(error.message)
+      }
+      toast.success("Address Deleted!", {
+        position: "top-center",
+        theme: "light",
+        autoClose: 1000,
+        hideProgressBar: true,
+        draggable: true,
+      });
+      setTimeout(() => {
+        window.location.reload();
+      }, 2500);
+  };
+
   useEffect(() => {
     fetchAddresses();
   }, []);
@@ -44,6 +67,7 @@ const AddressBook: FC<AddressBookProps> = ({ getClickedAddress }) => {
         ease: "easeInOut",
       }}
     >
+      <ToastContainer />
       {addresses.length === 0 ? (
         <div className="h-[70vh] flex items-center justify-center">
           <Spinner />
@@ -87,7 +111,11 @@ const AddressBook: FC<AddressBookProps> = ({ getClickedAddress }) => {
                       className="cursor-pointer"
                       onClick={() => getClickedAddress(address)}
                     />
-                    <FaTrash fill="#ff0406" className="cursor-pointer" />
+                    <FaTrash
+                      onClick={() => deleteAddress(address)}
+                      fill="#ff0406"
+                      className="cursor-pointer"
+                    />
                   </div>
                 </div>
               </div>
