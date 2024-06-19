@@ -142,6 +142,10 @@ const AccountOverview: FC<ProfileProps> = ({
                             <p className="text-[#404040] text-[14px]">
                               {address.mobileNumber}
                             </p>
+
+                            {address.default && (
+                              <p className="text-[#6eb356] font-bold">Default address</p>
+                            )}
                           </div>
                         ))}
                       </div>

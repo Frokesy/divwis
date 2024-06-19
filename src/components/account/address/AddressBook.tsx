@@ -23,41 +23,89 @@ interface AddressProps {
 
 const AddressBook: FC<AddressBookProps> = ({ getClickedAddress }) => {
   const [addresses, setAddresses] = useState<AddressProps[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const fetchAddresses = async () => {
+    setLoading(true);
     const { data: address, error } = await supabase.from("address").select("*");
     if (error) {
       console.log(error);
+      setLoading(false);
       return [];
     }
     setAddresses(address as AddressProps[]);
+    setLoading(false);
   };
 
   const deleteAddress = async (address: AddressProps) => {
-
     const { error } = await supabase
       .from("address")
       .delete()
       .eq("id", address.id);
 
-      if (error) {
-        console.log(error.message)
+    if (error) {
+      console.log(error.message);
+    }
+    toast.success("Address Deleted!", {
+      position: "top-center",
+      theme: "light",
+      autoClose: 1000,
+      hideProgressBar: true,
+      draggable: true,
+    });
+    setTimeout(() => {
+      window.location.reload();
+    }, 2500);
+  };
+
+  const setAsDefault = async (address: AddressProps) => {
+    setLoading(true);
+    try {
+      const { error: resetError } = await supabase
+        .from("address")
+        .update({ default: false })
+        .eq("userId", address.userId)
+        .eq("default", true);
+
+      if (resetError) {
+        throw resetError;
       }
-      toast.success("Address Deleted!", {
+
+      const { error: updateError } = await supabase
+        .from("address")
+        .update({ default: true })
+        .eq("id", address.id);
+
+      if (updateError) {
+        throw updateError;
+      }
+
+      toast.success("Address set as default!", {
         position: "top-center",
         theme: "light",
         autoClose: 1000,
         hideProgressBar: true,
         draggable: true,
       });
-      setTimeout(() => {
-        window.location.reload();
-      }, 2500);
+
+      fetchAddresses();
+    } catch (error) {
+      console.log(error);
+      toast.error("Error setting default address", {
+        position: "top-center",
+        theme: "light",
+        autoClose: 2000,
+        hideProgressBar: true,
+        draggable: true,
+      });
+    }
+    setLoading(false);
   };
 
   useEffect(() => {
     fetchAddresses();
   }, []);
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -68,7 +116,11 @@ const AddressBook: FC<AddressBookProps> = ({ getClickedAddress }) => {
       }}
     >
       <ToastContainer />
-      {addresses.length === 0 ? (
+      {loading ? (
+        <div className="h-[70vh] flex items-center justify-center">
+          <Spinner />
+        </div>
+      ) : addresses.length === 0 ? (
         <div className="h-[70vh] flex items-center justify-center">
           <Spinner />
         </div>
@@ -99,8 +151,9 @@ const AddressBook: FC<AddressBookProps> = ({ getClickedAddress }) => {
                     className={`text-[13px] ${
                       address.default
                         ? "uppercase text-[#6eb356] font-bold"
-                        : "text-[#808080] italic font-semibold"
+                        : "text-[#808080] italic font-semibold cursor-pointer"
                     }`}
+                    onClick={() => !address.default && setAsDefault(address)}
                   >
                     {address.default ? "default address." : "set as default"}
                   </p>
