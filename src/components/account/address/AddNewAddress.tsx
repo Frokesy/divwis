@@ -100,7 +100,7 @@ const AddNewAddress: FC<AddressProps> = ({
         ]);
 
         if (error) {
-          throw error;
+          throw error.message;
         } else {
           setLoading(false);
           toast.success("Address Registered!", {

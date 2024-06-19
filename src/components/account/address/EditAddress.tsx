@@ -6,141 +6,80 @@ import { supabase } from "../../../../utils/supabaseClient";
 import { ToastContainer, toast } from "react-toastify";
 import Loader from "../../defaults/Loader";
 
-interface AddressProps {
+interface EditAddressProps {
   editAddress: boolean;
   setEditAddress: React.Dispatch<React.SetStateAction<boolean>>;
+  clickedAddress: AddressProps | undefined;
 }
 
-const EditAddress: FC<AddressProps> = ({ editAddress, setEditAddress }) => {
-  const [addressBook, setAddressBook] = useState({
-    name: "",
-    mobileNumber: "",
-    deliveryAddress: "",
-    region: "",
-    city: "",
-  });
+interface AddressProps {
+  city: string;
+  created_at: string;
+  default: boolean;
+  deliveryAddress: string;
+  id: number;
+  name: string;
+  mobileNumber: string;
+  region: string;
+  userId: string;
+}
 
-  const [error, setError] = useState({
-    name: "",
-    mobileNumber: "",
-    deliveryAddress: "",
-    region: "",
-    city: "",
+const EditAddress: FC<EditAddressProps> = ({
+  editAddress,
+  setEditAddress,
+  clickedAddress,
+}) => {
+  const [addressBook, setAddressBook] = useState({
+    name: clickedAddress?.name,
+    mobileNumber: clickedAddress?.mobileNumber,
+    deliveryAddress: clickedAddress?.deliveryAddress,
+    region: clickedAddress?.region,
+    city: clickedAddress?.city,
   });
 
   const [loading, setLoading] = useState<boolean>(false);
-  const id = localStorage.getItem("id");
-
-  const validateField = (value: string) => {
-    if (value === "") {
-      return false;
-    } else {
-      return true;
-    }
-  };
 
   const handleEditAddress = async () => {
     setLoading(true);
-    const isNameValid = validateField(addressBook.name);
-    const isMobileNumberValid = validateField(addressBook.mobileNumber);
-    const isDeliveryAddressValid = validateField(addressBook.deliveryAddress);
-    const isRegionValid = validateField(addressBook.region);
-    const isCityValid = validateField(addressBook.city);
+    try {
+      const { data, error } = await supabase
+        .from("address")
+        .update({
+          name: addressBook.name,
+          mobileNumber: addressBook.mobileNumber,
+          deliveryAddress: addressBook.deliveryAddress,
+          region: addressBook.region,
+          city: addressBook.city,
+        })
+        .eq("id", clickedAddress?.id);
 
-    setError({
-      name: isNameValid ? "" : "name is required",
-      mobileNumber: isMobileNumberValid ? "" : "mobile number is required",
-      deliveryAddress: isDeliveryAddressValid ? "" : "an address is required",
-      region: isRegionValid ? "" : "region must be set",
-      city: isCityValid ? "" : "city must be set",
-    });
-
-    if (
-      isNameValid &&
-      isMobileNumberValid &&
-      isDeliveryAddressValid &&
-      isRegionValid &&
-      isCityValid
-    ) {
-      try {
-        const { data: existingAddresses, error: fetchError } = await supabase
-          .from("address")
-          .select("*")
-          .eq("userId", id);
-
-        if (fetchError) {
-          throw fetchError;
-        }
-
-        const isDefault = existingAddresses.length === 0;
-
-        const { data, error } = await supabase.from("address").insert([
-          {
-            userId: id,
-            name: addressBook.name,
-            mobileNumber: addressBook.mobileNumber,
-            deliveryAddress: addressBook.deliveryAddress,
-            region: addressBook.region,
-            city: addressBook.city,
-            default: isDefault,
-          },
-        ]);
-
-        if (error) {
-          throw error;
-        } else {
-          setLoading(false);
-          toast.success("Address Registered!", {
-            position: "top-center",
-            theme: "light",
-            autoClose: 1000,
-            hideProgressBar: true,
-            draggable: true,
-          });
-          setTimeout(() => {
-            window.location.reload();
-          }, 2500);
-          return data;
-        }
-      } catch (error) {
-        toast.error(error as string, {
+      if (error) {
+        throw error.message;
+      } else {
+        setLoading(false);
+        toast.success("Address Updated!", {
           position: "top-center",
           theme: "light",
-          autoClose: 2000,
+          autoClose: 1000,
           hideProgressBar: true,
           draggable: true,
         });
-        setLoading(false);
-      }
-    } else {
-      setLoading(false);
-      if (!isNameValid) {
         setTimeout(() => {
-          setError((prevState) => ({ ...prevState, name: "" }));
-        }, 3000);
+          window.location.reload();
+        }, 2500);
+        return data;
       }
-      if (!isMobileNumberValid) {
-        setTimeout(() => {
-          setError((prevState) => ({ ...prevState, mobileNumber: "" }));
-        }, 3000);
-      }
-      if (!isDeliveryAddressValid) {
-        setTimeout(() => {
-          setError((prevState) => ({ ...prevState, deliveryAddress: "" }));
-        }, 3000);
-      }
-      if (!isRegionValid) {
-        setTimeout(() => {
-          setError((prevState) => ({ ...prevState, region: "" }));
-        }, 3000);
-      }
-      if (!isCityValid) {
-        setTimeout(() => {
-          setError((prevState) => ({ ...prevState, city: "" }));
-        }, 3000);
-      }
+    } catch (error) {
+      toast.error(error as string, {
+        position: "top-center",
+        theme: "light",
+        autoClose: 1000,
+        hideProgressBar: true,
+        draggable: true,
+      });
     }
   };
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -178,7 +117,6 @@ const EditAddress: FC<AddressProps> = ({ editAddress, setEditAddress }) => {
             onChange={(e) =>
               setAddressBook({ ...addressBook, name: e.target.value })
             }
-            nameErr={error.name}
           />
           <Input
             type="text"
@@ -188,7 +126,6 @@ const EditAddress: FC<AddressProps> = ({ editAddress, setEditAddress }) => {
             onChange={(e) =>
               setAddressBook({ ...addressBook, mobileNumber: e.target.value })
             }
-            mobileNumbErr={error.mobileNumber}
           />
         </div>
         <Input
@@ -199,7 +136,6 @@ const EditAddress: FC<AddressProps> = ({ editAddress, setEditAddress }) => {
           onChange={(e) =>
             setAddressBook({ ...addressBook, deliveryAddress: e.target.value })
           }
-          deliveryAddressErr={error.deliveryAddress}
         />
         <div className="flex justify-between space-x-10 mt-7">
           <Input
@@ -210,7 +146,6 @@ const EditAddress: FC<AddressProps> = ({ editAddress, setEditAddress }) => {
             onChange={(e) =>
               setAddressBook({ ...addressBook, region: e.target.value })
             }
-            regionErr={error.region}
           />
           <Input
             type="text"
@@ -220,7 +155,6 @@ const EditAddress: FC<AddressProps> = ({ editAddress, setEditAddress }) => {
             onChange={(e) =>
               setAddressBook({ ...addressBook, city: e.target.value })
             }
-            cityErr={error.city}
           />
         </div>
 

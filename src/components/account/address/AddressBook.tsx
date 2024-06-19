@@ -5,8 +5,7 @@ import { supabase } from "../../../../utils/supabaseClient";
 import Spinner from "../../defaults/Spinner";
 
 interface AddressBookProps {
-  editAddress: boolean;
-  setEditAddress: React.Dispatch<React.SetStateAction<boolean>>;
+  getClickedAddress: (address: AddressProps) => void;
 }
 
 interface AddressProps {
@@ -21,7 +20,7 @@ interface AddressProps {
   userId: string;
 }
 
-const AddressBook: FC<AddressBookProps> = ({ editAddress, setEditAddress }) => {
+const AddressBook: FC<AddressBookProps> = ({ getClickedAddress }) => {
   const [addresses, setAddresses] = useState<AddressProps[]>([]);
 
   const fetchAddresses = async () => {
@@ -86,7 +85,7 @@ const AddressBook: FC<AddressBookProps> = ({ editAddress, setEditAddress }) => {
                     <FaPen
                       fill="#6eb356"
                       className="cursor-pointer"
-                      onClick={() => setEditAddress(!editAddress)}
+                      onClick={() => getClickedAddress(address)}
                     />
                     <FaTrash fill="#ff0406" className="cursor-pointer" />
                   </div>

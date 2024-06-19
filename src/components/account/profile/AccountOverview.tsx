@@ -49,7 +49,7 @@ const AccountOverview: FC<ProfileProps> = ({
     setAddresses(address as AddressProps[]);
   };
 
-  const defaultAddress = addresses?.filter((address) => address.default);
+  const defaultAddress = addresses.filter((address) => address.default);
   useEffect(() => {
     fetchAddresses();
   }, []);
