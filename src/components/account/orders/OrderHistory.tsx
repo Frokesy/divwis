@@ -3,9 +3,31 @@ import React, { FC } from "react";
 
 interface OrderProps {
   setActivePage: React.Dispatch<React.SetStateAction<string>>;
+  orders: Order[];
 }
 
-const OrderHistory: FC<OrderProps> = ({ setActivePage }) => {
+interface Order {
+  id: number;
+  created_at: string;
+  user_id: string;
+  session_id: string;
+  totalCost: string;
+  status: string;
+  products: ProductProps;
+}
+
+interface ProductProps {
+  id: string;
+  name: string;
+  priceId: string;
+  price: string;
+  productImg: string;
+  quantity: number;
+}
+
+const OrderHistory: FC<OrderProps> = ({ setActivePage, orders }) => {
+  console.log("orders h2", orders);
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -58,50 +80,31 @@ const OrderHistory: FC<OrderProps> = ({ setActivePage }) => {
                     </th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-200">
-                  <tr className="cursor-pointer hover:text-[#3A5743] transition-all duration-500 ease-in-out text-[#8D9091] hover:text-semibold hover:bg-neutral-200">
-                    <td className="px-6 py-4 whitespace-nowrap lg:text-[14px] text-[12px]">
-                      635981586200289
-                    </td>
-                    <td className="pr-6 py-4 whitespace-nowrap lg:text-[14px] text-[12px]">
-                      03/12/2022
-                    </td>
-                    <td className="py-4 text-center text-[#63b356] font-medium whitespace-nowrap lg:text-[14px] text-[12px]">
-                      Delivered
-                    </td>
-                    <td className="px-6 py-4 font-medium text-center whitespace-nowrap lg:text-[14px] text-[12px]">
-                      150.00
-                    </td>
-                    <td
-                      onClick={() => setActivePage("viewOrder")}
-                      className="py-4 lg:text-[14px] text-[12px] font-medium text-[#6eb356] flex justify-center whitespace-nowrap"
-                    >
-                      View Details
-                    </td>
-                  </tr>
-                </tbody>
-                <tbody className="divide-y divide-gray-200">
-                  <tr className="cursor-pointer hover:text-[#3A5743] transition-all duration-500 ease-in-out text-[#8D9091] hover:text-semibold hover:bg-neutral-200">
-                    <td className="px-6 py-4 lg:text-[14px] text-[12px] whitespace-nowrap">
-                      635981586200289
-                    </td>
-                    <td className="pr-6 py-4 lg:text-[14px] text-[12px] whitespace-nowrap">
-                      03/12/2022
-                    </td>
-                    <td className="py-4 lg:text-[14px] text-[12px] text-center text-[#ff7c08] font-medium whitespace-nowrap">
-                      Pending
-                    </td>
-                    <td className="px-6 py-4 lg:text-[14px] text-[12px] font-medium text-center whitespace-nowrap">
-                      150.00
-                    </td>
-                    <td
-                      onClick={() => setActivePage("trackOrder")}
-                      className="py-4 lg:text-[14px] text-[12px] font-medium text-[#ff7c08] flex justify-center whitespace-nowrap"
-                    >
-                      Track Order
-                    </td>
-                  </tr>
-                </tbody>
+
+                {orders.map((order) => (
+                  <tbody key={order.id} className="divide-y divide-gray-200">
+                    <tr className="cursor-pointer hover:text-[#3A5743] transition-all duration-500 ease-in-out text-[#8D9091] hover:text-semibold hover:bg-neutral-200">
+                      <td className="px-6 py-4 whitespace-nowrap lg:text-[14px] text-[12px]">
+                        635981586200289
+                      </td>
+                      <td className="pr-6 py-4 whitespace-nowrap lg:text-[14px] text-[12px]">
+                        03/12/2022
+                      </td>
+                      <td className="py-4 text-center text-[#63b356] font-medium whitespace-nowrap lg:text-[14px] text-[12px]">
+                        Delivered
+                      </td>
+                      <td className="px-6 py-4 font-medium text-center whitespace-nowrap lg:text-[14px] text-[12px]">
+                        150.00
+                      </td>
+                      <td
+                        onClick={() => setActivePage("viewOrder")}
+                        className="py-4 lg:text-[14px] text-[12px] font-medium text-[#6eb356] flex justify-center whitespace-nowrap"
+                      >
+                        View Details
+                      </td>
+                    </tr>
+                  </tbody>
+                ))}
               </table>
             </div>
           </div>
