@@ -3,10 +3,10 @@ import React, { FC } from "react";
 
 interface OrderProps {
   setActivePage: React.Dispatch<React.SetStateAction<string>>;
-  orders: Order[];
+  orders: Orders[];
 }
 
-interface Order {
+interface Orders {
   id: number;
   created_at: string;
   user_id: string;

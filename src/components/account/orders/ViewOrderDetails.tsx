@@ -5,9 +5,32 @@ import OrderCard from "../../cards/OrderCard";
 
 interface OrderProps {
   setActivePage: React.Dispatch<React.SetStateAction<string>>;
+  orders: Orders[];
 }
 
-const ViewOrderDetails: FC<OrderProps> = ({ setActivePage }) => {
+interface Orders {
+  id: number;
+  created_at: string;
+  user_id: string;
+  session_id: string;
+  totalCost: string;
+  status: string;
+  products: ProductProps;
+  orderNumber: string;
+}
+
+interface ProductProps {
+  id: string;
+  name: string;
+  priceId: string;
+  price: string;
+  productImg: string;
+  quantity: number;
+}
+
+const ViewOrderDetails: FC<OrderProps> = ({ setActivePage, orders }) => {
+
+  console.log("order details", orders)
   return (
     <motion.div
       initial={{ opacity: 0 }}

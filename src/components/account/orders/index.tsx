@@ -52,10 +52,10 @@ const Orders = () => {
     <div>
       {activePage === "index" && <OrderHistory orders={orders} setActivePage={setActivePage} />}
       {activePage === "viewOrder" && (
-        <ViewOrderDetails setActivePage={setActivePage} />
+        <ViewOrderDetails orders={orders} setActivePage={setActivePage} />
       )}
       {activePage === "trackOrder" && (
-        <TrackOrder setActivePage={setActivePage} />
+        <TrackOrder orders={orders} setActivePage={setActivePage} />
       )}
     </div>
   );
