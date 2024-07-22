@@ -56,54 +56,112 @@ const TrackOrder: FC<OrderProps> = ({ setActivePage, order }) => {
         </button>
       </div>
 
-        <div className="mt-6">
-          <div className="flex items-center mt-10">
-            <div className="flex flex-col items-center relative">
-              <FaCheckCircle
-                fill={
-                  order?.status === "pending" ||
-                  order?.status === "processing" ||
-                  order?.status === "shipped" ||
-                  order?.status === "delivered"
-                    ? "#6eb356"
-                    : undefined
-                }
-                className="lg:text-[30px] text-[24px]"
-              />
-              <h2 className="absolute top-10 lg:text-[14px] text-[12px] text-[#6eb356] font-semibold">
-                Pending
-              </h2>
-            </div>
-            <div className="h-1 w-[200px] -ml-1 bg-[#6eb356] z-10"></div>
-            <div className="flex flex-col relative items-center">
+      <div className="mt-6">
+        <div className="flex items-center mt-10">
+          <div className="flex flex-col items-center relative">
+            <FaCheckCircle
+              fill={
+                order?.status === "pending" ||
+                order?.status === "processing" ||
+                order?.status === "shipped" ||
+                order?.status === "delivered"
+                  ? "#6eb356"
+                  : undefined
+              }
+              className="lg:text-[30px] text-[24px]"
+            />
+            <h2 className="absolute top-10 lg:text-[14px] text-[12px] text-[#6eb356] font-semibold">
+              Pending
+            </h2>
+          </div>
+          <div
+            className={`${
+              order?.status === "processing" ||
+              order?.status === "shipped" ||
+              order?.status === "delivered"
+                ? "-ml-1 bg-[#6eb356]"
+                : "-ml-0 bg-[#ccc]"
+            } h-1 w-[200px]  z-10`}
+          ></div>
+          <div className="flex flex-col relative items-center">
+            {order?.status === "shipped" || order?.status === "delivered" ? (
               <FaCheckCircle
                 fill="#6eb356"
                 className="lg:text-[30px] text-[24px] -ml-1"
               />
-              <h2 className="absolute top-10 lg:text-[14px] text-[12px] text-[#6eb356] font-semibold">
-                Processing
-              </h2>
-            </div>
-            <div className="h-1 w-[200px] -ml-1 bg-[#6eb356] z-10"></div>
-            <div className="flex flex-col items-center relative">
-              <div className="text-[#6eb356] lg:w-[30px] lg:h-[30px] w-[24px] h-[24px] font-bold border border-[#6eb356] flex items-center justify-center rounded-full">
+            ) : (
+              <div
+                className={`${
+                  order?.status === "processing"
+                    ? "text-[#6eb356] border-[#6eb356] font-bold"
+                    : "text-[#333] border-[#ccc]"
+                } lg:w-[30px] lg:h-[30px] w-[24px] h-[24px] border flex items-center justify-center rounded-full`}
+              >
+                2
+              </div>
+            )}
+            <h2 className="absolute top-10 lg:text-[14px] text-[12px] text-[#6eb356] font-semibold">
+              Processing
+            </h2>
+          </div>
+          <div
+            className={`${
+              order?.status === "shipped" || order?.status === "delivered"
+                ? "-ml-1 bg-[#6eb356]"
+                : "-ml-0 bg-[#ccc]"
+            } h-1 w-[200px]  z-10`}
+          ></div>
+          <div className="flex flex-col items-center relative">
+            {order?.status === "delivered" ? (
+              <FaCheckCircle
+                fill="#6eb356"
+                className="lg:text-[30px] text-[24px] -ml-1"
+              />
+            ) : (
+              <div
+                className={`${
+                  order?.status === "shipped"
+                    ? "text-[#6eb356] border-[#6eb356] font-bold"
+                    : "text-[#333] border-[#ccc]"
+                } lg:w-[30px] lg:h-[30px] w-[24px] h-[24px]  border flex items-center justify-center rounded-full`}
+              >
                 3
               </div>
-              <h2 className="absolute top-10 min-w-[100px] lg:text-[14px] text-[12px] flex justify-center items-center text-[#6eb356] font-semibold">
-                On the way
-              </h2>
-            </div>
-            <div className="h-1 w-[200px] -ml-0 bg-[#ccc] z-10"></div>
-            <div className="flex flex-col relative items-center">
-              <div className="text-[#333] lg:w-[30px] lg:h-[30px] w-[24px] h-[24px] border border-[#ccc] flex items-center justify-center rounded-full">
+            )}
+            <h2 className="absolute top-10 min-w-[100px] lg:text-[14px] text-[12px] flex justify-center items-center text-[#6eb356] font-semibold">
+              On the way
+            </h2>
+          </div>
+          <div
+            className={`${
+              order?.status === "delivered"
+                ? "-ml-1 bg-[#6eb356]"
+                : "-ml-0 bg-[#ccc]"
+            } h-1 w-[200px]  z-10`}
+          ></div>{" "}
+          <div className="flex flex-col relative items-center">
+            {order?.status === "delivered" ? (
+              <FaCheckCircle
+                fill="#6eb356"
+                className="lg:text-[30px] text-[24px] -ml-1"
+              />
+            ) : (
+              <div
+                className={`text-[#333] border-[#ccc] lg:w-[30px] lg:h-[30px] w-[24px] h-[24px]  border flex items-center justify-center rounded-full`}
+              >
                 4
               </div>
-              <h2 className="absolute top-10 min-w-[100px] lg:text-[14px] text-[12px] flex justify-center items-center text-[#333]">
-                Delivered
-              </h2>
-            </div>
+            )}
+            <h2
+              className={`absolute top-10 min-w-[100px] lg:text-[14px] text-[12px] flex justify-center items-center ${
+                order?.status === "delivered" && "text-[#333]"
+              }`}
+            >
+              Delivered
+            </h2>
           </div>
         </div>
+      </div>
 
       <div className="flex flex-col bg-white mt-20">
         <div className="overflow-x-auto">
