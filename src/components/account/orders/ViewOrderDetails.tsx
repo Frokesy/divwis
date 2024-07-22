@@ -30,7 +30,6 @@ interface ProductProps {
 
 const ViewOrderDetails: FC<OrderProps> = ({ setActivePage, orders }) => {
 
-  console.log("order details", orders)
   return (
     <motion.div
       initial={{ opacity: 0 }}

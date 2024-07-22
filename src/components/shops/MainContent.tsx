@@ -58,7 +58,6 @@ const MainContent: FC<MainContentProps> = ({
     fetchData();
   }, []);
 
-  console.log(products);
   return (
     <div>
       {filteredProducts.length > 0 ? (

@@ -28,7 +28,6 @@ interface ProductProps {
 }
 
 const TrackOrder: FC<OrderProps> = ({ setActivePage, orders }) => {
-  console.log("track", orders);
   return (
     <motion.div
       initial={{ opacity: 0 }}
