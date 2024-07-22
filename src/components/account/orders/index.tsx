@@ -29,6 +29,7 @@ interface ProductProps {
 const Orders = () => {
   const [activePage, setActivePage] = useState<string>("index");
   const [orders, setOrders] = useState<OrderProps[]>([])
+  const [selectedOrder, setSelectedOrder] = useState<OrderProps>()
 
   const id = localStorage.getItem("id")
 
@@ -48,14 +49,18 @@ const Orders = () => {
     fetchData()
   }, [id])
 
+  const getSelectedOrder = (order: OrderProps) => (
+    setSelectedOrder(order)
+  )
+
   return (
     <div>
-      {activePage === "index" && <OrderHistory orders={orders} setActivePage={setActivePage} />}
+      {activePage === "index" && <OrderHistory getSelectedOrder={getSelectedOrder} orders={orders} setActivePage={setActivePage} />}
       {activePage === "viewOrder" && (
         <ViewOrderDetails orders={orders} setActivePage={setActivePage} />
       )}
       {activePage === "trackOrder" && (
-        <TrackOrder orders={orders} setActivePage={setActivePage} />
+        <TrackOrder order={selectedOrder} setActivePage={setActivePage} />
       )}
     </div>
   );

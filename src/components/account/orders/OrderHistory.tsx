@@ -4,6 +4,7 @@ import React, { FC } from "react";
 interface OrderProps {
   setActivePage: React.Dispatch<React.SetStateAction<string>>;
   orders: Orders[];
+  getSelectedOrder: (order: Orders) => void;
 }
 
 interface Orders {
@@ -26,7 +27,12 @@ interface ProductProps {
   quantity: number;
 }
 
-const OrderHistory: FC<OrderProps> = ({ setActivePage, orders }) => {
+const OrderHistory: FC<OrderProps> = ({ setActivePage, orders, getSelectedOrder }) => {
+
+  const trackOrder = (order: Orders) => {
+    setActivePage("trackOrder")
+    getSelectedOrder(order)
+  }
 
   const formatDate = (isoDate: string) => {
     const date = new Date(isoDate);
@@ -121,7 +127,7 @@ const OrderHistory: FC<OrderProps> = ({ setActivePage, orders }) => {
                         </td>
                       ) : (
                         <td
-                          onClick={() => setActivePage("trackOrder")}
+                          onClick={() => trackOrder(order)}
                           className="py-4 lg:text-[14px] text-[12px] font-medium text-[#e05d00] flex justify-center whitespace-nowrap"
                         >
                           Track Order

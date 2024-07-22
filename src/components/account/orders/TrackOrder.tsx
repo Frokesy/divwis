@@ -4,7 +4,7 @@ import { FaArrowLeft, FaCheckCircle } from "react-icons/fa";
 
 interface OrderProps {
   setActivePage: React.Dispatch<React.SetStateAction<string>>;
-  orders: Orders[];
+  order: Orders | undefined;
 }
 
 interface Orders {
@@ -27,7 +27,7 @@ interface ProductProps {
   quantity: number;
 }
 
-const TrackOrder: FC<OrderProps> = ({ setActivePage, orders }) => {
+const TrackOrder: FC<OrderProps> = ({ setActivePage, order }) => {
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -56,16 +56,15 @@ const TrackOrder: FC<OrderProps> = ({ setActivePage, orders }) => {
         </button>
       </div>
 
-      {orders.map((order) => (
-        <div key={order.id} className="mt-6">
+        <div className="mt-6">
           <div className="flex items-center mt-10">
             <div className="flex flex-col items-center relative">
               <FaCheckCircle
                 fill={
-                  order.status === "pending" ||
-                  order.status === "processing" ||
-                  order.status === "shipped" ||
-                  order.status === "delivered"
+                  order?.status === "pending" ||
+                  order?.status === "processing" ||
+                  order?.status === "shipped" ||
+                  order?.status === "delivered"
                     ? "#6eb356"
                     : undefined
                 }
@@ -105,7 +104,6 @@ const TrackOrder: FC<OrderProps> = ({ setActivePage, orders }) => {
             </div>
           </div>
         </div>
-      ))}
 
       <div className="flex flex-col bg-white mt-20">
         <div className="overflow-x-auto">
