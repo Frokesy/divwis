@@ -14,7 +14,7 @@ interface Orders {
   session_id: string;
   totalCost: string;
   status: string;
-  products: ProductProps;
+  products: ProductProps[];
   orderNumber: string;
 }
 

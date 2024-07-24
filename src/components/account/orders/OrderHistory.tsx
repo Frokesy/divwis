@@ -14,7 +14,7 @@ interface Orders {
   session_id: string;
   totalCost: string;
   status: string;
-  products: ProductProps;
+  products: ProductProps[];
   orderNumber: string;
 }
 
@@ -25,6 +25,7 @@ interface ProductProps {
   price: string;
   productImg: string;
   quantity: number;
+  length: number;
 }
 
 const OrderHistory: FC<OrderProps> = ({ setActivePage, orders, getSelectedOrder }) => {

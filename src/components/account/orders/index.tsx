@@ -22,7 +22,8 @@ interface ProductProps {
   priceId: string;
   price: string;
   productImg: string;
-  quantity: number
+  quantity: number;
+  length: number
 }
 
 
@@ -57,7 +58,7 @@ const Orders = () => {
     <div>
       {activePage === "index" && <OrderHistory getSelectedOrder={getSelectedOrder} orders={orders} setActivePage={setActivePage} />}
       {activePage === "viewOrder" && (
-        <ViewOrderDetails orders={orders} setActivePage={setActivePage} />
+        <ViewOrderDetails order={selectedOrder} setActivePage={setActivePage} />
       )}
       {activePage === "trackOrder" && (
         <TrackOrder order={selectedOrder} setActivePage={setActivePage} />

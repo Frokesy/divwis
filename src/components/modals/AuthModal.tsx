@@ -197,7 +197,7 @@ const AuthModal: FC<ModalProps> = ({
               </button>
             ) : (
               <button
-                onClick={() => handleSubmit("login")}
+                onClick={() => handleSubmit("signup")}
                 className="bg-[#19483a] text-[#fff] text-[14px] rounded-lg font-semibold px-8 py-1.5"
               >
                 {loading ? <Loader /> : "Signup"}

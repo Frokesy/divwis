@@ -1,32 +1,24 @@
-import { useEffect, useState } from "react";
-import { getProducts } from "../data/products";
+import { FC } from "react";
 
-interface ProductsProps {
-  id: number;
-  name: string;
-  default_price: string;
-  priceId?: string;
-  review?: string;
-  image: string;
-  category: string;
-  featured?: boolean;
-  desc: string;
+interface OrderCardProps {
+  orderItems: ItemProps[] | undefined;
+  orderDate: string;
 }
 
-const OrderCard = () => {
-  const [products, setProducts] = useState<ProductsProps[]>([])
+interface ItemProps {
+  id: string;
+  name: string;
+  priceId: string;
+  price: string;
+  productImg: string;
+  quantity: number;
+  length: number;
+}
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const fetchedProducts = await getProducts();
-      setProducts(fetchedProducts);
-    };
-
-    fetchData();
-  }, []);
+const OrderCard: FC<OrderCardProps> = ({ orderItems, orderDate }) => {
   return (
     <div className="">
-      {products.slice(0, 2).map((product) => (
+      {orderItems?.map((product) => (
         <div
           key={product.id}
           className="border border-[#ccc] items-center lg:p-6 p-4 mt-4 flex justify-between rounded-lg"
@@ -41,19 +33,23 @@ const OrderCard = () => {
               </button>
             </div>
             <p className="text-[13px] font-semibold text-[#333] mt-2 mb-4">
-              on 05/12/2022
+              on {orderDate}
             </p>
             <div className="flex lg:flex-row flex-col lg:items-center justify-between lg:w-[100%] w-[77vw]">
               <div className="flex items-center space-x-6">
                 <img
-                  src={product.image}
+                  src={product.productImg}
                   alt="product"
                   className="w-[104px] h-[104px] object-cover"
                 />
                 <div className="">
                   <h2 className="lg:text-[20px]">{product.name}</h2>
-                  <p className="text-[#808080] lg:text-[14px] text-[12px] my-2">QTY: 1</p>
-                  <p className="lg:text-[15px] text-[13px] font-semibold">{product.default_price}</p>
+                  <p className="text-[#808080] lg:text-[14px] text-[12px] my-2">
+                    QTY: {product.quantity}
+                  </p>
+                  <p className="lg:text-[15px] text-[13px] font-semibold">
+                    ${product.price}
+                  </p>
                 </div>
               </div>
               <div className="flex justify-end">

@@ -5,7 +5,7 @@ import OrderCard from "../../cards/OrderCard";
 
 interface OrderProps {
   setActivePage: React.Dispatch<React.SetStateAction<string>>;
-  orders: Orders[];
+  order: Orders | undefined;
 }
 
 interface Orders {
@@ -15,7 +15,7 @@ interface Orders {
   session_id: string;
   totalCost: string;
   status: string;
-  products: ProductProps;
+  products: ProductProps[];
   orderNumber: string;
 }
 
@@ -26,9 +26,28 @@ interface ProductProps {
   price: string;
   productImg: string;
   quantity: number;
+  length: number
 }
 
-const ViewOrderDetails: FC<OrderProps> = ({ setActivePage, orders }) => {
+const ViewOrderDetails: FC<OrderProps> = ({ setActivePage, order }) => {
+  
+  
+  const formatDate = (isoDate: string | undefined) => {
+    const date = new Date(isoDate as string);
+
+    const options: Intl.DateTimeFormatOptions = {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      timeZone: "UTC",
+    };
+    const formattedDate: string = new Intl.DateTimeFormat(
+      "en-GB",
+      options
+    ).format(date);
+    return formattedDate;
+  };
+
 
   return (
     <motion.div
@@ -49,16 +68,16 @@ const ViewOrderDetails: FC<OrderProps> = ({ setActivePage, orders }) => {
 
       <div className="">
         <div className="text-[#808080] text-[14px] mt-4">
-          <h2>Order No 635981586200289</h2>
-          <p>2 items</p>
-          <p>Placed on 03/12/2022</p>
-          <p>Total $150.00</p>
+          <h2>Order No {order?.orderNumber.slice(0, 8)}</h2>
+          <p>{order?.products.length} items</p>
+          <p>Placed on {formatDate(order?.created_at)}</p>
+          <p>Total ${order?.totalCost}</p>
         </div>
 
         <h2 className="text-[14px] font-semibold mt-10 text-[#333] uppercase">
           Items in your order
         </h2>
-        <OrderCard />
+        <OrderCard orderItems={order?.products} orderDate={formatDate(order?.created_at)} />
       </div>
     </motion.div>
   );
