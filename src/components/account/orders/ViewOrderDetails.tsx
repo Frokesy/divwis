@@ -6,6 +6,7 @@ import OrderCard from "../../cards/OrderCard";
 interface OrderProps {
   setActivePage: React.Dispatch<React.SetStateAction<string>>;
   order: Orders | undefined;
+  getSelectedOrder: (order: Orders | undefined) => void;
 }
 
 interface Orders {
@@ -26,12 +27,14 @@ interface ProductProps {
   price: string;
   productImg: string;
   quantity: number;
-  length: number
+  length: number;
 }
 
-const ViewOrderDetails: FC<OrderProps> = ({ setActivePage, order }) => {
-  
-  
+const ViewOrderDetails: FC<OrderProps> = ({
+  setActivePage,
+  order,
+  getSelectedOrder,
+}) => {
   const formatDate = (isoDate: string | undefined) => {
     const date = new Date(isoDate as string);
 
@@ -48,7 +51,10 @@ const ViewOrderDetails: FC<OrderProps> = ({ setActivePage, order }) => {
     return formattedDate;
   };
 
-
+  const switchPage = (order: Orders | undefined, page: string) => {
+    setActivePage(page);
+    getSelectedOrder(order);
+  };
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -58,13 +64,24 @@ const ViewOrderDetails: FC<OrderProps> = ({ setActivePage, order }) => {
         ease: "easeInOut",
       }}
     >
-      <button
-        className="flex items-center justify-center space-x-3"
-        onClick={() => setActivePage("index")}
-      >
-        <FaArrowLeft />
-        <span className="text-[18px] mt-0.5 font-semibold">Order Details</span>
-      </button>
+      <div className="flex justify-between items-center">
+        <button
+          className="flex items-center justify-center space-x-3"
+          onClick={() => setActivePage("index")}
+        >
+          <FaArrowLeft />
+          <span className="text-[18px] mt-0.5 font-semibold">
+            Order Details
+          </span>
+        </button>
+
+        <p
+          onClick={() => switchPage(order, "trackOrder")}
+          className="cursor-pointer lg:text-[14px] text-[12px] font-medium text-[#6eb356] flex justify-center whitespace-nowrap"
+        >
+          Track Order
+        </p>
+      </div>
 
       <div className="">
         <div className="text-[#808080] text-[14px] mt-4">
@@ -77,7 +94,10 @@ const ViewOrderDetails: FC<OrderProps> = ({ setActivePage, order }) => {
         <h2 className="text-[14px] font-semibold mt-10 text-[#333] uppercase">
           Items in your order
         </h2>
-        <OrderCard orderItems={order?.products} orderDate={formatDate(order?.created_at)} />
+        <OrderCard
+          orderItems={order?.products}
+          orderDate={formatDate(order?.created_at)}
+        />
       </div>
     </motion.div>
   );

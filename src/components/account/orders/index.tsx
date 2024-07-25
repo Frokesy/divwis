@@ -4,15 +4,14 @@ import ViewOrderDetails from "./ViewOrderDetails";
 import TrackOrder from "./TrackOrder";
 import { supabase } from "../../../../utils/supabaseClient";
 
-
 interface OrderProps {
   id: number;
   created_at: string;
   user_id: string;
   session_id: string;
   totalCost: string;
-  status: string; 
-  products: ProductProps;
+  status: string;
+  products: ProductProps[];
   orderNumber: string;
 }
 
@@ -23,42 +22,54 @@ interface ProductProps {
   price: string;
   productImg: string;
   quantity: number;
-  length: number
+  length: number;
 }
-
 
 const Orders = () => {
   const [activePage, setActivePage] = useState<string>("index");
-  const [orders, setOrders] = useState<OrderProps[]>([])
-  const [selectedOrder, setSelectedOrder] = useState<OrderProps>()
+  const [orders, setOrders] = useState<OrderProps[]>([]);
+  const [selectedOrder, setSelectedOrder] = useState<OrderProps>();
 
-  const id = localStorage.getItem("id")
+  const id = localStorage.getItem("id");
 
   useEffect(() => {
     const fetchData = async () => {
-      const { data, error } = await supabase.from("orders").select("*").eq("user_id", id);
+      const { data, error } = await supabase
+        .from("orders")
+        .select("*")
+        .eq("user_id", id);
 
       if (error) {
         console.log(error);
         return [];
       }
 
-      setOrders(data)
+      setOrders(data);
+    };
 
-    }
+    fetchData();
+  }, [id]);
 
-    fetchData()
-  }, [id])
-
-  const getSelectedOrder = (order: OrderProps) => (
-    setSelectedOrder(order)
-  )
+  const getSelectedOrder = (order: OrderProps | undefined) =>
+    setSelectedOrder(order);
 
   return (
     <div>
-      {activePage === "index" && <OrderHistory getSelectedOrder={getSelectedOrder} orders={orders} setActivePage={setActivePage} />}
+      {activePage === "index" && (
+        <OrderHistory
+          getSelectedOrder={getSelectedOrder}
+          orders={orders}
+          setActivePage={setActivePage}
+        />
+      )}
       {activePage === "viewOrder" && (
-        <ViewOrderDetails order={selectedOrder} setActivePage={setActivePage} />
+        <ViewOrderDetails
+          order={selectedOrder}
+          setActivePage={setActivePage}
+          getSelectedOrder={function (_order: OrderProps | undefined): void {
+            throw new Error("Function not implemented.");
+          }}
+        />
       )}
       {activePage === "trackOrder" && (
         <TrackOrder order={selectedOrder} setActivePage={setActivePage} />

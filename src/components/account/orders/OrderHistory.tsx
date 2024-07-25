@@ -30,8 +30,8 @@ interface ProductProps {
 
 const OrderHistory: FC<OrderProps> = ({ setActivePage, orders, getSelectedOrder }) => {
 
-  const trackOrder = (order: Orders) => {
-    setActivePage("trackOrder")
+  const switchPage = (order: Orders, page: string) => {
+    setActivePage(page)
     getSelectedOrder(order)
   }
 
@@ -119,21 +119,12 @@ const OrderHistory: FC<OrderProps> = ({ setActivePage, orders, getSelectedOrder 
                       <td className="px-6 py-4 font-medium text-center whitespace-nowrap lg:text-[14px] text-[12px]">
                         {order.totalCost}
                       </td>
-                      {order.status === "delivered" ? (
                         <td
-                          onClick={() => setActivePage("viewOrder")}
+                          onClick={() => switchPage(order, "viewOrder")}
                           className="py-4 lg:text-[14px] text-[12px] font-medium text-[#6eb356] flex justify-center whitespace-nowrap"
                         >
                           View Details
                         </td>
-                      ) : (
-                        <td
-                          onClick={() => trackOrder(order)}
-                          className="py-4 lg:text-[14px] text-[12px] font-medium text-[#e05d00] flex justify-center whitespace-nowrap"
-                        >
-                          Track Order
-                        </td>
-                      )}
                     </tr>
                   </tbody>
                 ))}

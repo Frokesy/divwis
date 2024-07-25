@@ -40,7 +40,7 @@ const TrackOrder: FC<OrderProps> = ({ setActivePage, order }) => {
       <div className="flex lg:block space-x-3 items-center">
         <button
           className="block lg:hidden"
-          onClick={() => setActivePage("index")}
+          onClick={() => setActivePage("viewOrder")}
         >
           <FaArrowLeft />
         </button>
@@ -50,7 +50,7 @@ const TrackOrder: FC<OrderProps> = ({ setActivePage, order }) => {
 
         <button
           className="hidden lg:block"
-          onClick={() => setActivePage("index")}
+          onClick={() => setActivePage("viewOrder")}
         >
           <FaArrowLeft />
         </button>
