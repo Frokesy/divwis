@@ -5,9 +5,17 @@ import Profile from "../../components/account/profile";
 import { FaSquareCheck } from "react-icons/fa6";
 import Orders from "../../components/account/orders";
 import Address from "../../components/account/address";
+import LogoutModal from "../../components/modals/LogoutModal";
 
 const Account = () => {
   const [activeTab, setActiveTab] = useState("profile");
+  const [showLogoutModal, setShowLogoutModal] = useState<boolean>(false);
+  const id = localStorage.getItem("id");
+
+
+  const logout = () => {
+    setShowLogoutModal(true);
+  };
   return (
     <MainContainer active="account">
       <div className="pt-20 min-h-[90vh] pb-[10vh] bg-[#f1f1f1]">
@@ -41,7 +49,7 @@ const Account = () => {
               <FaAddressBook />
               <h2 className="text-[15px]">Address Book</h2>
             </div>
-            <div className="text-[#ff0406] flex items-center space-x-3 transition-all duration-300 ease-in-out hover:px-2 cursor-pointer">
+            <div           onClick={() => (id ? logout() : console.log("clicked"))} className="text-[#ff0406] flex items-center space-x-3 transition-all duration-300 ease-in-out hover:px-2 cursor-pointer">
               <FaPowerOff />
               <h2 className="text-[15px]">Sign out</h2>
             </div>
@@ -55,6 +63,8 @@ const Account = () => {
           </div>
         </div>
       </div>
+      {showLogoutModal && <LogoutModal isOpen={showLogoutModal} setIsOpen={setShowLogoutModal} />}
+
     </MainContainer>
   );
 };
