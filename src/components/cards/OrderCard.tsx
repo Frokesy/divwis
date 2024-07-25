@@ -3,6 +3,7 @@ import { FC } from "react";
 interface OrderCardProps {
   orderItems: ItemProps[] | undefined;
   orderDate: string;
+  orderStatus: string | undefined;
 }
 
 interface ItemProps {
@@ -15,7 +16,11 @@ interface ItemProps {
   length: number;
 }
 
-const OrderCard: FC<OrderCardProps> = ({ orderItems, orderDate }) => {
+const OrderCard: FC<OrderCardProps> = ({
+  orderItems,
+  orderDate,
+  orderStatus,
+}) => {
   return (
     <div className="">
       {orderItems?.map((product) => (
@@ -25,9 +30,15 @@ const OrderCard: FC<OrderCardProps> = ({ orderItems, orderDate }) => {
         >
           <div>
             <div className="flex w-[50vw]">
-              <button className="lg:text-[10px] text-[9px] bg-[#6eb356] text-[#fff] font-bold px-2 py-1 mr-4 uppercase">
-                delivered
-              </button>
+              {orderStatus === "delivered" ? (
+                <button className="lg:text-[10px] text-[9px] bg-[#6eb356] text-[#fff] font-bold px-2 py-1 mr-4 uppercase">
+                  delivered
+                </button>
+              ) : (
+                <button className="lg:text-[10px] text-[9px] bg-[#e05d00] text-[#fff] font-bold px-2 py-1 mr-4 uppercase">
+                  {orderStatus}
+                </button>
+              )}
               <button className="lg:text-[10px] text-[9px] bg-[#ff0406] text-[#fff] font-bold px-2 py-1 mr-4 uppercase">
                 non-returnable
               </button>

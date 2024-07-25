@@ -95,6 +95,7 @@ const ViewOrderDetails: FC<OrderProps> = ({
           Items in your order
         </h2>
         <OrderCard
+          orderStatus={order?.status}
           orderItems={order?.products}
           orderDate={formatDate(order?.created_at)}
         />
