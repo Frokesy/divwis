@@ -52,10 +52,10 @@ const UserAccordion: FC<UserAccordionProps> = ({ logout }) => {
           <h2>My Account</h2>
         </NavLink>
         <div className="flex justify-between items-center pr-3">
-          <div className="flex items-center space-x-2 hover:text-[#6eb356] hover:pl-2 cursor-pointer transition-all duration-300 ease-in-out">
+          <NavLink to="/favorites" className="flex items-center space-x-2 hover:text-[#6eb356] hover:pl-2 cursor-pointer transition-all duration-300 ease-in-out">
             <FaHeart />
             <h2>My Favorites</h2>
-          </div>
+          </NavLink>
           <p className="text-[14px] bg-[#6eb356] px-1.5 text-[#fff] rounded-full">
             {data.length}
           </p>
