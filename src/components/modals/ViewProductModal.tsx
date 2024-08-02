@@ -9,12 +9,12 @@ import "react-toastify/dist/ReactToastify.css";
 interface ProductsProps {
   id: number;
   name: string;
-  default_price: string;
+  default_price?: string;
   priceId?: string;
   review?: string;
-  image: string;
-  category: string;
-  desc: string;
+  image?: string;
+  category?: string;
+  desc?: string;
 }
 
 interface ModalProps {
