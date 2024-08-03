@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { FaTrashAlt, FaWallet } from "react-icons/fa";
 import { useEffect, useState } from "react";
-import Loader from "../defaults/Loader";
+import { NavLink } from "react-router-dom";
 
 interface CartProps {
   id: number;
@@ -16,9 +16,7 @@ interface CartProps {
 const CartAccordion = () => {
   const [data, setData] = useState<CartProps[]>([]);
   const [totalCost, setTotalCost] = useState<number>();
-  const [loading, setLoading] = useState<boolean>(false);
   const idb = window.indexedDB;
-  const id = localStorage.getItem("id");
 
   const getAllData = () => {
     const dbPromise = idb.open("divwis", 1);
@@ -67,25 +65,6 @@ const CartAccordion = () => {
     };
   };
 
-  const handleCheckout = async () => {
-    setLoading(true);
-    await fetch("http://localhost:4000/checkout", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ items: data, id, totalCost }),
-    })
-      .then((response) => {
-        return response.json();
-      })
-      .then((response) => {
-        if (response.url) {
-          window.location.assign(response.url);
-        }
-      });
-  };
-
   useEffect(() => {
     getAllData();
     getTotalCost();
@@ -110,7 +89,11 @@ const CartAccordion = () => {
             {data.map((item) => (
               <div className="" key={item.id}>
                 <div className="flex items-center space-x-3">
-                  <img src={item.productImg} alt="img" className="w-[4rem] h-[3rem]" />
+                  <img
+                    src={item.productImg}
+                    alt="img"
+                    className="w-[4rem] h-[3rem]"
+                  />
                   <div className="flex flex-col space-y-1">
                     <h2 className="text-[16px] font-bold text-[#333]">
                       {item.name}
@@ -135,19 +118,16 @@ const CartAccordion = () => {
               <h2 className="text-[#333] text-[18px]">Subtotal:</h2>
               <p className="text-[#6eb356]">${totalCost}</p>
             </div>
-            <button
-              onClick={handleCheckout}
+            <NavLink
+              to="/checkout"
+              // onClick={handleCheckout}
               className="flex items-center justify-center w-[100%] h-[50px] bg-[#6eb356] hover:bg-[#ff7c08] transition-colors duration-500 ease-in-out"
             >
-              {loading ? (
-                <Loader />
-              ) : (
-                <div className="flex items-center text-[#fff] space-x-3 text-[18px] font-semibold">
-                  <FaWallet />
-                  <span>Checkout</span>
-                </div>
-              )}
-            </button>
+              <div className="flex items-center text-[#fff] space-x-3 text-[18px] font-semibold">
+                <FaWallet />
+                <span>Checkout</span>
+              </div>
+            </NavLink>
           </div>
         </div>
       )}

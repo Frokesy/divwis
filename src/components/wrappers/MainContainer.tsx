@@ -25,7 +25,7 @@ const MainContainer: FC<MainContainerProps> = ({ children, active }) => {
           <BottomNav active={active} />
         </div>
       ) : (
-        <div className="flex justify-center items-center min-h-screen">
+        <div className="flex justify-center bg-[#f1f1f2] items-center min-h-screen">
           <img
             src="/assets/preloader.gif"
             alt="preloader"

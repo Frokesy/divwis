@@ -41,7 +41,7 @@ const AccountOverview: FC<ProfileProps> = ({
   const [addresses, setAddresses] = useState<AddressProps[]>([]);
 
   const fetchAddresses = async () => {
-    const { data: address, error } = await supabase.from("address").select("*");
+    const { data: address, error } = await supabase.from("address").select("*").eq("userId", userData[0].userId);
     if (error) {
       console.log(error);
       return [];
