@@ -191,8 +191,8 @@ const Checkout = () => {
                   <div className="flex justify-end">
                     <button
                       onClick={updateAddress}
-                      className="mt-4 px-4 py-2 bg-[#6eb356] text-white font-semibold rounded"
-                    >
+                      className="flex items-center justify-center px-6 text-[#fff] font-semibold h-[40px] rounded-lg bg-[#6eb356] hover:bg-[#ff7c08] transition-colors duration-500 ease-in-out"
+                      >
                       Confirm Address
                     </button>
                   </div>

@@ -39,9 +39,14 @@ const AccountOverview: FC<ProfileProps> = ({
 }) => {
   const [editAddress, setEditAddress] = useState<boolean>(false);
   const [addresses, setAddresses] = useState<AddressProps[]>([]);
+  const id = localStorage.getItem("id");
+
 
   const fetchAddresses = async () => {
-    const { data: address, error } = await supabase.from("address").select("*").eq("userId", userData[0].userId);
+    const { data: address, error } = await supabase
+      .from("address")
+      .select("*")
+      .eq("userId", id);
     if (error) {
       console.log(error);
       return [];
@@ -49,7 +54,6 @@ const AccountOverview: FC<ProfileProps> = ({
     setAddresses(address as AddressProps[]);
   };
 
-  const defaultAddress = addresses.filter((address) => address.default);
   useEffect(() => {
     fetchAddresses();
   }, []);
@@ -102,7 +106,13 @@ const AccountOverview: FC<ProfileProps> = ({
                         </h2>
                         <div className="flex items-center text-[14px] space-x-2 text-[#404040]">
                           <FaLocationPin />
-                          <p>{defaultAddress?.[0].deliveryAddress}</p>
+                          {addresses
+                            .filter((address) => address.default)
+                            .map((data) => (
+                              <div key={data.id}>
+                                <p>{data.deliveryAddress}</p>
+                              </div>
+                            ))}
                         </div>
                         <div className="flex items-center text-[14px] space-x-2 text-[#404040]">
                           <FaPhoneAlt />
@@ -144,7 +154,9 @@ const AccountOverview: FC<ProfileProps> = ({
                             </p>
 
                             {address.default && (
-                              <p className="text-[#6eb356] font-bold">Default address</p>
+                              <p className="text-[#6eb356] font-bold">
+                                Default address
+                              </p>
                             )}
                           </div>
                         ))}
