@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import MainContainer from "../../components/wrappers/MainContainer";
 import { supabase } from "../../../utils/supabaseClient";
 import Loader from "../../components/defaults/Loader";
+import { NavLink } from "react-router-dom";
 
 interface AddressProps {
   city: string;
@@ -28,6 +29,10 @@ interface CartProps {
 const Checkout = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [addresses, setAddresses] = useState<AddressProps[]>([]);
+  const [modifyAddress, setModifyAddress] = useState<boolean>(false);
+  const [selectedAddressId, setSelectedAddressId] = useState<number | null>(
+    null
+  );
   const [totalCost, setTotalCost] = useState<number>();
   const [data, setData] = useState<CartProps[]>([]);
 
@@ -45,8 +50,6 @@ const Checkout = () => {
     }
     setAddresses(address as AddressProps[]);
   };
-
-  const defaultAddress = addresses.filter((address) => address.default);
 
   const getAllData = () => {
     const dbPromise = idb.open("divwis", 1);
@@ -96,14 +99,56 @@ const Checkout = () => {
       });
   };
 
+  const updateAddress = async () => {
+    if (selectedAddressId === null) return;
+
+    const { error: updateError } = await supabase
+      .from("address")
+      .update({ default: true })
+      .eq("id", selectedAddressId);
+
+    if (updateError) {
+      console.log(updateError);
+      return;
+    }
+
+    const { error: resetError } = await supabase
+      .from("address")
+      .update({ default: false })
+      .neq("id", selectedAddressId)
+      .eq("userId", id);
+
+    if (resetError) {
+      console.log(resetError);
+      return;
+    }
+
+    fetchAddresses();
+
+    setModifyAddress(false);
+  };
+
   useEffect(() => {
     getAllData();
     fetchAddresses();
   }, [id]);
 
   useEffect(() => {
+    if (addresses.length > 0) {
+      const defaultAddress = addresses.find((address) => address.default);
+      if (defaultAddress) {
+        setSelectedAddressId(defaultAddress.id);
+      }
+    }
+  }, [addresses]);
+
+  useEffect(() => {
     getTotalCost();
-  });
+  }, [data]);
+
+  const handleAddressChange = (id: number) => {
+    setSelectedAddressId(id);
+  };
 
   return (
     <MainContainer active="checkout">
@@ -116,18 +161,57 @@ const Checkout = () => {
             <div className="border border-[#f1f1f1] rounded-lg shadow-lg bg-[#fff] p-4">
               <div className="flex justify-between text-[14px] border-b-2 border-[#ccc] pb-2">
                 <h2 className="font-semibold uppercase">1. Customer address</h2>
-                <p className="text-[#0c42a2] font-semibold">Change {">"}</p>
+                <p
+                  onClick={() => setModifyAddress(true)}
+                  className="text-[#0c42a2] font-semibold cursor-pointer"
+                >
+                  Change {">"}
+                </p>
               </div>
 
-              {defaultAddress.map((data) => (
-                <div key={data.id} className="">
-                  <p className="text-[14px] pt-4">{data.name}</p>
-                  <span className="text-[13px] text-[#808080]">
-                    {data.deliveryAddress} | {data.city} | {data.region} |{" "}
-                    {data.mobileNumber}
-                  </span>
+              {modifyAddress ? (
+                <div>
+                  {addresses.map((data) => (
+                    <div key={data.id} className="flex items-center space-x-3">
+                      <input
+                        type="radio"
+                        name="address"
+                        checked={selectedAddressId === data.id}
+                        onChange={() => handleAddressChange(data.id)}
+                      />
+                      <div>
+                        <p className="text-[14px] pt-4">{data.name}</p>
+                        <span className="text-[13px] text-[#808080]">
+                          {data.deliveryAddress} | {data.city} | {data.region} |{" "}
+                          {data.mobileNumber}
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+                  <div className="flex justify-end">
+                    <button
+                      onClick={updateAddress}
+                      className="mt-4 px-4 py-2 bg-[#6eb356] text-white font-semibold rounded"
+                    >
+                      Confirm Address
+                    </button>
+                  </div>
                 </div>
-              ))}
+              ) : (
+                <div>
+                  {addresses
+                    .filter((address) => address.default)
+                    .map((data) => (
+                      <div key={data.id}>
+                        <p className="text-[14px] pt-4">{data.name}</p>
+                        <span className="text-[13px] text-[#808080]">
+                          {data.deliveryAddress} | {data.city} | {data.region} |{" "}
+                          {data.mobileNumber}
+                        </span>
+                      </div>
+                    ))}
+                </div>
+              )}
             </div>
 
             <div className="border border-[#f1f1f1] rounded-lg shadow-lg bg-[#fff] mt-6 p-4">
@@ -152,7 +236,7 @@ const Checkout = () => {
 
                 <div className="grid lg:grid-cols-2 grid-cols-1 lg:gap-x-10 gap-y-4">
                   {data.map((shipment, index) => (
-                    <div key={shipment.id} className="">
+                    <div key={shipment.id}>
                       <h2 className="text-[13px] mt-3 mb-1">
                         Item {index + 1}/{data.length}
                       </h2>
@@ -189,9 +273,12 @@ const Checkout = () => {
                 </div>
 
                 <div className="my-10 items-center flex justify-center">
-                  <button className="uppercase text-[#6eb356] font-semibold">
+                  <NavLink
+                    to="/shops/0"
+                    className="uppercase text-[#6eb356] font-semibold"
+                  >
                     Modify Cart
-                  </button>
+                  </NavLink>
                 </div>
               </div>
             </div>
