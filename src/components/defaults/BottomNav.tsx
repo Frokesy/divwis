@@ -12,7 +12,7 @@ const BottomNav: FC<BottomNavProps> = ({ active }) => {
     <div className="fixed lg:hidden block bottom-0 w-[100%] bg-[#fff] z-30">
       <div className="px-6 flex justify-between items-center text-[14px]">
         <NavLink
-          to="/" 
+          to="/"
           className={`flex flex-col items-center transition-all duration-500 ease-in-out space-y-1 ${
             active === "home"
               ? "text-[#ff7c08] font-semibold"
@@ -22,7 +22,8 @@ const BottomNav: FC<BottomNavProps> = ({ active }) => {
           <FaHome />
           <h2>Home</h2>
         </NavLink>
-        <div
+        <NavLink
+          to="/search"
           className={`flex flex-col items-center transition-all duration-500 ease-in-out space-y-1 ${
             active === "search"
               ? "text-[#ff7c08] font-semibold"
@@ -31,7 +32,7 @@ const BottomNav: FC<BottomNavProps> = ({ active }) => {
         >
           <FaSearch />
           <h2>Search</h2>
-        </div>
+        </NavLink>
         <NavLink
           to={"/cart"}
           className={`flex flex-col items-center transition-all duration-500 ease-in-out p-3 my-3 rounded-full ${

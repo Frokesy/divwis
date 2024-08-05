@@ -76,11 +76,11 @@ const ViewProductModal: FC<ModalProps> = ({ isOpen, setIsOpen, product }) => {
     <ModalContainer isOpen={isOpen} setIsOpen={setIsOpen}>
       <ToastContainer />
       {product && (
-        <div className="flex lg:flex-row flex-col justify-between items-center lg:space-x-10 lg:w-[60vw] w-[85vw] overflow-y-auto">
+        <div className="flex lg:flex-row flex-col justify-between items-center lg:space-x-10 lg:w-[60vw] w-[85vw] overflow-x-hidden overflow-y-auto">
           <div className="lg:w-[450px]">
             <img
               src={product.image}
-              className="w-[100%] h-[300px]"
+              className="w-[100%] lg:h-[300px] h-[200px]"
               alt="productImg"
             />
           </div>

@@ -9,6 +9,7 @@ import Cancel from "./pages/res/cancel";
 import MobileCart from "./pages/cart";
 import Favorites from "./pages/favorites";
 import Checkout from "./pages/checkout";
+import Search from "./pages/search";
 
 function App() {
   const router = createBrowserRouter([
@@ -20,7 +21,8 @@ function App() {
     { path: "/cancel", element: <Cancel /> },
     { path: "/cart", element: <MobileCart /> },
     { path: "/favorites", element: <Favorites /> },
-    { path: "/checkout", element: <Checkout /> }
+    { path: "/checkout", element: <Checkout /> },
+    { path: "/search", element: <Search /> }
   ]);
 
   return (
