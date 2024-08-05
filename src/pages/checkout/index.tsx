@@ -3,6 +3,7 @@ import MainContainer from "../../components/wrappers/MainContainer";
 import { supabase } from "../../../utils/supabaseClient";
 import Loader from "../../components/defaults/Loader";
 import { NavLink } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface AddressProps {
   city: string;
@@ -28,11 +29,10 @@ interface CartProps {
 
 const Checkout = () => {
   const [loading, setLoading] = useState<boolean>(false);
+  const [loadingAddress, setLoadingAddress] = useState<boolean>(false);
   const [addresses, setAddresses] = useState<AddressProps[]>([]);
   const [modifyAddress, setModifyAddress] = useState<boolean>(false);
-  const [selectedAddressId, setSelectedAddressId] = useState<number | null>(
-    null
-  );
+  const [selectedAddressId, setSelectedAddressId] = useState<number | null>(null);
   const [totalCost, setTotalCost] = useState<number>();
   const [data, setData] = useState<CartProps[]>([]);
 
@@ -55,17 +55,14 @@ const Checkout = () => {
     const dbPromise = idb.open("divwis", 1);
     dbPromise.onsuccess = () => {
       const db = dbPromise.result;
-
       const tx = db.transaction("cart", "readonly");
       const cart = tx.objectStore("cart");
       const data = cart.getAll();
-
       data.onsuccess = (query) => {
         if (query.srcElement) {
           setData((query.srcElement as IDBRequest).result);
         }
       };
-
       tx.oncomplete = function () {
         db.close();
       };
@@ -78,6 +75,31 @@ const Checkout = () => {
       0
     );
     setTotalCost(totalCost);
+  };
+
+  const updateAddress = async () => {
+    setLoadingAddress(true);
+    if (selectedAddressId === null) return;
+    const { error: updateError } = await supabase
+      .from("address")
+      .update({ default: true })
+      .eq("id", selectedAddressId);
+    if (updateError) {
+      console.log(updateError);
+      return;
+    }
+    const { error: resetError } = await supabase
+      .from("address")
+      .update({ default: false })
+      .neq("id", selectedAddressId)
+      .eq("userId", id);
+    if (resetError) {
+      console.log(resetError);
+      return;
+    }
+    fetchAddresses();
+    setLoadingAddress(false);
+    setModifyAddress(false);
   };
 
   const handleCheckout = async () => {
@@ -97,35 +119,6 @@ const Checkout = () => {
           window.location.assign(response.url);
         }
       });
-  };
-
-  const updateAddress = async () => {
-    if (selectedAddressId === null) return;
-
-    const { error: updateError } = await supabase
-      .from("address")
-      .update({ default: true })
-      .eq("id", selectedAddressId);
-
-    if (updateError) {
-      console.log(updateError);
-      return;
-    }
-
-    const { error: resetError } = await supabase
-      .from("address")
-      .update({ default: false })
-      .neq("id", selectedAddressId)
-      .eq("userId", id);
-
-    if (resetError) {
-      console.log(resetError);
-      return;
-    }
-
-    fetchAddresses();
-
-    setModifyAddress(false);
   };
 
   useEffect(() => {
@@ -169,49 +162,61 @@ const Checkout = () => {
                 </p>
               </div>
 
-              {modifyAddress ? (
-                <div>
-                  {addresses.map((data) => (
-                    <div key={data.id} className="flex items-center space-x-3">
-                      <input
-                        type="radio"
-                        name="address"
-                        checked={selectedAddressId === data.id}
-                        onChange={() => handleAddressChange(data.id)}
-                      />
-                      <div>
-                        <p className="text-[14px] pt-4">{data.name}</p>
-                        <span className="text-[13px] text-[#808080]">
-                          {data.deliveryAddress} | {data.city} | {data.region} |{" "}
-                          {data.mobileNumber}
-                        </span>
-                      </div>
-                    </div>
-                  ))}
-                  <div className="flex justify-end">
-                    <button
-                      onClick={updateAddress}
-                      className="flex items-center justify-center px-6 text-[#fff] font-semibold h-[40px] rounded-lg bg-[#6eb356] hover:bg-[#ff7c08] transition-colors duration-500 ease-in-out"
-                      >
-                      Confirm Address
-                    </button>
-                  </div>
-                </div>
-              ) : (
-                <div>
-                  {addresses
-                    .filter((address) => address.default)
-                    .map((data) => (
-                      <div key={data.id}>
-                        <p className="text-[14px] pt-4">{data.name}</p>
-                        <span className="text-[13px] text-[#808080]">
-                          {data.deliveryAddress} | {data.city} | {data.region} |{" "}
-                          {data.mobileNumber}
-                        </span>
+              <AnimatePresence>
+                {modifyAddress ? (
+                  <motion.div
+                    key="modifyAddress"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                  >
+                    {addresses.map((data) => (
+                      <div key={data.id} className="flex items-center space-x-3">
+                        <input
+                          type="radio"
+                          name="address"
+                          checked={selectedAddressId === data.id}
+                          onChange={() => handleAddressChange(data.id)}
+                        />
+                        <div>
+                          <p className="text-[14px] pt-4">{data.name}</p>
+                          <span className="text-[13px] text-[#808080]">
+                            {data.deliveryAddress} | {data.city} | {data.region} |{" "}
+                            {data.mobileNumber}
+                          </span>
+                        </div>
                       </div>
                     ))}
-                </div>
-              )}
+                    <div className="flex justify-end">
+                      <button
+                        onClick={updateAddress}
+                        className="flex items-center justify-center w-[200px] text-[#fff] font-semibold h-[40px] rounded-lg bg-[#6eb356] hover:bg-[#ff7c08] transition-colors duration-500 ease-in-out"
+                      >
+                        {loadingAddress ? <Loader /> : "Confirm Address"}
+                      </button>
+                    </div>
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    key="defaultAddress"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                  >
+                    {addresses
+                      .filter((address) => address.default)
+                      .map((data) => (
+                        <div key={data.id}>
+                          <p className="text-[14px] pt-4">{data.name}</p>
+                          <span className="text-[13px] text-[#808080]">
+                            {data.deliveryAddress} | {data.city} | {data.region} |{" "}
+                            {data.mobileNumber}
+                          </span>
+                        </div>
+                      ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
 
             <div className="border border-[#f1f1f1] rounded-lg shadow-lg bg-[#fff] mt-6 p-4">
@@ -234,41 +239,41 @@ const Checkout = () => {
               <div className="mt-10">
                 <h2 className="text-[14px] font-semibold">Shipment</h2>
 
-                <div className="grid lg:grid-cols-2 grid-cols-1 lg:gap-x-10 gap-y-4">
+                <div className="grid grid-cols-1 lg:gap-x-10 gap-y-4">
                   {data.map((shipment, index) => (
-                    <div key={shipment.id}>
+                    <motion.div
+                      key={shipment.id}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      className="border border-[#ccc] rounded-lg p-3 space-y-3"
+                    >
                       <h2 className="text-[13px] mt-3 mb-1">
                         Item {index + 1}/{data.length}
                       </h2>
-                      <div className="border border-[#ccc] rounded-lg p-3 space-y-3">
-                        <p className="text-[12px] text-[#808080]">
-                          Delivery between{" "}
-                          <span className="font-semibold text-[#333]">
-                            August 13
-                          </span>{" "}
-                          and{" "}
-                          <span className="font-semibold text-[#333]">
-                            August 16
-                          </span>{" "}
-                        </p>
-                        <div className="flex items-center text-[14px] space-x-2">
-                          <img
-                            src={shipment.productImg}
-                            className="w-[40px] h-[40px] object-cover"
-                            alt="img"
-                          />
-                          <div className="space-y-1">
-                            <h2>{shipment.name}</h2>
-                            <p className="text-[12px] text-[#808080]">
-                              QTY: {shipment.quantity}
-                            </p>
-                            <p className="text-[11px]">
-                              Price of 1 item: ${shipment.price}
-                            </p>
-                          </div>
+                      <p className="text-[12px] text-[#808080]">
+                        Delivery between{" "}
+                        <span className="font-semibold text-[#333]">August 13</span>{" "}
+                        and{" "}
+                        <span className="font-semibold text-[#333]">August 16</span>{" "}
+                      </p>
+                      <div className="flex items-center text-[14px] space-x-2">
+                        <img
+                          src={shipment.productImg}
+                          className="w-[40px] h-[40px] object-cover"
+                          alt="img"
+                        />
+                        <div className="space-y-1">
+                          <h2>{shipment.name}</h2>
+                          <p className="text-[12px] text-[#808080]">
+                            QTY: {shipment.quantity}
+                          </p>
+                          <p className="text-[11px]">
+                            Price of 1 item: ${shipment.price}
+                          </p>
                         </div>
                       </div>
-                    </div>
+                    </motion.div>
                   ))}
                 </div>
 
