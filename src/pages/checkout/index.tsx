@@ -190,7 +190,7 @@ const Checkout = () => {
                     <div className="flex justify-end">
                       <button
                         onClick={updateAddress}
-                        className="flex items-center justify-center w-[200px] text-[#fff] font-semibold h-[40px] rounded-lg bg-[#6eb356] hover:bg-[#ff7c08] transition-colors duration-500 ease-in-out"
+                        className="flex items-center justify-center w-[200px] mt-6 text-[#fff] font-semibold h-[40px] rounded-lg bg-[#6eb356] hover:bg-[#ff7c08] transition-colors duration-500 ease-in-out"
                       >
                         {loadingAddress ? <Loader /> : "Confirm Address"}
                       </button>

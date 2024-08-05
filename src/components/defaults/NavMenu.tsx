@@ -8,11 +8,30 @@ import SearchAccordion from "../accordions/SearchAccordion";
 import UserAccordion from "../accordions/UserAccordion";
 import CartAccordion from "../accordions/CartAccordion";
 import LogoutModal from "../modals/LogoutModal";
+import ViewProductModal from "../modals/ViewProductModal";
+
+interface ProductsProps {
+  id: number;
+  name: string;
+  default_price: string;
+  priceId?: string;
+  review?: string;
+  image: string;
+  category: string;
+  desc: string;
+}
 
 const NavMenu = () => {
   const [openDrawer, setOpenDrawer] = useState<boolean>(false);
   const [showLogoutModal, setShowLogoutModal] = useState<boolean>(false);
   const [showAccordion, setShowAccordion] = useState<string>("");
+
+  const [selectedProduct, setSelectedProduct] = useState<
+  ProductsProps | undefined
+>(undefined);
+const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
+
   const categories = [
     { id: 1, name: "Cereals" },
     { id: 2, name: "Fruits" },
@@ -23,6 +42,11 @@ const NavMenu = () => {
 
   const logout = () => {
     setShowLogoutModal(true);
+  };
+
+  const handleProductClick = (product: ProductsProps) => {
+    setSelectedProduct(product);
+    setIsModalOpen(true);
   };
 
   return (
@@ -60,7 +84,7 @@ const NavMenu = () => {
               >
                 <Search />
               </div>
-              {showAccordion === "search" && <SearchAccordion />}
+              {showAccordion === "search" && <SearchAccordion handleProductClick={handleProductClick} />}
             </div>
             <div
               className="cursor-pointer"
@@ -81,6 +105,13 @@ const NavMenu = () => {
       </div>
       {showLogoutModal && <LogoutModal isOpen={showLogoutModal} setIsOpen={setShowLogoutModal} />}
       {openDrawer && <Drawer />}
+      {isModalOpen && (
+        <ViewProductModal
+          isOpen={isModalOpen}
+          setIsOpen={setIsModalOpen}
+          product={selectedProduct}
+        />
+      )}
     </div>
   );
 };
