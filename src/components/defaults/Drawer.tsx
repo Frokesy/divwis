@@ -30,7 +30,7 @@ const Drawer = () => {
           >
             <NavLink to={"/"}>Home</NavLink>
             <NavLink to="/account">My Account</NavLink>
-            <span>My Favorites</span>
+            <NavLink to="/favorites">My Favorites</NavLink>
             <NavLink to="/shops/0">Shop</NavLink>
             <NavLink to="/contact">Contact Us</NavLink>
             <div className="flex">
