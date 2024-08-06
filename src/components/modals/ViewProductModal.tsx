@@ -1,10 +1,11 @@
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import ModalContainer from "../wrappers/ModalContainer";
 import FiveStars from "../svgs/stars/FiveStars";
 import Loader from "../defaults/Loader";
 import { toast } from "react-toastify";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Heart } from "../svgs/Icons";
 
 interface ProductsProps {
   id: number;
@@ -26,6 +27,9 @@ interface ModalProps {
 const ViewProductModal: FC<ModalProps> = ({ isOpen, setIsOpen, product }) => {
   const [quantity, setQuantity] = useState<number>(1);
   const [loading, setLoading] = useState<boolean>(false);
+  const [favoritedProducts, setFavoritedProducts] = useState<ProductsProps[]>(
+    []
+  );
 
   const handleClick = (cmd: string) => {
     cmd === "increment" ? setQuantity(quantity + 1) : setQuantity(quantity - 1);
@@ -63,13 +67,82 @@ const ViewProductModal: FC<ModalProps> = ({ isOpen, setIsOpen, product }) => {
             draggable: true,
           });
           setTimeout(() => {
-            setIsOpen(!isOpen)
-          }, 2000)
+            setIsOpen(!isOpen);
+          }, 2000);
           db.close();
         };
       };
     };
   };
+
+  const handleLikedAnimation = (product: ProductsProps) => {
+    const isLiked = favoritedProducts.some((p) => p.id === product.id);
+    const dbPromise = idb.open("divwis", 1);
+
+    if (isLiked) {
+      setFavoritedProducts((prevFavoritedProducts) =>
+        prevFavoritedProducts.filter((p) => p.id !== product.id)
+      );
+
+      dbPromise.onsuccess = function () {
+        const db = dbPromise.result;
+        const tx = db.transaction("favorites", "readwrite");
+        const favorites = tx.objectStore("favorites");
+        const deleteData = favorites.delete(product.id);
+
+        deleteData.onsuccess = () => {
+          tx.oncomplete = function () {
+            db.close();
+          };
+        };
+      };
+    } else {
+      setFavoritedProducts((prevFavoritedProducts) => [
+        ...prevFavoritedProducts,
+        product,
+      ]);
+
+      dbPromise.onsuccess = () => {
+        const db = dbPromise.result;
+        const tx = db.transaction("favorites", "readwrite");
+        const favorites = tx.objectStore("favorites");
+        const addData = favorites.put(product);
+
+        addData.onsuccess = () => {
+          tx.oncomplete = () => {
+            db.close();
+          };
+        };
+      };
+    }
+  };
+
+  const idb = window.indexedDB;
+
+  useEffect(() => {
+    const getAllData = () => {
+      const dbPromise = idb.open("divwis", 1);
+      dbPromise.onsuccess = () => {
+        const db = dbPromise.result;
+
+        const tx = db.transaction("favorites", "readonly");
+        const favorites = tx.objectStore("favorites");
+        const data = favorites.getAll();
+
+        data.onsuccess = (query) => {
+          if (query.srcElement) {
+            setFavoritedProducts((query.srcElement as IDBRequest).result);
+          }
+        };
+
+        tx.oncomplete = function () {
+          db.close();
+        };
+      };
+    };
+
+    getAllData();
+  }, [idb]);
 
 
   return (
@@ -83,6 +156,15 @@ const ViewProductModal: FC<ModalProps> = ({ isOpen, setIsOpen, product }) => {
               className="w-[100%] lg:h-[300px] h-[200px]"
               alt="productImg"
             />
+            <div
+              onClick={() => handleLikedAnimation(product)}
+              className="flex justify-end cursor-pointer"
+            >
+              <Heart
+                liked={favoritedProducts.some((p) => p.id === product.id)}
+                size="big"
+              />
+            </div>
           </div>
           <div className="flex flex-col lg:w-[50%] w-[100%]">
             <h3 className="font-bold text-[24px] mt-2">{product.name}</h3>
@@ -93,7 +175,6 @@ const ViewProductModal: FC<ModalProps> = ({ isOpen, setIsOpen, product }) => {
               </div>
             </div>
             <div className="flex space-x-3 text-[15px]">
-              {/* <span className="text-[#808080] line-through">${product.default_price}</span> */}
               <span className="text-[#ff3b30] font-semibold">
                 ${product.default_price}
               </span>

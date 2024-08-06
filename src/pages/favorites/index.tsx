@@ -25,7 +25,6 @@ const Favorites = () => {
   const [viewedProduct, setViewedProduct] = useState<FavoriteProps>();
 
   const idb = window.indexedDB;
-  // const id = localStorage.getItem("id");
 
   const getAllData = () => {
     const dbPromise = idb.open("divwis", 1);

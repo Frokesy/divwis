@@ -761,13 +761,15 @@ export const Eye = ({ iconHover }: { iconHover: string }) => (
 export const Heart = ({
   iconHover,
   liked,
+  size,
 }: {
-  iconHover: string;
+  iconHover?: string;
   liked?: boolean | 0;
+  size?: string;
 }) => (
   <svg
-    width="20px"
-    height="20px"
+    width={size === "big" ? "32px" : "20px"}
+    height={size === "big" ? "32px" : "20px"}
     viewBox="0 0 24 24"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
