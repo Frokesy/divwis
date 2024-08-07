@@ -12,7 +12,6 @@ const Account = () => {
   const [showLogoutModal, setShowLogoutModal] = useState<boolean>(false);
   const id = localStorage.getItem("id");
 
-
   const logout = () => {
     setShowLogoutModal(true);
   };
@@ -21,7 +20,9 @@ const Account = () => {
       <div className="pt-20 min-h-[90vh] pb-[10vh] bg-[#f1f1f1]">
         <div className="lg:w-[80vw] w-[95vw] mx-auto bg-[#fff] rounded-2xl shadow-lg py-10 lg:px-10 px-6 flex justify-between lg:flex-row flex-col lg:space-y-0 space-y-10">
           <div className="lg:w-[20%] w-[100%] space-y-4">
-            <h2 className="lg:hidden block font-semibold text-[18px]">Manage My Account</h2>
+            <h2 className="lg:hidden block font-semibold text-[18px]">
+              Manage My Account
+            </h2>
             <div
               onClick={() => setActiveTab("profile")}
               className={`${
@@ -49,7 +50,10 @@ const Account = () => {
               <FaAddressBook />
               <h2 className="text-[15px]">Address Book</h2>
             </div>
-            <div           onClick={() => (id ? logout() : console.log("clicked"))} className="text-[#ff0406] flex items-center space-x-3 transition-all duration-300 ease-in-out hover:px-2 cursor-pointer">
+            <div
+              onClick={() => (id ? logout() : console.log("clicked"))}
+              className="text-[#ff0406] flex items-center space-x-3 transition-all duration-300 ease-in-out hover:px-2 cursor-pointer"
+            >
               <FaPowerOff />
               <h2 className="text-[15px]">Sign out</h2>
             </div>
@@ -63,8 +67,9 @@ const Account = () => {
           </div>
         </div>
       </div>
-      {showLogoutModal && <LogoutModal isOpen={showLogoutModal} setIsOpen={setShowLogoutModal} />}
-
+      {showLogoutModal && (
+        <LogoutModal isOpen={showLogoutModal} setIsOpen={setShowLogoutModal} />
+      )}
     </MainContainer>
   );
 };
