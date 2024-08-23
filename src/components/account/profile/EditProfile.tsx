@@ -52,6 +52,7 @@ const EditProfile: FC<ProfileProps> = ({
     };
 
     if (userDetails.firstName === "" && userDetails.lastName === "" && userDetails.emailAddress === "" && userDetails.mobileNumber === "") {
+      return
     } else {
       const { data, error } = await supabase.from("users")
       .update({
