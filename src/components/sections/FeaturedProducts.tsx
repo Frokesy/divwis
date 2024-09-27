@@ -350,6 +350,7 @@ const FeaturedProducts =  () => {
           isOpen={isOpen}
           setIsOpen={setIsOpen}
           product={viewedProduct}
+          allProducts={products}
         />
       )}
     </div>
