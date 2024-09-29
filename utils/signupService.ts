@@ -1,5 +1,5 @@
 import { toast } from "react-toastify";
-import { supabase } from "./supabaseClient";
+import { pb } from "./pocketbaseClient";
 
 export async function handleSignup(
   setLoading: React.Dispatch<React.SetStateAction<boolean>>,
@@ -26,37 +26,26 @@ export async function handleSignup(
 
   if (isFullnameValid && isEmailValid && isPasswordValid) {
     try {
-      const { data, error } = await supabase.auth.signUp({
+      const data = {
         email: userData.email,
         password: userData.password,
-      });
-      if (error) {
-        if (error.message === "User already registered") {
-          throw error.message;
-        }
-      }
-      if (!error) {
-        const id = data.user?.id;
-        const { data: userDetails, error: userError } = await supabase
-          .from("users")
-          .insert([
-            { userId: id, name: userData.fullName, email: userData.email },
-          ]);
-        if (userError) {
-          throw userError.message;
-        } else {
-          toast.success("Account created successfully!", {
-            position: "top-center",
-            theme: "light",
-            autoClose: 2000,
-            hideProgressBar: true,
-            draggable: true,
-          });
-          setLoading(false);
-          setTimeout(() => {
-            console.log("Account created successfully", userDetails);
-          }, 2000);
-        }
+        passwordConfirm: userData.password,
+        name: userData.fullName,
+      };
+
+      const record = await pb.collection("users").create(data);
+      if (record) {
+        toast.success("Account created successfully!", {
+          position: "top-center",
+          theme: "light",
+          autoClose: 2000,
+          hideProgressBar: true,
+          draggable: true,
+        });
+        setLoading(false);
+        setTimeout(() => {
+          console.log("Account created successfully", record);
+        }, 2000);
       }
     } catch (error) {
       toast.error(error as string, {
