@@ -1,5 +1,5 @@
 import { toast } from "react-toastify";
-import { supabase } from "./supabaseClient";
+import { pb } from "./pocketbaseClient";
 
 export async function handleLogin(
   setLoading: React.Dispatch<React.SetStateAction<boolean>>,
@@ -24,29 +24,29 @@ export async function handleLogin(
 
   if (isEmailValid && isPasswordValid) {
     try {
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email: userData.email,
-        password: userData.password,
-      });
-      if (error) {
+      const authData = await pb
+        .collection("users")
+        .authWithPassword(userData.email, userData.password);
+        console.log("yo",authData)
+      if (authData) {
+        const id = authData.record.id;
+        localStorage.setItem("id", id);
+        toast.success("Login successful!", {
+          position: "top-center",
+          theme: "light",
+          autoClose: 2000,
+          hideProgressBar: true,
+          draggable: true,
+        });
+        setTimeout(() => {
+          setIsOpen(!isOpen);
+        }, 2000);
         setLoading(false);
-        throw error.message;
+      } else {
+        console.log("authData", authData)
       }
-      const id = data.user?.id;
-      localStorage.setItem("id", id);
-      toast.success("Login successful!", {
-        position: "top-center",
-        theme: "light",
-        autoClose: 2000,
-        hideProgressBar: true,
-        draggable: true,
-      });
-      setTimeout(() => {
-        setIsOpen(!isOpen)
-      }, 2000);
-      setLoading(false);
     } catch (error) {
-      toast.error(error as string, {
+      toast.error("invalid login credentials!", {
         position: "top-center",
         theme: "light",
         autoClose: 2000,
@@ -54,6 +54,7 @@ export async function handleLogin(
         draggable: true,
       });
       setLoading(false);
+      console.error(error);
     }
   } else {
     setLoading(false);
