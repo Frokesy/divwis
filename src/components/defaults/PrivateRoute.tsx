@@ -1,7 +1,7 @@
 import { Navigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Spinner from "./Spinner";
-import { supabase } from "../../../utils/supabaseClient";
+import { pb } from "../../../utils/pocketbaseClient";
 
 interface PrivateRouteProps {
   children: React.ReactNode;
@@ -12,24 +12,9 @@ const PrivateRoute: React.FC<PrivateRouteProps> = ({ children }) => {
 
   useEffect(() => {
     const checkAuth = async () => {
-      const token =
-        localStorage.getItem("authToken") ||
-        sessionStorage.getItem("authToken");
-
-      if (token) {
-        const {
-          data: { user },
-        } = await supabase.auth.getUser();
-
-        if (user) {
-          setAuthenticated(true);
-        } else {
-          setAuthenticated(false);
-        }
-      } else {
-        setAuthenticated(false)
-      }
-    };
+        const isAuthenticated = pb.authStore.isValid;
+        isAuthenticated ? setAuthenticated(true) : setAuthenticated(false);
+    }
 
     checkAuth();
   }, []);
