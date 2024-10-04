@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import AuthModal from "../modals/AuthModal";
-import { supabase } from "../../../utils/supabaseClient";
 import { FaEnvelope } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
 import { Phone } from "../svgs/Icons";
+import { pb } from "../../../utils/pocketbaseClient";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -24,17 +24,15 @@ const Header = () => {
 
   const id = localStorage.getItem("id");
 
+
   useEffect(() => {
     const getUsername = async () => {
-      const { data: user, error } = await supabase
-        .from("users")
-        .select("*")
-        .eq("userId", id);
+      const record = await pb.collection('users').getOne(id as string, {
+        expand: 'relField1,relField2.subRelField',
+      });
 
-      if (!error) {
-        setName(user[0]?.name);
-      }
-    };
+      setName(record.name)
+      };
 
     getUsername();
   }, [id]);

@@ -42,8 +42,6 @@ export async function handleLogin(
           setIsOpen(!isOpen);
         }, 2000);
         setLoading(false);
-      } else {
-        console.log("authData", authData)
       }
     } catch (error) {
       toast.error("invalid login credentials!", {
