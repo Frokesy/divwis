@@ -6,20 +6,12 @@ import { supabase } from "../../../../utils/supabaseClient";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Loader from "../../defaults/Loader";
+import { UserProps } from ".";
 
 interface ProfileProps {
   editStatus: boolean;
   setEditStatus: React.Dispatch<React.SetStateAction<boolean>>;
-  userData: UserProps[];
-}
-
-interface UserProps {
-  created_at: string;
-  email: string;
-  id: number;
-  name: string;
-  userId: string;
-  phone: string;
+  userData: UserProps | null;
 }
 
 const EditProfile: FC<ProfileProps> = ({
@@ -44,10 +36,10 @@ const EditProfile: FC<ProfileProps> = ({
     const updatedProfile = {
       name:
         userDetails.firstName === "" && userDetails.lastName === ""
-          ? userData[0].name
+          ? userData?.name
           : `${userDetails.firstName} ${userDetails.lastName}`,
-      email: userDetails.emailAddress === "" ? userData[0].email : userDetails.emailAddress,
-      phone: userDetails.mobileNumber === "" ? userData[0].phone : userDetails.mobileNumber,
+      email: userDetails.emailAddress === "" ? userData?.email : userDetails.emailAddress,
+      phone: userDetails.mobileNumber === "" ? userData?.phone : userDetails.mobileNumber,
       updated_at: new Date().toISOString(),
     };
 
@@ -61,7 +53,7 @@ const EditProfile: FC<ProfileProps> = ({
         phone: updatedProfile.phone,
         updated_at: updatedProfile.updated_at
       })
-      .eq("userId", userData[0].userId);
+      .eq("userId", userData?.id);
 
       if (error) {
         console.log(error);

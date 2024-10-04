@@ -5,19 +5,12 @@ import { FaLocationPin } from "react-icons/fa6";
 import AddNewAddress from "../address/AddNewAddress";
 import Spinner from "../../defaults/Spinner";
 import { supabase } from "../../../../utils/supabaseClient";
+import { UserProps } from ".";
 
 interface ProfileProps {
   editStatus: boolean;
   setEditStatus: React.Dispatch<React.SetStateAction<boolean>>;
-  userData: UserProps[];
-}
-interface UserProps {
-  created_at: string;
-  email: string;
-  id: number;
-  name: string;
-  userId: string;
-  phone: string;
+  userData: UserProps | null;
 }
 
 interface AddressProps {
@@ -75,10 +68,8 @@ const AccountOverview: FC<ProfileProps> = ({
         />
       ) : (
         <div>
-          {userData.length > 0 ? (
+          {userData ? (
             <div>
-              {userData.map((user) => (
-                <div key={user.id}>
                   <div className="">
                     <div className="flex lg:items-center space-x-6 pb-10">
                       <h2 className="lg:text-[26px] text-[18px] font-bold font-mono lg:text-[#808080]">
@@ -102,7 +93,7 @@ const AccountOverview: FC<ProfileProps> = ({
                       </div>
                       <div className="space-y-1">
                         <h2 className="lg:text-[24px] text-[18px] mb-3 font-semibold">
-                          {user.name}
+                          {userData.name}
                         </h2>
                         <div className="flex items-center text-[14px] space-x-2 text-[#404040]">
                           <FaLocationPin />
@@ -116,11 +107,11 @@ const AccountOverview: FC<ProfileProps> = ({
                         </div>
                         <div className="flex items-center text-[14px] space-x-2 text-[#404040]">
                           <FaPhoneAlt />
-                          <p>{user.phone ? user.phone : "null"}</p>
+                          <p>{userData.phone ? userData.phone : "null"}</p>
                         </div>
                         <div className="flex items-center text-[14px] space-x-2 text-[#404040]">
                           <FaLocationPin />
-                          <p>{user.email}</p>
+                          <p>{userData.email}</p>
                         </div>
                       </div>
                     </div>
@@ -196,8 +187,6 @@ const AccountOverview: FC<ProfileProps> = ({
                       </div>
                     </div>
                   </div>
-                </div>
-              ))}
             </div>
           ) : (
             <div className="h-[70vh] flex items-center justify-center">

@@ -5,20 +5,13 @@ import Input from "../../defaults/Input";
 import { supabase } from "../../../../utils/supabaseClient";
 import { ToastContainer, toast } from "react-toastify";
 import Loader from "../../defaults/Loader";
+import { UserProps } from "../profile";
 
-interface UserProps {
-  created_at: string;
-  email: string;
-  id: number;
-  name: string;
-  userId: string;
-  phone: string;
-}
 
 interface AddressProps {
   editAddress: boolean;
   setEditAddress: React.Dispatch<React.SetStateAction<boolean>>;
-  userData?: UserProps[];
+  userData?: UserProps | null;
 }
 
 const AddNewAddress: FC<AddressProps> = ({
@@ -79,7 +72,7 @@ const AddNewAddress: FC<AddressProps> = ({
         const { data: existingAddresses, error: fetchError } = await supabase
           .from("address")
           .select("*")
-          .eq("userId", userData?.[0].userId);
+          .eq("userId", userData?.id);
 
         if (fetchError) {
           throw fetchError;
@@ -89,7 +82,7 @@ const AddNewAddress: FC<AddressProps> = ({
 
         const { data, error } = await supabase.from("address").insert([
           {
-            userId: userData?.[0].userId,
+            userId: userData?.id,
             name: addressBook.name,
             mobileNumber: addressBook.mobileNumber,
             deliveryAddress: addressBook.deliveryAddress,
