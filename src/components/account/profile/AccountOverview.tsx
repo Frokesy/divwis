@@ -47,7 +47,6 @@ const AccountOverview: FC<ProfileProps> = ({
     }
   };
   
-  console.log(id)
 
   useEffect(() => {
     fetchAddresses();

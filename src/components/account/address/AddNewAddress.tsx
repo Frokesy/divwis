@@ -2,10 +2,10 @@ import React, { FC, useState } from "react";
 import { motion } from "framer-motion";
 import { FaArrowLeft } from "react-icons/fa";
 import Input from "../../defaults/Input";
-import { supabase } from "../../../../utils/supabaseClient";
 import { ToastContainer, toast } from "react-toastify";
 import Loader from "../../defaults/Loader";
 import { UserProps } from "../profile";
+import { pb } from "../../../../utils/pocketbaseClient";
 
 
 interface AddressProps {
@@ -37,6 +37,7 @@ const AddNewAddress: FC<AddressProps> = ({
 
   const [loading, setLoading] = useState<boolean>(false);
 
+
   const validateField = (value: string) => {
     if (value === "") {
       return false;
@@ -47,12 +48,13 @@ const AddNewAddress: FC<AddressProps> = ({
 
   const saveAddress = async () => {
     setLoading(true);
+  
     const isNameValid = validateField(addressBook.name);
     const isMobileNumberValid = validateField(addressBook.mobileNumber);
     const isDeliveryAddressValid = validateField(addressBook.deliveryAddress);
     const isRegionValid = validateField(addressBook.region);
     const isCityValid = validateField(addressBook.city);
-
+  
     setError({
       name: isNameValid ? "" : "name is required",
       mobileNumber: isMobileNumberValid ? "" : "mobile number is required",
@@ -60,56 +62,46 @@ const AddNewAddress: FC<AddressProps> = ({
       region: isRegionValid ? "" : "region must be set",
       city: isCityValid ? "" : "city must be set",
     });
-
-    if (
-      isNameValid &&
-      isMobileNumberValid &&
-      isDeliveryAddressValid &&
-      isRegionValid &&
-      isCityValid
-    ) {
+  
+    if (isNameValid && isMobileNumberValid && isDeliveryAddressValid && isRegionValid && isCityValid) {
       try {
-        const { data: existingAddresses, error: fetchError } = await supabase
-          .from("address")
-          .select("*")
-          .eq("userId", userData?.id);
-
-        if (fetchError) {
-          throw fetchError;
-        }
-
+        const existingAddresses = await pb.collection("address").getFullList({
+          filter: `userId = '${userData?.id}'`,
+          sort: 'created'
+        });
+  
         const isDefault = existingAddresses.length === 0;
-
-        const { data, error } = await supabase.from("address").insert([
-          {
-            userId: userData?.id,
-            name: addressBook.name,
-            mobileNumber: addressBook.mobileNumber,
-            deliveryAddress: addressBook.deliveryAddress,
-            region: addressBook.region,
-            city: addressBook.city,
-            default: isDefault,
-          },
-        ]);
-
-        if (error) {
-          throw error.message;
-        } else {
-          setLoading(false);
-          toast.success("Address Registered!", {
-            position: "top-center",
-            theme: "light",
-            autoClose: 1000,
-            hideProgressBar: true,
-            draggable: true,
-          });
-          setTimeout(() => {
-            window.location.reload();
-          }, 2500);
-          return data;
-        }
+  
+        const newAddress = {
+          userId: userData?.id,
+          name: addressBook.name,
+          mobileNumber: addressBook.mobileNumber,
+          deliveryAddress: addressBook.deliveryAddress,
+          region: addressBook.region,
+          city: addressBook.city,
+          default: isDefault,
+        };
+  
+        const record = await pb.collection("address").create(newAddress);
+  
+        setLoading(false);
+  
+        toast.success("Address Registered!", {
+          position: "top-center",
+          theme: "light",
+          autoClose: 1000,
+          hideProgressBar: true,
+          draggable: true,
+        });
+  
+        setTimeout(() => {
+          window.location.reload();
+        }, 2500);
+  
+        return record;
+  
       } catch (error) {
-        toast.error(error as string, {
+        toast.error((error as string), {
           position: "top-center",
           theme: "light",
           autoClose: 2000,
@@ -120,6 +112,7 @@ const AddNewAddress: FC<AddressProps> = ({
       }
     } else {
       setLoading(false);
+  
       if (!isNameValid) {
         setTimeout(() => {
           setError((prevState) => ({ ...prevState, name: "" }));
@@ -147,6 +140,7 @@ const AddNewAddress: FC<AddressProps> = ({
       }
     }
   };
+  
 
   return (
     <motion.div
