@@ -2,11 +2,11 @@ import { motion } from "framer-motion";
 import React, { FC, useState } from "react";
 import { FaArrowLeft } from "react-icons/fa";
 import Input from "../../defaults/Input";
-import { supabase } from "../../../../utils/supabaseClient";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Loader from "../../defaults/Loader";
 import { UserProps } from ".";
+import { pb } from "../../../../utils/pocketbaseClient";
 
 interface ProfileProps {
   editStatus: boolean;
@@ -28,38 +28,47 @@ const EditProfile: FC<ProfileProps> = ({
     newPassword: "",
     retypePassword: "",
   });
-  const [loading, setLoading] = useState<boolean>(false)
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleProfileUpdate = async () => {
-    setLoading(true)
-    
+    setLoading(true);
+
     const updatedProfile = {
       name:
         userDetails.firstName === "" && userDetails.lastName === ""
           ? userData?.name
           : `${userDetails.firstName} ${userDetails.lastName}`,
-      email: userDetails.emailAddress === "" ? userData?.email : userDetails.emailAddress,
-      phone: userDetails.mobileNumber === "" ? userData?.phone : userDetails.mobileNumber,
-      updated_at: new Date().toISOString(),
+      email:
+        userDetails.emailAddress === ""
+          ? userData?.email
+          : userDetails.emailAddress,
+      phone:
+        userDetails.mobileNumber === ""
+          ? userData?.phone
+          : userDetails.mobileNumber,
+      updated: new Date().toISOString(),
     };
 
-    if (userDetails.firstName === "" && userDetails.lastName === "" && userDetails.emailAddress === "" && userDetails.mobileNumber === "") {
-      return
+    if (
+      userDetails.firstName === "" &&
+      userDetails.lastName === "" &&
+      userDetails.emailAddress === "" &&
+      userDetails.mobileNumber === ""
+    ) {
+      return;
     } else {
-      const { data, error } = await supabase.from("users")
-      .update({
-        name: updatedProfile.name,
-        email: updatedProfile.email,
-        phone: updatedProfile.phone,
-        updated_at: updatedProfile.updated_at
-      })
-      .eq("userId", userData?.id);
+      try {
+        console.log(updatedProfile)
+        const updatedRecord = await pb
+          .collection("users")
+          .update(userData?.id as unknown as string, {
+            name: updatedProfile.name,
+            email: updatedProfile.email,
+            phone: updatedProfile.phone,
+            updated: updatedProfile.updated,
+          });
 
-      if (error) {
-        console.log(error);
-        return [];
-      } else {
-        setLoading(false)
+        setLoading(false);
         toast.success("Profile Updated!", {
           position: "top-center",
           theme: "light",
@@ -67,11 +76,17 @@ const EditProfile: FC<ProfileProps> = ({
           hideProgressBar: true,
           draggable: true,
         });
+
         setTimeout(() => {
           window.location.reload();
-        }, 2500)
-        return data;
-      }      
+        }, 2500);
+
+        return updatedRecord;
+      } catch (error) {
+        console.error(error);
+        setLoading(false);
+        return [];
+      }
     }
   };
 

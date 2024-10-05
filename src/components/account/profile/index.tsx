@@ -6,7 +6,7 @@ import { pb } from "../../../../utils/pocketbaseClient";
 export interface UserProps {
   created: string;
   email: string;
-  id: number;
+  id: string;
   name: string;
   phone: string;
 }

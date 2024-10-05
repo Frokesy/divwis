@@ -41,7 +41,6 @@ const AccountOverview: FC<ProfileProps> = ({
       });
   
       setAddresses(records as unknown as AddressProps[]);
-      console.log("addresses", records);
     } catch (error) {
       console.error("Error fetching addresses:", error);
     }
