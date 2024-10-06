@@ -58,7 +58,6 @@ const EditProfile: FC<ProfileProps> = ({
       return;
     } else {
       try {
-        console.log(updatedProfile)
         const updatedRecord = await pb
           .collection("users")
           .update(userData?.id as unknown as string, {

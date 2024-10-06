@@ -4,6 +4,7 @@ import { supabase } from "../../../utils/supabaseClient";
 import Loader from "../../components/defaults/Loader";
 import { NavLink } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
+import { pb } from "../../../utils/pocketbaseClient";
 
 interface AddressProps {
   city: string;
@@ -40,15 +41,15 @@ const Checkout = () => {
   const id = localStorage.getItem("id");
 
   const fetchAddresses = async () => {
-    const { data: address, error } = await supabase
-      .from("address")
-      .select("*")
-      .eq("userId", id);
-    if (error) {
-      console.log(error);
-      return [];
+    try {
+      const records = await pb.collection('address').getFullList({
+        filter: `userId = '${id}'`,
+      });
+  
+      setAddresses(records as unknown as AddressProps[]);
+    } catch (error) {
+      console.error("Error fetching addresses:", error);
     }
-    setAddresses(address as AddressProps[]);
   };
 
   const getAllData = () => {

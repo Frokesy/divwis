@@ -66,7 +66,7 @@ const Orders = () => {
         <ViewOrderDetails
           order={selectedOrder}
           setActivePage={setActivePage}
-          getSelectedOrder={function (_order: OrderProps | undefined): void {
+          getSelectedOrder={function (order: OrderProps | undefined): void {
             throw new Error("Function not implemented.");
           }}
         />
