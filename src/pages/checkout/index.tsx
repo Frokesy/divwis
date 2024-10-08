@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import MainContainer from "../../components/wrappers/MainContainer";
-import { supabase } from "../../../utils/supabaseClient";
 import Loader from "../../components/defaults/Loader";
 import { NavLink } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
@@ -81,27 +80,33 @@ const Checkout = () => {
   const updateAddress = async () => {
     setLoadingAddress(true);
     if (selectedAddressId === null) return;
-    const { error: updateError } = await supabase
-      .from("address")
-      .update({ default: true })
-      .eq("id", selectedAddressId);
-    if (updateError) {
-      console.log(updateError);
-      return;
+  
+    try {
+      const updateResult = await pb.collection("address").update(selectedAddressId as unknown as string, { default: true });
+  
+      if (!updateResult) {
+        throw new Error('Failed to set selected address as default.');
+      }
+  
+      const resetResult = await pb.collection("address").getFullList({
+        filter: `userId = "${id}"`, 
+      });
+  
+      for (const addr of resetResult) {
+        if (addr.id !== selectedAddressId as unknown as string) {
+          await pb.collection("address").update(addr.id, { default: false });
+        }
+      }
+  
+      fetchAddresses();
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoadingAddress(false);
+      setModifyAddress(false);
     }
-    const { error: resetError } = await supabase
-      .from("address")
-      .update({ default: false })
-      .neq("id", selectedAddressId)
-      .eq("userId", id);
-    if (resetError) {
-      console.log(resetError);
-      return;
-    }
-    fetchAddresses();
-    setLoadingAddress(false);
-    setModifyAddress(false);
   };
+
 
   const handleCheckout = async () => {
     setLoading(true);

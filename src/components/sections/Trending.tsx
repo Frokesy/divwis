@@ -11,7 +11,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Loader from "../defaults/Loader";
 
 interface ProductsProps {
-  id: number;
+  id: string;
   name: string;
   default_price: string;
   priceId?: string;
@@ -25,7 +25,7 @@ const Trending = () => {
   const [products, setProducts] = useState<ProductsProps[]>([])
   const [activeTab, setActiveTab] = useState<string>("all");
   const [loading, setLoading] = useState<boolean>(false);
-  const [activeId, setActiveId] = useState<number | null>();
+  const [activeId, setActiveId] = useState<string | null>();
   const [iconHover, setIconHover] = useState<string>("");
   const [activeIcon, setActiveIcon] = useState<string>("");
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -36,7 +36,7 @@ const Trending = () => {
   const [productsPerCategory, setProductsPerCategory] =
     useState<ProductsProps[]>(products);
 
-  const updateActiveState = (id: number | null) => {
+  const updateActiveState = (id: string | null) => {
     setActiveId(id);
   };
   const updateIconHover = (icon: string) => {
@@ -356,6 +356,7 @@ const Trending = () => {
           isOpen={isOpen}
           setIsOpen={setIsOpen}
           product={viewedProduct}
+          allProducts={products}
         />
       )}
     </div>

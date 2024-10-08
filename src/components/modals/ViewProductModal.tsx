@@ -8,7 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { Heart } from "../svgs/Icons";
 
 interface ProductsProps {
-  id: number;
+  id: string;
   name: string;
   default_price?: string;
   priceId?: string;

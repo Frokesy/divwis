@@ -4,7 +4,7 @@ import { FaArrowsLeftRight, FaArrowsUpDown } from "react-icons/fa6";
 import ProductDisplay from "../defaults/ProductDisplay";
 
 export interface ProductsProps {
-  id: number;
+  id: string;
   name: string;
   default_price: string;
   priceId?: string;

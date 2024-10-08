@@ -1,7 +1,7 @@
-import { supabase } from "../../../utils/supabaseClient";
+import { pb } from "../../../utils/pocketbaseClient"; // Ensure you import your PocketBase client
 
 interface ProductsProps {
-  id: number;
+  id: string;  // PocketBase IDs are strings, not numbers
   name: string;
   default_price: string;
   priceId?: string;
@@ -13,14 +13,26 @@ interface ProductsProps {
 }
 
 async function fetchProducts(): Promise<ProductsProps[]> {
-  const { data, error } = await supabase.from("products").select("*");
+  try {
+    const records = await pb.collection("products").getFullList({
+      sort: "-created",
+    });
 
-  if (error) {
-    console.log(error);
+    return records.map((record) => ({
+      id: record.id,
+      name: record.name,
+      default_price: record.default_price,
+      priceId: record.priceId,
+      review: record.review,
+      image: record.image,
+      category: record.category,
+      featured: record.featured,
+      desc: record.desc,
+    }));
+  } catch (error) {
+    console.log("Error fetching products:", error);
     return [];
   }
-
-  return data as ProductsProps[];
 }
 
 export async function getProducts(): Promise<ProductsProps[]> {

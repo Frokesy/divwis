@@ -6,7 +6,7 @@ import CompareModal from "../modals/CompareModal";
 import { getProducts } from "../data/products";
 
 interface ProductsProps {
-  id: number;
+  id: string;
   name: string;
   default_price: string;
   review?: string;
@@ -19,7 +19,7 @@ interface ProductsProps {
 const FeaturedProducts =  () => {
   const [products, setProducts] = useState<ProductsProps[]>([])
 
-  const [activeId, setActiveId] = useState<number | null>();
+  const [activeId, setActiveId] = useState<string | null>();
   const [iconHover, setIconHover] = useState<string>("");
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [viewedProduct, setViewedProduct] = useState<ProductsProps>();
@@ -29,7 +29,7 @@ const FeaturedProducts =  () => {
   const [activeIcon, setActiveIcon] = useState<string>("");
   const productSet: ProductsProps[] = products.slice(0, 10);
 
-  const updateActiveState = (id: number | null) => {
+  const updateActiveState = (id: string | null) => {
     setActiveId(id);
   };
 
