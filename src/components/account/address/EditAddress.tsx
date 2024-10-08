@@ -2,9 +2,9 @@ import React, { FC, useState } from "react";
 import { motion } from "framer-motion";
 import { FaArrowLeft } from "react-icons/fa";
 import Input from "../../defaults/Input";
-import { supabase } from "../../../../utils/supabaseClient";
 import { ToastContainer, toast } from "react-toastify";
 import Loader from "../../defaults/Loader";
+import { pb } from "../../../../utils/pocketbaseClient";
 
 interface EditAddressProps {
   editAddress: boolean;
@@ -42,43 +42,42 @@ const EditAddress: FC<EditAddressProps> = ({
   const handleEditAddress = async () => {
     setLoading(true);
     try {
-      const { data, error } = await supabase
-        .from("address")
-        .update({
-          name: addressBook.name,
-          mobileNumber: addressBook.mobileNumber,
-          deliveryAddress: addressBook.deliveryAddress,
-          region: addressBook.region,
-          city: addressBook.city,
-        })
-        .eq("id", clickedAddress?.id);
-
-      if (error) {
-        throw error.message;
-      } else {
-        setLoading(false);
-        toast.success("Address Updated!", {
-          position: "top-center",
-          theme: "light",
-          autoClose: 1000,
-          hideProgressBar: true,
-          draggable: true,
-        });
-        setTimeout(() => {
-          window.location.reload();
-        }, 2500);
-        return data;
-      }
-    } catch (error) {
-      toast.error(error as string, {
+      const updatedData = {
+        name: addressBook.name,
+        mobileNumber: addressBook.mobileNumber,
+        deliveryAddress: addressBook.deliveryAddress,
+        region: addressBook.region,
+        city: addressBook.city,
+      };
+  
+      const updatedRecord = await pb.collection("address").update(clickedAddress?.id as unknown as string, updatedData);
+  
+      toast.success("Address Updated!", {
         position: "top-center",
         theme: "light",
         autoClose: 1000,
         hideProgressBar: true,
         draggable: true,
       });
+  
+      setTimeout(() => {
+        window.location.reload();
+      }, 2500);
+  
+      return updatedRecord;
+    } catch (error) {
+      toast.error("Error updating address", {
+        position: "top-center",
+        theme: "light",
+        autoClose: 1000,
+        hideProgressBar: true,
+        draggable: true,
+      });
+    } finally {
+      setLoading(false);
     }
   };
+  
 
   return (
     <motion.div

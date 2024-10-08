@@ -1,9 +1,9 @@
 import { motion } from "framer-motion";
 import { FC, useEffect, useState } from "react";
 import { FaPen, FaTrash } from "react-icons/fa";
-import { supabase } from "../../../../utils/supabaseClient";
 import Spinner from "../../defaults/Spinner";
 import { ToastContainer, toast } from "react-toastify";
+import { pb } from "../../../../utils/pocketbaseClient";
 
 interface AddressBookProps {
   getClickedAddress: (address: AddressProps) => void;
@@ -24,61 +24,59 @@ interface AddressProps {
 const AddressBook: FC<AddressBookProps> = ({ getClickedAddress }) => {
   const [addresses, setAddresses] = useState<AddressProps[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
+  const id = localStorage.getItem("id");
 
   const fetchAddresses = async () => {
-    setLoading(true);
-    const { data: address, error } = await supabase.from("address").select("*");
-    if (error) {
-      console.log(error);
-      setLoading(false);
-      return [];
+    try {
+      const records = await pb.collection("address").getFullList({
+        filter: `userId = '${id}'`,
+      });
+
+      setAddresses(records as unknown as AddressProps[]);
+    } catch (error) {
+      console.error("Error fetching addresses:", error);
     }
-    setAddresses(address as AddressProps[]);
-    setLoading(false);
   };
 
   const deleteAddress = async (address: AddressProps) => {
-    const { error } = await supabase
-      .from("address")
-      .delete()
-      .eq("id", address.id);
-
-    if (error) {
-      console.log(error.message);
+    try {
+      await pb.collection("address").delete(address.id as unknown as string);
+  
+      toast.success("Address Deleted!", {
+        position: "top-center",
+        theme: "light",
+        autoClose: 1000,
+        hideProgressBar: true,
+        draggable: true,
+      });
+  
+      setTimeout(() => {
+        window.location.reload();
+      }, 2500);
+    } catch (error) {
+      console.log("Error deleting address");
     }
-    toast.success("Address Deleted!", {
-      position: "top-center",
-      theme: "light",
-      autoClose: 1000,
-      hideProgressBar: true,
-      draggable: true,
-    });
-    setTimeout(() => {
-      window.location.reload();
-    }, 2500);
   };
+  
 
   const setAsDefault = async (address: AddressProps) => {
     setLoading(true);
     try {
-      const { error: resetError } = await supabase
-        .from("address")
-        .update({ default: false })
-        .eq("userId", address.userId)
-        .eq("default", true);
+      const resetResult = await pb.collection("address").getFullList({
+        filter: `userId = '${address.userId}'`,
+      });
+      
+      if (resetResult.length > 0) {
+        const defaultAddress = resetResult.find((addr) => addr.default === true);
+      
+        if (defaultAddress) {
+          await pb.collection("address").update(defaultAddress.id, { default: false });
+        }
+      }      
 
-      if (resetError) {
-        throw resetError;
-      }
-
-      const { error: updateError } = await supabase
-        .from("address")
-        .update({ default: true })
-        .eq("id", address.id);
-
-      if (updateError) {
-        throw updateError;
-      }
+      await pb
+        .collection("address")
+        .update(address.id as unknown as string, { default: true });
 
       toast.success("Address set as default!", {
         position: "top-center",
@@ -90,7 +88,7 @@ const AddressBook: FC<AddressBookProps> = ({ getClickedAddress }) => {
 
       fetchAddresses();
     } catch (error) {
-      console.log(error);
+      console.error("Error setting default address:", error);
       toast.error("Error setting default address", {
         position: "top-center",
         theme: "light",
