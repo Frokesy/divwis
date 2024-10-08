@@ -11,13 +11,12 @@ interface OrderProps {
 
 interface Orders {
   id: number;
-  created_at: string;
+  created: string;
   user_id: string;
   session_id: string;
   totalCost: string;
   status: string;
   products: ProductProps[];
-  orderNumber: string;
 }
 
 interface ProductProps {
@@ -85,9 +84,9 @@ const ViewOrderDetails: FC<OrderProps> = ({
 
       <div className="">
         <div className="text-[#808080] text-[14px] mt-4">
-          <h2>Order No {order?.orderNumber.slice(0, 8)}</h2>
+          <h2>Order No {order?.id}</h2>
           <p>{order?.products.length} items</p>
-          <p>Placed on {formatDate(order?.created_at)}</p>
+          <p>Placed on {formatDate(order?.created)}</p>
           <p>Total ${order?.totalCost}</p>
         </div>
 
@@ -97,7 +96,7 @@ const ViewOrderDetails: FC<OrderProps> = ({
         <OrderCard
           orderStatus={order?.status}
           orderItems={order?.products}
-          orderDate={formatDate(order?.created_at)}
+          orderDate={formatDate(order?.created)}
         />
       </div>
     </motion.div>

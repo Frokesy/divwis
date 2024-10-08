@@ -2,17 +2,16 @@ import OrderHistory from "./OrderHistory";
 import { useEffect, useState } from "react";
 import ViewOrderDetails from "./ViewOrderDetails";
 import TrackOrder from "./TrackOrder";
-import { supabase } from "../../../../utils/supabaseClient";
+import { pb } from "../../../../utils/pocketbaseClient";
 
-interface OrderProps {
+export interface OrderProps {
   id: number;
-  created_at: string;
+  created: string;
   user_id: string;
   session_id: string;
   totalCost: string;
   status: string;
   products: ProductProps[];
-  orderNumber: string;
 }
 
 interface ProductProps {
@@ -34,17 +33,16 @@ const Orders = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const { data, error } = await supabase
-        .from("orders")
-        .select("*")
-        .eq("user_id", id);
+      const records = await pb.collection('orders').getFullList({
+        filter: `user_id = '${id}'`,
+      });
+  
 
-      if (error) {
-        console.log(error);
+      if (!records) {
+        console.log("Error fetching data" );
         return [];
       }
-
-      setOrders(data);
+      setOrders(records as unknown as OrderProps[]);
     };
 
     fetchData();
@@ -67,7 +65,7 @@ const Orders = () => {
           order={selectedOrder}
           setActivePage={setActivePage}
           getSelectedOrder={function (order: OrderProps | undefined): void {
-            throw new Error("Function not implemented.");
+            throw new Error(`Function not implemented: ${order}`);
           }}
         />
       )}

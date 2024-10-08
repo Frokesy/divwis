@@ -9,13 +9,12 @@ interface OrderProps {
 
 interface Orders {
   id: number;
-  created_at: string;
+  created: string;
   user_id: string;
   session_id: string;
   totalCost: string;
   status: string;
   products: ProductProps[];
-  orderNumber: string;
 }
 
 interface ProductProps {
@@ -108,10 +107,10 @@ const OrderHistory: FC<OrderProps> = ({ setActivePage, orders, getSelectedOrder 
                   <tbody key={order.id} className="divide-y divide-gray-200">
                     <tr className="cursor-pointer hover:text-[#3A5743] transition-all duration-500 ease-in-out text-[#8D9091] hover:text-semibold hover:bg-neutral-200">
                       <td className="px-6 py-4 whitespace-nowrap lg:text-[14px] text-[12px]">
-                        {order.orderNumber.slice(0, 8)}
+                        {order.id}
                       </td>
                       <td className="pr-6 py-4 whitespace-nowrap lg:text-[14px] text-[12px]">
-                        {formatDate(order.created_at)}
+                        {formatDate(order.created)}
                       </td>
                       <td className={`py-4 text-center ${order.status === "delivered" && 'text-[#63b356]'} ${order.status === "shipped" && 'text-[#3d8eb9]'} ${order.status === "processing" && 'text-[#e05d00]'} ${order.status === "pending" && 'text-[#d04c95]'}  font-medium whitespace-nowrap lg:text-[14px] text-[12px]`}>
                         {order.status}

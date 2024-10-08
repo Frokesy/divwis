@@ -9,13 +9,12 @@ interface OrderProps {
 
 interface Orders {
   id: number;
-  created_at: string;
+  created: string;
   user_id: string;
   session_id: string;
   totalCost: string;
   status: string;
   products: ProductProps[];
-  orderNumber: string;
 }
 
 interface ProductProps {
