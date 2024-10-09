@@ -5,7 +5,7 @@ import ViewProductModal from "../../components/modals/ViewProductModal";
 import { NavLink } from "react-router-dom";
 
 interface FavoriteProps {
-  id: number;
+  id: string;
   name: string;
   default_price: string;
   image: string;

@@ -4,7 +4,7 @@ import { getProducts } from "../data/products";
 import { FC, useEffect, useState } from "react";
 
 interface ProductsProps {
-  id: number;
+  id: string;
   name: string;
   default_price: string;
   priceId?: string;

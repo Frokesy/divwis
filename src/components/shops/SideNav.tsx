@@ -15,7 +15,7 @@ interface SideNavProps {
 }
 
 interface ProductsProps {
-  id: number;
+  id: string;
   name: string;
   default_price: string;
   priceId?: string;

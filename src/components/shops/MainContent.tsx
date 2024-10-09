@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import Spinner from "../defaults/Spinner";
 
 interface ProductsProps {
-  id: number;
+  id: string;
   name: string;
   default_price: string;
   priceId?: string;

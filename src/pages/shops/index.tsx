@@ -6,7 +6,7 @@ import { useState } from "react";
 import ViewProductModal from "../../components/modals/ViewProductModal";
 
 interface ProductsProps {
-  id: number;
+  id: string;
   name: string;
   default_price: string;
   priceId?: string;

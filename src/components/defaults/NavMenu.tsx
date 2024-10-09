@@ -11,7 +11,7 @@ import LogoutModal from "../modals/LogoutModal";
 import ViewProductModal from "../modals/ViewProductModal";
 
 interface ProductsProps {
-  id: number;
+  id: string;
   name: string;
   default_price: string;
   priceId?: string;
