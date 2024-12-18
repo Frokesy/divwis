@@ -1,7 +1,7 @@
-import { pb } from "../../../utils/pocketbaseClient"; // Ensure you import your PocketBase client
+import { pb } from "../../../utils/pocketbaseClient";
 
 interface ProductsProps {
-  id: string;  // PocketBase IDs are strings, not numbers
+  id: string;
   name: string;
   default_price: string;
   priceId?: string;

@@ -1,28 +1,20 @@
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import FiveStars from "../svgs/stars/FiveStars";
 import { motion } from "framer-motion";
 import { Compare, Eye, Heart } from "../svgs/Icons";
-import { getProducts } from "../data/products";
 import ViewProductModal from "../modals/ViewProductModal";
-import CompareModal from "../modals/CompareModal";
+import CompareModal, { ProductsProps } from "../modals/CompareModal";
 import { toast } from "react-toastify";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Loader from "../defaults/Loader";
 
-interface ProductsProps {
-  id: string;
-  name: string;
-  default_price: string;
-  priceId?: string;
-  review?: string;
-  category: string;
-  image: string;
-  desc: string;
+interface TrendingProps  {
+  products: ProductsProps[];
 }
 
-const Trending = () => {
-  const [products, setProducts] = useState<ProductsProps[]>([])
+
+const Trending: FC<TrendingProps> = ({ products }) => {
   const [activeTab, setActiveTab] = useState<string>("all");
   const [loading, setLoading] = useState<boolean>(false);
   const [activeId, setActiveId] = useState<string | null>();
@@ -155,15 +147,6 @@ const Trending = () => {
       setProductsPerCategory(filteredProducts);
     }
   }, [activeTab, products]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const fetchedProducts = await getProducts();
-      setProducts(fetchedProducts);
-    };
-
-    fetchData();
-  }, []);
 
   useEffect(() => {
     const getAllData = () => {

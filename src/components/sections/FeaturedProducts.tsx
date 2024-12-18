@@ -1,24 +1,14 @@
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Compare, Eye, Heart } from "../svgs/Icons";
 import ViewProductModal from "../modals/ViewProductModal";
-import CompareModal from "../modals/CompareModal";
-import { getProducts } from "../data/products";
+import CompareModal, { ProductsProps } from "../modals/CompareModal";
 
-interface ProductsProps {
-  id: string;
-  name: string;
-  default_price: string;
-  review?: string;
-  image: string;
-  category: string;
-  featured?: boolean;
-  desc: string;
+interface FeaturedProductsProps {
+  products: ProductsProps[]
 }
 
-const FeaturedProducts =  () => {
-  const [products, setProducts] = useState<ProductsProps[]>([])
-
+const FeaturedProducts: FC<FeaturedProductsProps> = ({ products }) => {
   const [activeId, setActiveId] = useState<string | null>();
   const [iconHover, setIconHover] = useState<string>("");
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -27,7 +17,6 @@ const FeaturedProducts =  () => {
     []
   );
   const [activeIcon, setActiveIcon] = useState<string>("");
-  const productSet: ProductsProps[] = products.slice(0, 10);
 
   const updateActiveState = (id: string | null) => {
     setActiveId(id);
@@ -104,15 +93,7 @@ const FeaturedProducts =  () => {
     }
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const fetchedProducts = await getProducts();
-      setProducts(fetchedProducts);
-    };
-
-    fetchData();
-  }, []);
-
+  
   useEffect(() => {
     const getAllData = () => {
       const dbPromise = idb.open("divwis", 1);
@@ -149,7 +130,7 @@ const FeaturedProducts =  () => {
 
       <div className="grid lg:grid-cols-3 grid-cols-1 gap-x-[1vw] lg:gap-y-0 gap-y-4 lg:w-[80vw] w-[90vw] mx-auto mt-10">
         <div className="w-[100%] space-y-4">
-          {productSet.slice(0, 4).map((product) => (
+          {products.slice(0, 4).map((product) => (
             <div
               key={product.id}
               className="flex lg:flex-row flex-col lg:space-x-3 rounded-lg p-2 bg-[#fff] items-center"
@@ -259,7 +240,7 @@ const FeaturedProducts =  () => {
         </div>
 
         <div className="w-[100%] space-y-4">
-          {productSet.slice(4, 8).map((product) => (
+          {products.slice(5, 9).map((product) => (
             <div
               key={product.id}
               className="flex lg:flex-row flex-col lg:space-x-3 rounded-lg p-2 bg-[#fff] items-center"

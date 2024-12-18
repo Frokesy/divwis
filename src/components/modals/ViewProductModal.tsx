@@ -6,17 +6,7 @@ import { toast } from "react-toastify";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Heart } from "../svgs/Icons";
-
-interface ProductsProps {
-  id: string;
-  name: string;
-  default_price?: string;
-  priceId?: string;
-  review?: string;
-  image?: string;
-  category?: string;
-  desc?: string;
-}
+import { ProductsProps } from "./CompareModal";
 
 interface ModalProps {
   isOpen: boolean;

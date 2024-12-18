@@ -27,7 +27,6 @@ export async function handleLogin(
       const authData = await pb
         .collection("users")
         .authWithPassword(userData.email, userData.password);
-        console.log("yo",authData)
       if (authData) {
         const id = authData.record.id;
         localStorage.setItem("id", id);
