@@ -2,22 +2,15 @@ import { useParams } from "react-router-dom";
 import MainContent from "../../components/shops/MainContent";
 import SideNav from "../../components/shops/SideNav";
 import MainContainer from "../../components/wrappers/MainContainer";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ViewProductModal from "../../components/modals/ViewProductModal";
-
-interface ProductsProps {
-  id: string;
-  name: string;
-  default_price: string;
-  priceId?: string;
-  review?: string;
-  image: string;
-  category: string;
-  desc: string;
-}
+import { ProductsProps } from "../../components/modals/CompareModal";
+import { getProducts } from "../../components/data/products";
 
 const Shops = () => {
   const { category_id } = useParams();
+  const [products, setProducts] = useState<ProductsProps[]>([])
+
 
   const [productsPerRating, setProductsPerRating] = useState<ProductsProps[]>(
     []
@@ -36,6 +29,15 @@ const Shops = () => {
     setIsOpen(true);
     setViewedProduct(item);
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const fetchedProducts = await getProducts();
+      setProducts(fetchedProducts);
+    };
+
+    fetchData();
+  }, []);
   return (
     <MainContainer active="shop">
       <div className="bg-[#f1f1f1] min-h-[80vh] pb-[10vh] lg:pt-10 pt-4">
@@ -43,6 +45,7 @@ const Shops = () => {
           <div className="lg:w-[22%]">
             <SideNav
               id={category_id}
+              products={products}
               setFilterType={setFilterType}
               setProductsPerRating={setProductsPerRating}
               setProductsPerPrice={setProductsPerPrice}

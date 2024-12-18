@@ -1,9 +1,9 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC } from "react";
 import Categories from "./Categories";
 import Filter from "./Filter";
 import Rating from "./Rating";
 import Search from "./Search";
-import { getProducts } from "../data/products";
+import { ProductsProps } from "../modals/CompareModal";
 
 interface SideNavProps {
   id: string | undefined;
@@ -12,17 +12,7 @@ interface SideNavProps {
   setProductsPerRating: React.Dispatch<React.SetStateAction<ProductsProps[]>>;
   setProductsPerCategory: React.Dispatch<React.SetStateAction<ProductsProps[]>>;
   setSearchResult: React.Dispatch<React.SetStateAction<ProductsProps[]>>;
-}
-
-interface ProductsProps {
-  id: string;
-  name: string;
-  default_price: string;
-  priceId?: string;
-  review?: string;
-  image: string;
-  category: string;
-  desc: string;
+  products: ProductsProps[];
 }
 
 const SideNav: FC<SideNavProps> = ({
@@ -31,9 +21,9 @@ const SideNav: FC<SideNavProps> = ({
   setProductsPerPrice,
   setProductsPerRating,
   setProductsPerCategory,
-  setSearchResult
+  setSearchResult,
+  products
 }) => {
-  const [products, setProducts] = useState<ProductsProps[]>([])
   const filterProductsByRating = (rating: number) => {
     const filteredProducts = products.filter(
       (product) => parseFloat(product.review as string) === rating
@@ -72,14 +62,7 @@ const SideNav: FC<SideNavProps> = ({
     setFilterType("search")
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const fetchedProducts = await getProducts();
-      setProducts(fetchedProducts);
-    };
 
-    fetchData();
-  }, []);
   return (
     <div className="bg-[#fff] px-3 py-4 rounded-lg shadow-md">
       <Search filterBySearch={filterBySearch} />

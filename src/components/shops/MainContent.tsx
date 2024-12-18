@@ -3,17 +3,7 @@ import { getProducts } from "../data/products";
 import { FC, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Spinner from "../defaults/Spinner";
-
-interface ProductsProps {
-  id: string;
-  name: string;
-  default_price: string;
-  priceId?: string;
-  review?: string;
-  image: string;
-  category: string;
-  desc: string;
-}
+import { ProductsProps } from "../modals/CompareModal";
 
 interface MainContentProps {
   filterType: string;

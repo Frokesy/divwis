@@ -16,7 +16,6 @@ export async function handleLogout(
     setLoading(false);
     setIsOpen(!isOpen);
 
-    // Redirect to the homepage using location
     location.href = "/";
   } catch (error) {
     console.error("Error logging out:", error);
