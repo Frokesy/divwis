@@ -1,16 +1,22 @@
-import { useState } from "react";
+import { FC, useState } from "react";
 import { Cereals, Fruits, Meat, Milk, Vegetables } from "../svgs/Icons";
 import { FaArrowUp } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 import { motion } from "framer-motion";
+import { ProductsProps } from "../modals/CompareModal";
 
-const Categories = () => {
+interface CategoriesProps {
+  products: ProductsProps[];
+}
+
+const Categories: FC<CategoriesProps> = ({ products }) => {
   const [activeId, setActiveId] = useState<number>();
 
   const categories = [
     {
       id: 1,
       name: "Cereals",
+      tag: "cereals",
       icon: <Cereals />,
       borderColor: "#ff3b30",
       bgColor: "#f9e7e6",
@@ -18,6 +24,7 @@ const Categories = () => {
     {
       id: 2,
       name: "Fruits",
+      tag: "fruits",
       icon: <Fruits />,
       borderColor: "#fa961e",
       bgColor: "#ede2d4",
@@ -25,6 +32,7 @@ const Categories = () => {
     {
       id: 3,
       name: "Vegetables",
+      tag: "vegetables",
       icon: <Vegetables />,
       borderColor: "#aed581",
       bgColor: "#e9f3dd",
@@ -32,6 +40,7 @@ const Categories = () => {
     {
       id: 4,
       name: "Meat",
+      tag: "meat",
       icon: <Meat />,
       borderColor: "#c1694f",
       bgColor: "#eeddd8",
@@ -39,11 +48,19 @@ const Categories = () => {
     {
       id: 5,
       name: "Milk & Dairy",
+      tag: "milk&dairy",
       icon: <Milk />,
       borderColor: "#67dde0",
       bgColor: "#d9f2f2",
     },
   ];
+
+  const categoryCounts = categories.map((category) => {
+    const count = products.filter(
+      (product) => product.category === category.tag
+    ).length;
+    return { ...category, count };
+  });
 
   const updateArrowState = (id: number) => {
     setActiveId(id);
@@ -58,7 +75,7 @@ const Categories = () => {
           </h2>
         </div>
         <div className="lg:w-[80vw] w-[90vw] mx-auto flex lg:flex-row justify-between flex-col lg:space-y-0 space-y-10 p-10 relative border border-dashed z-0 bg-[#fff] border-[#ff973a] rounded-lg">
-          {categories.map((category) => (
+          {categoryCounts.map((category) => (
             <div
               key={category.id}
               className="flex flex-col relative border border-[#f9e7e6] rounded-md py-6 px-12 items-center"
@@ -84,7 +101,7 @@ const Categories = () => {
                   style={{ background: category.borderColor }}
                   className="p-1 rounded-full"
                 ></div>
-                <span className="text-[#333]">25 items</span>
+                <span className="text-[#333]">{category.count} items</span>
               </div>
               {activeId === category.id && (
                 <NavLink to={`/shops/${category.id}`}>

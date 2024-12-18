@@ -21,7 +21,7 @@ const Home = () => {
   return (
     <MainContainer active="home">
       <HeroSection />
-      <Categories />
+      <Categories products={products} />
       <FeaturedProducts products={products} />
       <Trending products={products} />
     </MainContainer>
