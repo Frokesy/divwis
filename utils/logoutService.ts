@@ -1,5 +1,6 @@
 import React from "react";
 import { pb } from "./pocketbaseClient";
+
 export async function handleLogout(
   isOpen: boolean,
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>,
@@ -7,15 +8,16 @@ export async function handleLogout(
 ) {
   try {
     setLoading(true);
-    
+
     pb.authStore.clear();
 
     localStorage.removeItem("id");
 
-    location.reload();
-
     setLoading(false);
     setIsOpen(!isOpen);
+
+    // Redirect to the homepage using location
+    location.href = "/";
   } catch (error) {
     console.error("Error logging out:", error);
   }
