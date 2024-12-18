@@ -6,6 +6,7 @@ export async function handleSignup(
   validateField: (value: string) => boolean,
   userData: { email: string; password: string; fullName: string },
   validatePassword: (password: string) => boolean,
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>,
   setError: React.Dispatch<
     React.SetStateAction<{ email: string; password: string; fullName: string }>
   >
@@ -42,13 +43,15 @@ export async function handleSignup(
           hideProgressBar: true,
           draggable: true,
         });
-        setLoading(false);
+        const id = record.id;
+        localStorage.setItem("id", id);
         setTimeout(() => {
-          console.log("Account created successfully", record);
+          setLoading(false);
+          setIsOpen(false)
         }, 2000);
       }
     } catch (error) {
-      toast.error(error as string, {
+      toast.error("Error creating account", {
         position: "top-center",
         theme: "light",
         autoClose: 2000,

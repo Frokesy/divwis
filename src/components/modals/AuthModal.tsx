@@ -115,6 +115,7 @@ const AuthModal: FC<ModalProps> = ({
         validateField,
         userData,
         validatePassword,
+        setIsOpen,
         setError
       );
     }
