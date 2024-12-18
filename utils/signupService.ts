@@ -32,6 +32,7 @@ export async function handleSignup(
         password: userData.password,
         passwordConfirm: userData.password,
         name: userData.fullName,
+        emailVisibility: true
       };
 
       const record = await pb.collection("users").create(data);

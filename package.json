@@ -13,7 +13,6 @@
         "@stripe/react-stripe-js": "^2.7.0",
         "@stripe/stripe-js": "^3.3.0",
         "@studio-freight/react-lenis": "^0.0.46",
-        "@supabase/supabase-js": "^2.39.6",
         "framer-motion": "^11.0.5",
         "gsap": "^3.12.5",
         "hamburger-react": "^2.5.0",
