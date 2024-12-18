@@ -1,46 +1,56 @@
 import { FC, useEffect, useState } from "react";
+import { ProductsProps } from "../modals/CompareModal";
 
 interface CategoryProps {
   pageId: string | undefined;
   filterProductsByCategory: (category: string) => void;
+  products: ProductsProps[];
 }
 
 const Categories: FC<CategoryProps> = ({
   pageId,
   filterProductsByCategory,
+  products,
 }) => {
   const id = parseInt(pageId as string);
   const [activeCategory, setActiveCategory] = useState<number>();
+  
   const categories = [
     {
       id: 0,
       name: "all products",
-      quantity: 12,
+      tag: "all products",
+      quantity: products.length,
     },
     {
       id: 1,
-      name: "cereals",
-      quantity: 20,
+      name: "Cereals",
+      tag: "cereals",
+      quantity: products.filter((product) => product.category === "cereals").length,
     },
     {
       id: 2,
-      name: "fruits",
-      quantity: 30,
+      name: "Fruits",
+      tag: "fruits",
+      quantity: products.filter((product) => product.category === "fruits").length,
     },
     {
       id: 3,
-      name: "vegetables",
-      quantity: 40,
+      name: "Vegetables",
+      tag: "vegetables",
+      quantity: products.filter((product) => product.category === "vegetables").length,
     },
     {
       id: 4,
-      name: "meat",
-      quantity: 8,
+      name: "Meat",
+      tag: "meat",
+      quantity: products.filter((product) => product.category === "meat").length,
     },
     {
       id: 5,
-      name: "milk & dairy",
-      quantity: 15,
+      name: "Milk & Dairy",
+      tag: "milk&dairy",
+      quantity: products.filter((product) => product.category === "milk&dairy").length,
     },
   ];
 
@@ -61,7 +71,7 @@ const Categories: FC<CategoryProps> = ({
         {categories.map((category) => (
           <div
             key={category.id}
-            onClick={() => handleFilter(category.id, category.name)}
+            onClick={() => handleFilter(category.id, category.tag)}
             className={`flex items-center justify-between capitalize cursor-pointer py-2 ${
               activeCategory === category.id &&
               "bg-[#f1f1f1] pl-2 rounded-lg transition-all duration-500 ease-in-out"

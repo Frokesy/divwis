@@ -84,6 +84,7 @@ const SideNav: FC<SideNavProps> = ({
     <div className="bg-[#fff] px-3 py-4 rounded-lg shadow-md">
       <Search filterBySearch={filterBySearch} />
       <Categories
+        products={products}
         pageId={id}
         filterProductsByCategory={filterProductsByCategory}
       />
