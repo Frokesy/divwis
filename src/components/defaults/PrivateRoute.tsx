@@ -1,25 +1,20 @@
 import { Navigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Spinner from "./Spinner";
-import { pb } from "../../../utils/pocketbaseClient";
+import useAuthStore from "../../../store/authStore";
 
 interface PrivateRouteProps {
   children: React.ReactNode;
 }
 
 const PrivateRoute: React.FC<PrivateRouteProps> = ({ children }) => {
-  const [authenticated, setAuthenticated] = useState<boolean | null>(null);
+  const { isAuthenticated, checkAuth, setIsModalOpen } = useAuthStore();
 
   useEffect(() => {
-    const checkAuth = async () => {
-        const isAuthenticated = pb.authStore.isValid;
-        isAuthenticated ? setAuthenticated(true) : setAuthenticated(false);
-    }
-
     checkAuth();
   }, []);
 
-  if (authenticated === null) {
+  if (isAuthenticated === null) {
     return (
       <div className="h-screen w-screen flex items-center justify-center">
         <Spinner color="#000" />
@@ -27,7 +22,12 @@ const PrivateRoute: React.FC<PrivateRouteProps> = ({ children }) => {
     );
   }
 
-  return authenticated ? <>{children}</> : <Navigate to="/" />;
+  if (!isAuthenticated) {
+    setIsModalOpen(true);
+    return <Navigate to="/" />;
+  }
+
+  return <>{children}</>;
 };
 
 export default PrivateRoute;

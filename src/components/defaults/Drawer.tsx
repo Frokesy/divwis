@@ -2,14 +2,15 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import AuthModal from "../modals/AuthModal";
+import useAuthStore from "../../../store/authStore";
 
 const Drawer = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const { isModalOpen, setIsModalOpen } = useAuthStore.getState();
   const [fromHome, setFromHome] = useState(false);
   const [activeTab, setActiveTab] = useState("");
 
   const handleClick = (tab: string) => {
-    setIsOpen(true);
+    setIsModalOpen(true);
     setActiveTab(tab);
 
     if (tab === "signup") {
@@ -44,11 +45,9 @@ const Drawer = () => {
           </motion.div>
         </div>
       </div>
-      {isOpen && (
+      {isModalOpen && (
         <AuthModal
           activeTab={activeTab}
-          isOpen={isOpen}
-          setIsOpen={setIsOpen}
           fromHome={fromHome}
           setFromHome={setFromHome}
         />

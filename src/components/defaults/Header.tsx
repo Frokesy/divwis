@@ -4,15 +4,16 @@ import { FaEnvelope } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
 import { Phone } from "../svgs/Icons";
 import { pb } from "../../../utils/pocketbaseClient";
+import useAuthStore from "../../../store/authStore";
 
 const Header = () => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const { isModalOpen, setIsModalOpen } = useAuthStore();
   const [fromHome, setFromHome] = useState<boolean>(false);
   const [activeTab, setActiveTab] = useState<string>("");
   const [name, setName] = useState<string>("");
 
   const handleClick = (tab: string) => {
-    setIsOpen(true);
+    setIsModalOpen(true);
     setActiveTab(tab);
 
     if (tab === "signup") {
@@ -86,11 +87,9 @@ const Header = () => {
           </div>
         </div>
       </div>
-      {isOpen && (
+      {isModalOpen && (
         <AuthModal
           activeTab={activeTab}
-          isOpen={isOpen}
-          setIsOpen={setIsOpen}
           fromHome={fromHome}
           setFromHome={setFromHome}
         />

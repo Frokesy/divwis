@@ -10,19 +10,27 @@ import MobileCart from "./pages/cart";
 import Favorites from "./pages/favorites";
 import Checkout from "./pages/checkout";
 import Search from "./pages/search";
+import PrivateRoute from "./components/defaults/PrivateRoute";
 
 function App() {
   const router = createBrowserRouter([
     { path: "/", element: <Home /> },
     { path: "/shops/:category_id", element: <Shops /> },
-    { path: "/account", element: <Account /> },
+    {
+      path: "/account",
+      element: (
+        <PrivateRoute>
+          <Account />
+        </PrivateRoute>
+      ),
+    },
     { path: "/contact", element: <Contact /> },
     { path: "/success", element: <Success /> },
     { path: "/cancel", element: <Cancel /> },
     { path: "/cart", element: <MobileCart /> },
     { path: "/favorites", element: <Favorites /> },
     { path: "/checkout", element: <Checkout /> },
-    { path: "/search", element: <Search /> }
+    { path: "/search", element: <Search /> },
   ]);
 
   return (

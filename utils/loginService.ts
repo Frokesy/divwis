@@ -1,5 +1,5 @@
 import { toast } from "react-toastify";
-import { pb } from "./pocketbaseClient";
+import useAuthStore from "../store/authStore";
 
 export async function handleLogin(
   setLoading: React.Dispatch<React.SetStateAction<boolean>>,
@@ -8,11 +8,10 @@ export async function handleLogin(
   validatePassword: (password: string) => boolean,
   setError: React.Dispatch<
     React.SetStateAction<{ email: string; password: string; fullName: string }>
-  >,
-  isOpen: boolean,
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
+  >
 ) {
   setLoading(true);
+  const { login, setIsModalOpen } = useAuthStore.getState();
   const isEmailValid = validateField(userData.email);
   const isPasswordValid = validatePassword(userData.password);
 
@@ -24,12 +23,12 @@ export async function handleLogin(
 
   if (isEmailValid && isPasswordValid) {
     try {
-      const authData = await pb
-        .collection("users")
-        .authWithPassword(userData.email, userData.password);
-      if (authData) {
-        const id = authData.record.id;
-        localStorage.setItem("id", id);
+
+      const userId = await login(userData.email, userData.password);
+
+
+      if (userId) {
+        localStorage.setItem("id", userId);
         toast.success("Login successful!", {
           position: "top-center",
           theme: "light",
@@ -37,19 +36,22 @@ export async function handleLogin(
           hideProgressBar: true,
           draggable: true,
         });
+
         setTimeout(() => {
-          setIsOpen(!isOpen);
+          setIsModalOpen(false);
         }, 2000);
+
         setLoading(false);
       }
     } catch (error) {
-      toast.error("invalid login credentials!", {
+      toast.error("Invalid login credentials!", {
         position: "top-center",
         theme: "light",
         autoClose: 2000,
         hideProgressBar: true,
         draggable: true,
       });
+
       setLoading(false);
       console.error(error);
     }

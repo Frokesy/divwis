@@ -1,13 +1,13 @@
-import React, { FC, ReactNode } from "react";
+import { FC, ReactNode } from "react";
 import { motion } from "framer-motion";
 import { Cancel } from "../svgs/Icons";
+import useAuthStore from "../../../store/authStore";
 
 interface ModalProps {
   children: ReactNode;
-  isOpen: boolean;
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
-const ModalContainer: FC<ModalProps> = ({ children, isOpen, setIsOpen }) => {
+const ModalContainer: FC<ModalProps> = ({ children }) => {
+  const { isModalOpen, setIsModalOpen } = useAuthStore();
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -20,7 +20,7 @@ const ModalContainer: FC<ModalProps> = ({ children, isOpen, setIsOpen }) => {
         <div className="flex justify-end py-6">
           <button
             className="flex cursor-pointer"
-            onClick={() => setIsOpen(!isOpen)}
+            onClick={() => setIsModalOpen(!isModalOpen)}
           >
             <Cancel />
           </button>

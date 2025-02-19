@@ -9,16 +9,12 @@ import Loader from "../defaults/Loader";
 import ModalContainer from "../wrappers/ModalContainer";
 
 interface ModalProps {
-  isOpen: boolean;
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   activeTab: string;
   fromHome: boolean;
   setFromHome: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const AuthModal: FC<ModalProps> = ({
-  isOpen,
-  setIsOpen,
   activeTab,
   fromHome,
   setFromHome,
@@ -106,8 +102,6 @@ const AuthModal: FC<ModalProps> = ({
         userData,
         validatePassword,
         setError,
-        isOpen,
-        setIsOpen
       );
     } else if (activeTab === "signup") {
       await handleSignup(
@@ -115,13 +109,12 @@ const AuthModal: FC<ModalProps> = ({
         validateField,
         userData,
         validatePassword,
-        setIsOpen,
         setError
       );
     }
   };
   return (
-    <ModalContainer isOpen={isOpen} setIsOpen={setIsOpen}>
+    <ModalContainer>
       <ToastContainer />
       <div className="flex justify-evenly font-mono text-[18px] pb-4">
         <span

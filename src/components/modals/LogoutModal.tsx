@@ -11,7 +11,7 @@ interface ModalProps {
 const LogoutModal: FC<ModalProps> = ({ isOpen, setIsOpen }) => {
   const [loading, setLoading] = useState<boolean>(false);
   return (
-    <ModalContainer isOpen={isOpen} setIsOpen={setIsOpen}>
+    <ModalContainer>
       <div className="lg:w-[20vw] w-[80vw]">
         <h2 className="">Are you sure you want to logout?</h2>
         <div className="flex justify-end mt-6">

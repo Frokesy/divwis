@@ -1,12 +1,12 @@
 import { toast } from "react-toastify";
 import { pb } from "./pocketbaseClient";
+import useAuthStore from "../store/authStore";
 
 export async function handleSignup(
   setLoading: React.Dispatch<React.SetStateAction<boolean>>,
   validateField: (value: string) => boolean,
   userData: { email: string; password: string; fullName: string },
   validatePassword: (password: string) => boolean,
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>,
   setError: React.Dispatch<
     React.SetStateAction<{ email: string; password: string; fullName: string }>
   >
@@ -16,6 +16,7 @@ export async function handleSignup(
   const isFullnameValid = validateField(userData.fullName);
   const isEmailValid = validateField(userData.email);
   const isPasswordValid = validatePassword(userData.password);
+  const { setIsModalOpen } = useAuthStore.getState();
 
   setError({
     fullName: isFullnameValid ? "" : "fullname is required",
@@ -48,7 +49,7 @@ export async function handleSignup(
         localStorage.setItem("id", id);
         setTimeout(() => {
           setLoading(false);
-          setIsOpen(false)
+          setIsModalOpen(false)
         }, 2000);
       }
     } catch (error) {
