@@ -35,6 +35,8 @@ const Checkout = () => {
   const [selectedAddressId, setSelectedAddressId] = useState<number | null>(null);
   const [totalCost, setTotalCost] = useState<number>();
   const [data, setData] = useState<CartProps[]>([]);
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
+
 
   const idb = window.indexedDB;
   const id = localStorage.getItem("id");
@@ -110,7 +112,7 @@ const Checkout = () => {
 
   const handleCheckout = async () => {
     setLoading(true);
-    await fetch("http://localhost:4000/checkout", {
+    await fetch(`${backendUrl}/checkout`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
