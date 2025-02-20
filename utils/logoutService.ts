@@ -1,5 +1,5 @@
 import React from "react";
-import { pb } from "./pocketbaseClient";
+import useAuthStore from "../store/authStore";
 
 export async function handleLogout(
   isOpen: boolean,
@@ -8,8 +8,9 @@ export async function handleLogout(
 ) {
   try {
     setLoading(true);
+    const { logout } = useAuthStore.getState();
 
-    pb.authStore.clear();
+    logout();
 
     localStorage.removeItem("id");
 
