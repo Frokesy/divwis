@@ -1,14 +1,13 @@
 import { toast } from "react-toastify";
 import useAuthStore from "../store/authStore";
+import { ErrorProps } from "../src/components/modals/AuthModal";
 
 export async function handleLogin(
   setLoading: React.Dispatch<React.SetStateAction<boolean>>,
   validateField: (value: string) => boolean,
   userData: { email: string; password: string; fullName: string },
   validatePassword: (password: string) => boolean,
-  setError: React.Dispatch<
-    React.SetStateAction<{ email: string; password: string; fullName: string }>
-  >
+  setError: React.Dispatch<React.SetStateAction<ErrorProps>>
 ) {
   setLoading(true);
   const { login, setIsModalOpen } = useAuthStore.getState();
@@ -18,14 +17,11 @@ export async function handleLogin(
   setError({
     email: isEmailValid ? "" : "Email is required",
     password: isPasswordValid ? "" : "Password must be at least 6 characters",
-    fullName: "",
   });
 
   if (isEmailValid && isPasswordValid) {
     try {
-
       const userId = await login(userData.email, userData.password);
-
 
       if (userId) {
         localStorage.setItem("id", userId);

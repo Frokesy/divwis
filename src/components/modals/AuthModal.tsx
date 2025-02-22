@@ -14,21 +14,26 @@ interface ModalProps {
   setFromHome: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const AuthModal: FC<ModalProps> = ({
-  activeTab,
-  fromHome,
-  setFromHome,
-}) => {
+export interface ErrorProps {
+  email: string;
+  password: string;
+  fullName?: string;
+  phone?: string;
+}
+
+const AuthModal: FC<ModalProps> = ({ activeTab, fromHome, setFromHome }) => {
   const [active, setActive] = useState(activeTab);
   const [userData, setUserData] = useState({
     email: "",
     password: "",
     fullName: "",
+    phone: "",
   });
-  const [error, setError] = useState({
+  const [error, setError] = useState<ErrorProps>({
     email: "",
     password: "",
     fullName: "",
+    phone: "",
   });
 
   const [loading, setLoading] = useState(false);
@@ -101,7 +106,7 @@ const AuthModal: FC<ModalProps> = ({
         validateField,
         userData,
         validatePassword,
-        setError,
+        setError
       );
     } else if (activeTab === "signup") {
       await handleSignup(
@@ -155,6 +160,17 @@ const AuthModal: FC<ModalProps> = ({
               }
               nameErr={error.fullName}
             />
+            <div className="-mt-2">
+              <Input
+                label="Phone number"
+                type="number"
+                value={userData.phone}
+                onChange={(e) =>
+                  setUserData({ ...userData, phone: e.target.value })
+                }
+                mobileNumbErr={error.phone}
+              />
+            </div>
           </div>
         )}
         <div
