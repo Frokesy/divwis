@@ -12,8 +12,6 @@ export async function handleLogout(
 
     logout();
 
-    localStorage.removeItem("id");
-
     setLoading(false);
     setIsOpen(!isOpen);
 
