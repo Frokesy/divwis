@@ -9,8 +9,9 @@ import { getProducts } from "../../components/data/products";
 
 const Shops = () => {
   const { category_id } = useParams();
-  const [products, setProducts] = useState<ProductsProps[]>([])
+  const [products, setProducts] = useState<ProductsProps[]>([]);
 
+  const [activeCategoryId, setActiveCategoryId] = useState<number>();
 
   const [productsPerRating, setProductsPerRating] = useState<ProductsProps[]>(
     []
@@ -30,14 +31,25 @@ const Shops = () => {
     setViewedProduct(item);
   };
 
+  const filterProductsByCategory = (category: string) => {
+    const filteredProducts = products.filter(
+      (product) => product.category == category
+    );
+    category === "all products"
+      ? setProductsPerCategory(products)
+      : setProductsPerCategory(filteredProducts);
+    setFilterType("category");
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       const fetchedProducts = await getProducts();
-      setProducts(fetchedProducts);
+      fetchedProducts && setProducts(fetchedProducts);
     };
 
     fetchData();
   }, []);
+
   return (
     <MainContainer active="shop">
       <div className="bg-[#f1f1f1] min-h-[80vh] pb-[10vh] lg:pt-10 pt-4">
@@ -46,20 +58,27 @@ const Shops = () => {
             <SideNav
               id={category_id}
               products={products}
+              activeCategoryId={activeCategoryId}
+              setActiveCategoryId={setActiveCategoryId}
               setFilterType={setFilterType}
               setProductsPerRating={setProductsPerRating}
               setProductsPerPrice={setProductsPerPrice}
-              setProductsPerCategory={setProductsPerCategory}
+              filterProductsByCategory={filterProductsByCategory}
               setSearchResult={setSearchResult}
             />
           </div>
           <div className="main lg:w-[76%]">
             <MainContent
+              pageId={category_id}
+              activeCategoryId={activeCategoryId}
+              setActiveCategoryId={setActiveCategoryId}
               filterType={filterType}
+              products={products}
               handleClick={handleClick}
               productsPerRating={productsPerRating}
               productsPerPrice={productsPerPrice}
               productsPerCategory={productsPerCategory}
+              filterProductsByCategory={filterProductsByCategory}
               searchResults={searchResults}
             />
           </div>

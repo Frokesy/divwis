@@ -1,19 +1,23 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect } from "react";
 import { ProductsProps } from "../modals/CompareModal";
 
 interface CategoryProps {
   pageId: string | undefined;
   filterProductsByCategory: (category: string) => void;
   products: ProductsProps[];
+  activeCategoryId: number | undefined;
+  setActiveCategoryId: React.Dispatch<React.SetStateAction<number | undefined>>;
 }
 
 const Categories: FC<CategoryProps> = ({
   pageId,
   filterProductsByCategory,
   products,
+  activeCategoryId,
+  setActiveCategoryId,
+
 }) => {
   const id = parseInt(pageId as string);
-  const [activeCategory, setActiveCategory] = useState<number>();
   
   const categories = [
     {
@@ -55,12 +59,12 @@ const Categories: FC<CategoryProps> = ({
   ];
 
   const handleFilter = (id: number, category: string) => {
-    setActiveCategory(id);
+    setActiveCategoryId(id);
     filterProductsByCategory(category);
   };
 
   useEffect(() => {
-    setActiveCategory(id);
+    setActiveCategoryId(id);
   }, [id]);
 
   return (
@@ -73,7 +77,7 @@ const Categories: FC<CategoryProps> = ({
             key={category.id}
             onClick={() => handleFilter(category.id, category.tag)}
             className={`flex items-center justify-between capitalize cursor-pointer py-2 ${
-              activeCategory === category.id &&
+              activeCategoryId === category.id &&
               "bg-[#f1f1f1] pl-2 rounded-lg transition-all duration-500 ease-in-out"
             }`}
           >

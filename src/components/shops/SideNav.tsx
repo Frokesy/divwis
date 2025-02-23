@@ -10,8 +10,10 @@ interface SideNavProps {
   setFilterType: React.Dispatch<React.SetStateAction<string>>;
   setProductsPerPrice: React.Dispatch<React.SetStateAction<ProductsProps[]>>;
   setProductsPerRating: React.Dispatch<React.SetStateAction<ProductsProps[]>>;
-  setProductsPerCategory: React.Dispatch<React.SetStateAction<ProductsProps[]>>;
   setSearchResult: React.Dispatch<React.SetStateAction<ProductsProps[]>>;
+  filterProductsByCategory: (category: string) => void;
+  activeCategoryId: number | undefined;
+  setActiveCategoryId: React.Dispatch<React.SetStateAction<number | undefined>>;
   products: ProductsProps[];
 }
 
@@ -20,8 +22,10 @@ const SideNav: FC<SideNavProps> = ({
   setFilterType,
   setProductsPerPrice,
   setProductsPerRating,
-  setProductsPerCategory,
+  filterProductsByCategory,
   setSearchResult,
+  activeCategoryId,
+  setActiveCategoryId,
   products
 }) => {
   const filterProductsByRating = (rating: number) => {
@@ -44,16 +48,6 @@ const SideNav: FC<SideNavProps> = ({
     setFilterType("price");
   };
 
-  const filterProductsByCategory = (category: string) => {
-    const filteredProducts = products.filter(
-      (product) => product.category == category
-    );
-    category === "all products"
-      ? setProductsPerCategory(products)
-      : setProductsPerCategory(filteredProducts);
-    setFilterType("category");
-  };
-
   const filterBySearch = (searchInput: string) => {
     const filteredSearch = products.filter((product) =>
       product.name.toLowerCase().includes(searchInput.toLowerCase())
@@ -69,6 +63,8 @@ const SideNav: FC<SideNavProps> = ({
       <Categories
         products={products}
         pageId={id}
+        activeCategoryId={activeCategoryId}
+        setActiveCategoryId={setActiveCategoryId}
         filterProductsByCategory={filterProductsByCategory}
       />
       <Filter filterProductsByPrice={filterProductsByPrice} />
