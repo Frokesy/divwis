@@ -8,10 +8,8 @@ import { ProductsProps } from "../../components/modals/CompareModal";
 import { getProducts } from "../../components/data/products";
 
 const Shops = () => {
-  const { category_id } = useParams();
+  const { category_tag } = useParams();
   const [products, setProducts] = useState<ProductsProps[]>([]);
-
-  const [activeCategoryId, setActiveCategoryId] = useState<number>();
 
   const [productsPerRating, setProductsPerRating] = useState<ProductsProps[]>(
     []
@@ -31,15 +29,21 @@ const Shops = () => {
     setViewedProduct(item);
   };
 
-  const filterProductsByCategory = (category: string) => {
-    const filteredProducts = products.filter(
-      (product) => product.category == category
-    );
-    category === "all products"
-      ? setProductsPerCategory(products)
-      : setProductsPerCategory(filteredProducts);
-    setFilterType("category");
-  };
+  
+  useEffect(() => {
+    const filterProductsByCategory = () => {
+      const filteredProducts = products.filter(
+        (product) => product.category == category_tag
+      );
+      category_tag === "all products"
+        ? setProductsPerCategory(products)
+        : setProductsPerCategory(filteredProducts);
+      setFilterType("category");
+    };
+
+    filterProductsByCategory();
+
+  }, [category_tag, products])
 
   useEffect(() => {
     const fetchData = async () => {
@@ -56,29 +60,22 @@ const Shops = () => {
         <div className="flex lg:w-[80vw] w-[95vw] mx-auto lg:flex-row flex-col justify-between pt-[10vh]">
           <div className="lg:w-[22%]">
             <SideNav
-              id={category_id}
+              category_tag={category_tag}
               products={products}
-              activeCategoryId={activeCategoryId}
-              setActiveCategoryId={setActiveCategoryId}
               setFilterType={setFilterType}
               setProductsPerRating={setProductsPerRating}
               setProductsPerPrice={setProductsPerPrice}
-              filterProductsByCategory={filterProductsByCategory}
               setSearchResult={setSearchResult}
             />
           </div>
           <div className="main lg:w-[76%]">
             <MainContent
-              pageId={category_id}
-              activeCategoryId={activeCategoryId}
-              setActiveCategoryId={setActiveCategoryId}
               filterType={filterType}
               products={products}
               handleClick={handleClick}
               productsPerRating={productsPerRating}
               productsPerPrice={productsPerPrice}
               productsPerCategory={productsPerCategory}
-              filterProductsByCategory={filterProductsByCategory}
               searchResults={searchResults}
             />
           </div>

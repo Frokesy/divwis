@@ -1,24 +1,16 @@
-import { FC, useEffect } from "react";
+import { FC } from "react";
 import { ProductsProps } from "../modals/CompareModal";
+import { NavLink } from "react-router-dom";
 
 interface CategoryProps {
-  pageId: string | undefined;
-  filterProductsByCategory: (category: string) => void;
   products: ProductsProps[];
-  activeCategoryId: number | undefined;
-  setActiveCategoryId: React.Dispatch<React.SetStateAction<number | undefined>>;
+  category_tag: string | undefined;
 }
 
 const Categories: FC<CategoryProps> = ({
-  pageId,
-  filterProductsByCategory,
   products,
-  activeCategoryId,
-  setActiveCategoryId,
-
+  category_tag
 }) => {
-  const id = parseInt(pageId as string);
-  
   const categories = [
     {
       id: 0,
@@ -30,54 +22,51 @@ const Categories: FC<CategoryProps> = ({
       id: 1,
       name: "Cereals",
       tag: "cereals",
-      quantity: products.filter((product) => product.category === "cereals").length,
+      quantity: products.filter((product) => product.category === "cereals")
+        .length,
     },
     {
       id: 2,
       name: "Fruits",
       tag: "fruits",
-      quantity: products.filter((product) => product.category === "fruits").length,
+      quantity: products.filter((product) => product.category === "fruits")
+        .length,
     },
     {
       id: 3,
       name: "Vegetables",
       tag: "vegetables",
-      quantity: products.filter((product) => product.category === "vegetables").length,
+      quantity: products.filter((product) => product.category === "vegetables")
+        .length,
     },
     {
       id: 4,
       name: "Meat",
       tag: "meat",
-      quantity: products.filter((product) => product.category === "meat").length,
+      quantity: products.filter((product) => product.category === "meat")
+        .length,
     },
     {
       id: 5,
       name: "Milk & Dairy",
       tag: "milk&dairy",
-      quantity: products.filter((product) => product.category === "milk&dairy").length,
+      quantity: products.filter((product) => product.category === "milk&dairy")
+        .length,
     },
   ];
 
-  const handleFilter = (id: number, category: string) => {
-    setActiveCategoryId(id);
-    filterProductsByCategory(category);
-  };
-
-  useEffect(() => {
-    setActiveCategoryId(id);
-  }, [id]);
-
+  console.log(category_tag)
   return (
     <div>
       <h2 className="text-[#333] text-[18px] font-semibold pt-6">Categories</h2>
 
       <div className="mt-2">
         {categories.map((category) => (
-          <div
+          <NavLink
+            to={`/shops/${category.tag}`}
             key={category.id}
-            onClick={() => handleFilter(category.id, category.tag)}
             className={`flex items-center justify-between capitalize cursor-pointer py-2 ${
-              activeCategoryId === category.id &&
+              category_tag === category.tag &&
               "bg-[#f1f1f1] pl-2 rounded-lg transition-all duration-500 ease-in-out"
             }`}
           >
@@ -87,7 +76,7 @@ const Categories: FC<CategoryProps> = ({
                 ? `0${category.quantity}`
                 : category.quantity}
             </span>
-          </div>
+          </NavLink>
         ))}
       </div>
     </div>

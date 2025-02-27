@@ -5,106 +5,55 @@ import Spinner from "../defaults/Spinner";
 import { ProductsProps } from "../modals/CompareModal";
 
 interface MainContentProps {
-  pageId: string | undefined;
   filterType: string;
   productsPerRating: ProductsProps[];
   productsPerPrice: ProductsProps[];
   productsPerCategory: ProductsProps[];
   searchResults: ProductsProps[];
   handleClick: (product: ProductsProps) => void;
-  filterProductsByCategory: (category: string) => void;
-  activeCategoryId: number | undefined;
-  setActiveCategoryId: React.Dispatch<React.SetStateAction<number | undefined>>;
   products: ProductsProps[];
 }
+
 const MainContent: FC<MainContentProps> = ({
-  pageId,
   filterType,
   productsPerRating,
   productsPerPrice,
   productsPerCategory,
   searchResults,
   handleClick,
-  filterProductsByCategory,
-  activeCategoryId,
-  setActiveCategoryId,
   products,
 }) => {
-  const [filteredProducts, setFilteredProducts] = useState<ProductsProps[]>([]);
-
-  const pageIdInt = parseInt(pageId as string);
-
-  const categories = [
-    {
-      id: 0,
-      name: "all products",
-      tag: "all products",
-      quantity: products.length,
-    },
-    {
-      id: 1,
-      name: "Cereals",
-      tag: "cereals",
-    },
-    {
-      id: 2,
-      name: "Fruits",
-      tag: "fruits",
-    },
-    {
-      id: 3,
-      name: "Vegetables",
-      tag: "vegetables",
-      quantity: products.filter((product) => product.category === "vegetables")
-        .length,
-    },
-    {
-      id: 4,
-      name: "Meat",
-      tag: "meat",
-      quantity: products.filter((product) => product.category === "meat")
-        .length,
-    },
-    {
-      id: 5,
-      name: "Milk & Dairy",
-      tag: "milk&dairy",
-      quantity: products.filter((product) => product.category === "milk&dairy")
-        .length,
-    },
-  ];
-
-  const filterCategoryFromParam = () => {
-    const category = categories.find(
-      (category) => category.id === activeCategoryId
-    );
-    filterProductsByCategory(category?.tag as string);
-  };
+  const [filteredProducts, setFilteredProducts] = useState<ProductsProps[] | null>(null);
 
   useEffect(() => {
-    filterCategoryFromParam();
-  });
+    setFilteredProducts(null);
+    let newFilteredProducts: ProductsProps[] = [];
 
-  useEffect(() => {
-    setActiveCategoryId(pageIdInt);
-  }, [pageIdInt]);
+    if (filterType === "rating") newFilteredProducts = productsPerRating;
+    else if (filterType === "price") newFilteredProducts = productsPerPrice;
+    else if (filterType === "category") newFilteredProducts = productsPerCategory;
+    else if (filterType === "search") newFilteredProducts = searchResults;
+    else newFilteredProducts = products;
 
-  useEffect(() => {
-    filterType === "rating" && setFilteredProducts(productsPerRating);
-    filterType === "price" && setFilteredProducts(productsPerPrice);
-    filterType === "category" && setFilteredProducts(productsPerCategory);
-    filterType === "search" && setFilteredProducts(searchResults);
+    setTimeout(() => {
+      setFilteredProducts(newFilteredProducts);
+    }, 500);
   }, [
     filterType,
     productsPerRating,
     productsPerPrice,
     productsPerCategory,
     searchResults,
+    products,
   ]);
 
-  useEffect(() => {
-    setFilteredProducts(products);
-  }, [products]);
+  if (filteredProducts === null) {
+    return (
+      <div className="flex items-center justify-center h-[70vh]">
+        <Spinner color="#000" />
+      </div>
+    );
+  }
 
   return (
     <div>
@@ -156,7 +105,7 @@ const MainContent: FC<MainContentProps> = ({
         </div>
       ) : (
         <div className="flex items-center justify-center h-[70vh]">
-          <Spinner />
+          <p className="text-xl font-semibold text-gray-500">No products found</p>
         </div>
       )}
     </div>

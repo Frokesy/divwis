@@ -15,7 +15,7 @@ import PrivateRoute from "./components/defaults/PrivateRoute";
 function App() {
   const router = createBrowserRouter([
     { path: "/", element: <Home /> },
-    { path: "/shops/:category_id", element: <Shops /> },
+    { path: "/shops/:category_tag", element: <Shops /> },
     {
       path: "/account",
       element: (

@@ -6,27 +6,21 @@ import Search from "./Search";
 import { ProductsProps } from "../modals/CompareModal";
 
 interface SideNavProps {
-  id: string | undefined;
   setFilterType: React.Dispatch<React.SetStateAction<string>>;
   setProductsPerPrice: React.Dispatch<React.SetStateAction<ProductsProps[]>>;
   setProductsPerRating: React.Dispatch<React.SetStateAction<ProductsProps[]>>;
   setSearchResult: React.Dispatch<React.SetStateAction<ProductsProps[]>>;
-  filterProductsByCategory: (category: string) => void;
-  activeCategoryId: number | undefined;
-  setActiveCategoryId: React.Dispatch<React.SetStateAction<number | undefined>>;
   products: ProductsProps[];
+  category_tag: string | undefined;
 }
 
 const SideNav: FC<SideNavProps> = ({
-  id,
   setFilterType,
   setProductsPerPrice,
   setProductsPerRating,
-  filterProductsByCategory,
   setSearchResult,
-  activeCategoryId,
-  setActiveCategoryId,
-  products
+  products,
+  category_tag
 }) => {
   const filterProductsByRating = (rating: number) => {
     const filteredProducts = products.filter(
@@ -61,11 +55,8 @@ const SideNav: FC<SideNavProps> = ({
     <div className="bg-[#fff] px-3 py-4 rounded-lg shadow-md">
       <Search filterBySearch={filterBySearch} />
       <Categories
+      category_tag={category_tag}
         products={products}
-        pageId={id}
-        activeCategoryId={activeCategoryId}
-        setActiveCategoryId={setActiveCategoryId}
-        filterProductsByCategory={filterProductsByCategory}
       />
       <Filter filterProductsByPrice={filterProductsByPrice} />
       <Rating filterProductsByRating={filterProductsByRating} />

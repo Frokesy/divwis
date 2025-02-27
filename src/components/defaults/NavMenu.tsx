@@ -33,11 +33,11 @@ const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
 
   const categories = [
-    { id: 1, name: "Cereals" },
-    { id: 2, name: "Fruits" },
-    { id: 3, name: "Vegetables" },
-    { id: 4, name: "Meat" },
-    { id: 5, name: "Milk & Dairy" },
+    { id: 1, name: "Cereals", tag: "categories" },
+    { id: 2, name: "Fruits", tag: "fruits" },
+    { id: 3, name: "Vegetables", tag: "vegetables" },
+    { id: 4, name: "Meat", tag: "meat" },
+    { id: 5, name: "Milk & Dairy", tag: "milk&dairy"},
   ];
 
   const logout = () => {
@@ -70,7 +70,7 @@ const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
           {categories.map((category) => (
             <NavLink
               key={category.id}
-              to={`/shops/${category.id}`}
+              to={`/shops/${category.tag}`}
               className="cursor-pointer hover:text-[#ff7c08] transition-colors duration-300 ease-in-out"
             >
               {category.name}
